@@ -1,28 +1,14 @@
 ---
 id: platform
-title: Docs platform
+title: About these docs
 ---
 
-AgentPaaS product docs run on **Docusaurus** at [docs.agentpaas.ai](https://docs.agentpaas.ai).
+These pages are the product documentation for AgentPaaS customers.
 
-## Why Docusaurus
+| | |
+|--|--|
+| **Site** | [docs.agentpaas.ai](https://docs.agentpaas.ai) |
+| **Console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai) |
+| **Home** | [agentpaas.ai](https://agentpaas.ai) |
 
-- Markdown in git — agents and humans edit the same files
-- Built-in versioning for CLI lines (0.3, 0.4, …)
-- "Edit this page" → GitHub
-- Static deploy on Cloudflare
-
-## Source of truth
-
-| Content | Repo path |
-|---------|-----------|
-| Trial + release notes | `oss/docs/customer/` (mirrored into this site) |
-| This Docusaurus app | `docs-site/` under the umbrella |
-| Marketing | `agentpaas.ai` |
-| Console | `cloud.agentpaas.ai` |
-
-## Links
-
-- [Console](https://cloud.agentpaas.ai)
-- [Home](https://agentpaas.ai)
-- [GitHub docs](https://github.com/AgentPaaS-ai/agentpaas/tree/main/docs)
+CLI versions are listed on the [home page](/). When a new CLI line ships, release notes appear under **Releases**.

@@ -118,7 +118,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `© AgentPaaS · Docs for CLI 0.3.7+ · Edit on GitHub`,
+      copyright: `© AgentPaaS · Documentation for CLI 0.3.7+`,
     },
     prism: {
       theme: prismThemes.github,
