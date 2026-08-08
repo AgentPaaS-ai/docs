@@ -27,7 +27,7 @@ Follow the steps in order. Paste the Hermes lines as written. Detail pages are l
 |--|--|
 | **Mac** | Where Hermes and the local AgentPaaS runtime run |
 | **Hermes** | Already installed ([Hermes docs](https://hermes-agent.nousresearch.com/docs)) |
-| **Claim link** | Invite email from AgentPaaS (trial is not open signup) |
+| **Claim link** | An invite email for the trial from AgentPaaS ([get it here](https://agentpaas.ai/)) |
 | **LLM key** | Prefer [OpenRouter](https://openrouter.ai/) and a cheap model |
 
 You will **not** hand-install the CLI with brew in this path. You tell Hermes to install AgentPaaS from GitHub; it sets up the plugin and tools for you.
