@@ -14,6 +14,6 @@ Canonical long form also lives in the OSS repo under `docs/` and security pages 
 - Not a kernel 0-day sandbox
 - Outbound DLP is fingerprint-based, not semantic
 - Local mode trusts your machine
-- Preview vault is not isolation-grade multi-tenant HSM
+- Cloud trial secrets use the managed vault for the trial tier
 
 See also [How enforcement works](./how-enforcement-works).
