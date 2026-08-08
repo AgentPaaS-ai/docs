@@ -7,7 +7,7 @@ title: Troubleshooting (trial)
 
 | Symptom | Fix |
 |---------|-----|
-| "Open your claim link first" | You need a founder claim URL before browser login |
+| "Open your claim link first" | You need a claim URL from AgentPaaS before browser login |
 | Hermes stuck on cloud login | Stop. Run `agentpaas cloud login` yourself; open URL in claim browser |
 | Wrong browser | Approve CLI login in the **same** browser as claim |
 

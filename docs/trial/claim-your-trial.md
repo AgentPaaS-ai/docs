@@ -3,7 +3,7 @@ id: claim-your-trial
 title: Claim your trial
 ---
 
-Trial access is **invite-gated**. You get a one-time claim URL from the founder (not open signup).
+Trial access is **invite-gated**. You get a one-time claim URL from AgentPaaS (not open self-serve signup).
 
 1. Open the claim URL in a browser you will keep using.
 2. Complete account setup (password and/or Google). Use the **same email** the trial was issued for.

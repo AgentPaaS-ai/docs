@@ -5,7 +5,7 @@ title: The 30-minute path
 
 End-to-end trial map. Detail pages are linked from each step.
 
-1. Open your **claim link** (email from founder) → set password → optional Google link  
+1. Open your **claim link** (email from AgentPaaS) → set password → optional Google link  
    → [Claim](./claim-your-trial) · [Sign in](./sign-in-and-sessions)
 2. Install Hermes and the AgentPaaS plugin  
    → [Install](./install-macos) · [Hermes](./hermes-plugin)
