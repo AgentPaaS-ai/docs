@@ -6,7 +6,7 @@ title: AgentPaaS documentation
 
 # AgentPaaS documentation
 
-Guides for using AgentPaaS: local CLI, cloud console, and the trial path.
+Guides for AgentPaaS Cloud, the trial path, and the full **AgentPaaS CLI**.
 
 ## CLI version
 
@@ -18,21 +18,10 @@ Guides for using AgentPaaS: local CLI, cloud console, and the trial path.
 
 | | |
 |--|--|
-| **New to AgentPaaS?** | [Trial guide](./trial/) |
-| **What shipped in this release** | [Release notes v0.3.7](./releases/v0.3.7) |
+| **New to AgentPaaS?** | [Trial guide](./trial/) and [Guided demo](./trial/guided-demo) |
+| **AgentPaaS CLI (humans and agents)** | [CLI overview](./cli/) - every command group, one by one |
+| **What shipped** | [Release notes v0.3.7](./releases/v0.3.7) |
 | **Cloud console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
 | **Product home** | [agentpaas.ai](https://agentpaas.ai/) |
 
-## Install the CLI (macOS)
-
-```bash
-brew install --cask AgentPaaS-ai/homebrew-tap/agentpaas
-# already installed:
-brew upgrade --cask AgentPaaS-ai/homebrew-tap/agentpaas
-
-xattr -cr "$(brew --prefix)/bin/agentpaas" "$(brew --prefix)/bin/agentpaasd"
-agentpaas version
-agentpaas doctor
-```
-
-Trial access is **invite-gated**. If you do not have a claim link yet, request a trial from [agentpaas.ai](https://agentpaas.ai/).
+Trial access uses an invite from [agentpaas.ai](https://agentpaas.ai/). The guided demo is Hermes-first; the CLI section is the detailed control surface.

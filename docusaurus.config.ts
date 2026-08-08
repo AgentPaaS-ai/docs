@@ -90,6 +90,7 @@ const config: Config = {
           items: [
             {label: 'Start here', to: '/'},
             {label: 'Trial guide', to: '/trial/'},
+            {label: 'AgentPaaS CLI', to: '/cli/'},
             {label: 'Release v0.3.7', to: '/releases/v0.3.7'},
             {label: 'Versioning', to: '/versioning'},
           ],
