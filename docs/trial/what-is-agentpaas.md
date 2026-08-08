@@ -27,3 +27,9 @@ On your Mac, the CLI packs and runs agents under local policy. On [AgentPaaS Clo
 | **Agents** | Pack and run project-based agents with signed images and audit |
 
 Next: [Guided demo](./guided-demo).
+
+## How security is enforced
+
+Policy is topology: the agent only reaches the internet through a default-deny gateway. See the diagram and walkthrough in [How enforcement works](/security/how-enforcement-works).
+
+Next: [Guided demo](./guided-demo).

@@ -397,3 +397,15 @@ footer.footer .footer__link-item:hover,
 footer.footer .footer__copyright {
  color: #adadad !important;
 }
+
+/* ASCII architecture diagrams */
+.theme-doc-markdown pre:has(code),
+.theme-doc-markdown pre {
+  overflow-x: auto;
+}
+.theme-doc-markdown pre code {
+  font-family: var(--ap-mono) !important;
+  font-size: 12px !important;
+  line-height: 1.35 !important;
+  white-space: pre;
+}
