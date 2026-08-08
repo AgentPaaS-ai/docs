@@ -15,4 +15,4 @@ agentpaas cloud push --lock ~/.agentpaas/state/agents/weather-agent/agent.lock
 agentpaas cloud deploy latest
 ```
 
-Pull is a metadata-first MVP. Prefer keeping a local project as source of truth when you can.
+Pull returns project metadata for the edit loop. Keep a local project as your source of truth when you can.
