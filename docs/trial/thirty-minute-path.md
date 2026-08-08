@@ -4,208 +4,246 @@ title: The 30-minute path
 sidebar_label: The 30-minute path
 ---
 
-This is the shortest path from zero to a weather agent running on AgentPaaS Cloud. Follow the steps **in order**. Each step is one action. When something needs more detail, use the linked page, then come back here.
+# Run an agent you do not have to trust
 
-**Time:** about 30 minutes the first time.  
-**You need:** a Mac, a claim link from AgentPaaS, and an [OpenRouter](https://openrouter.ai/) API key (or another HTTPS LLM key you already use).
+Most “AI agent” demos give a model a terminal and hope for the best. That is fine until the agent follows a bad prompt, pulls a sketchy dependency, or decides the whole internet is fair game.
 
-If you get stuck, open [Troubleshooting](./troubleshooting).
+**This demo is different.** You will build a friendly weather agent with Hermes, pack it into AgentPaaS, and watch the platform do what product security actually requires:
 
----
+- The agent runs in an **isolated container**, not as your laptop user.
+- **Network is default-deny.** It cannot call random websites. Only hosts you approve (for this demo: weather + your LLM provider) go through.
+- **Secrets stay out of agent code.** Your API key is brokered at request time, not dumped into the prompt or env for the model to exfiltrate.
+- Every meaningful action lands in a **tamper-evident audit trail**, and the image carries a **signed lineage** so you can see what was built and by whom.
 
-## Before you start
+By the end you will have the same agent on your Mac and on [AgentPaaS Cloud](https://cloud.agentpaas.ai/), with proof in the audit log that governance is not a slide deck.
 
-Check these once:
-
-1. You received a **claim link** email from AgentPaaS (trial is invite-only).
-2. You can install apps with Homebrew on this Mac.
-3. You have (or can create) an OpenRouter account for a cheap model key.
-
-You do **not** need to understand Docker, Cloudflare, or how agents work inside yet. The CLI and Hermes walk you through the rest.
+Follow the steps in order. Paste the Hermes lines as written. Detail pages are linked when you want a deeper dive.
 
 ---
 
-## Step 1: Claim your trial in the browser
+## What you need
 
-1. Open the **claim link** from your email (use a browser you will keep using).
-2. Set a password (and link Google if you want).
+| | |
+|--|--|
+| **Mac** | Where Hermes and the local AgentPaaS runtime run |
+| **Hermes** | Already installed ([Hermes docs](https://hermes-agent.nousresearch.com/docs)) |
+| **Claim link** | Invite email from AgentPaaS (trial is not open signup) |
+| **LLM key** | Prefer [OpenRouter](https://openrouter.ai/) and a cheap model |
+
+You will **not** hand-install the CLI with brew in this path. You tell Hermes to install AgentPaaS from GitHub; it sets up the plugin and tools for you.
+
+---
+
+## Step 1: Claim your cloud trial
+
+1. Open the **claim link** from your AgentPaaS email (keep using that browser).
+2. Set a password (link Google if you want).
 3. Use the **same email** the trial was issued for.
-4. You should land on the cloud dashboard (or a short Hermes handoff, then the dashboard).
+4. Confirm you can open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and see the console.
 
-**Done when:** you can open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and see your console after signing in.
-
-Details: [Claim your trial](./claim-your-trial) · [Sign in and sessions](./sign-in-and-sessions)
+More detail: [Claim your trial](./claim-your-trial) · [Sign in and sessions](./sign-in-and-sessions)
 
 ---
 
-## Step 2: Install the AgentPaaS CLI on your Mac
+## Step 2: Install AgentPaaS through Hermes
 
-Open **Terminal** and run:
-
-```bash
-brew install --cask AgentPaaS-ai/homebrew-tap/agentpaas
-```
-
-If macOS blocks the tools the first time:
-
-```bash
-xattr -cr "$(brew --prefix)/bin/agentpaas" "$(brew --prefix)/bin/agentpaasd"
-```
-
-Start the local service and check health:
-
-```bash
-agentpaas daemon start
-agentpaas version
-agentpaas doctor
-```
-
-**Done when:** `agentpaas version` shows **CLI: 0.3.7** (or newer) and `doctor` looks healthy.
-
-Details: [Install on macOS](./install-macos)
-
----
-
-## Step 3: Install Hermes and the AgentPaaS plugin
-
-Hermes is the coding agent UI that drives AgentPaaS for you. Install Hermes the usual way for your machine, then install the AgentPaaS plugin.
-
-In Hermes, paste this **exactly**:
+Open Hermes and paste **one** line:
 
 ```text
 Install from https://github.com/AgentPaaS-ai/agentpaas
 ```
 
-Let it finish. If it asks for permissions or a restart, accept and continue.
+That is the supported onboarding path. Hermes pulls the AgentPaaS plugin and local tooling from the public GitHub project so you can pack, run, and inspect governed agents without wiring the stack by hand.
 
-**Done when:** Hermes has AgentPaaS tools available (you can ask it about AgentPaaS without it saying the plugin is missing).
+If tools do not show up, type `/quit`, reopen Hermes, and try the same line once more.
 
-Details: [Hermes plugin](./hermes-plugin)
+More detail: [Hermes plugin](./hermes-plugin)
 
 ---
 
-## Step 4: Store your LLM key (do this yourself)
+## Step 3: Add your LLM key the safe way
 
-Your agent needs an LLM. Prefer **OpenRouter** and a cheap model for the trial.
+Your weather agent will call an LLM. The key must **never** live in chat history or in the agent image as plain text.
 
-1. Create or copy an API key from your provider.
-2. In **your** Terminal (not in chat), add it so the key never appears in the conversation:
+Ask Hermes:
+
+```text
+Set up my publisher identity and OpenRouter credential for a weather agent. Coach me to run secret add in MY terminal only, then confirm with secret list (labels only).
+```
+
+When Hermes tells you to run a command, do it in **your** Terminal window. Typical shape:
 
 ```bash
 agentpaas secret add openrouter
 ```
 
-When prompted, paste the key and press Enter. Hermes should only **check** that a secret exists, not ask you to paste the key into chat.
+Paste the key when prompted (stdin). Hermes should only verify that a **label** exists, never print the secret.
 
-**Done when:** `agentpaas secret list` shows a label for your key (values are never printed).
-
-Details: [Your LLM key](./llm-key)
+More detail: [Your LLM key](./llm-key)
 
 ---
 
-## Step 5: Build a simple weather agent with Hermes
+## Step 4: Build the weather agent (narrow internet on purpose)
 
-In Hermes, paste this **one sentence** (do not over-specify):
+Paste this **one sentence** into Hermes:
 
 ```text
 Build a weather agent that uses an LLM, and responds in a friendly demeanour
 ```
 
-Let Hermes scaffold, pack, and run the agent. Answer prompts if it asks about model or policy. Prefer OpenRouter + a cheap model when offered.
+Let Hermes scaffold, pack, and run it. When policy or egress comes up, keep the allow-list tight:
 
-**Done when:** the agent runs locally and you get a normal weather-style answer (not an empty error).
+| Allowed host (example) | Why |
+|------------------------|-----|
+| `wttr.in` (or the weather API Hermes picks) | Fetch weather |
+| `openrouter.ai` (or your LLM host) | Summarize with the model |
+
+**Everything else is denied by default.** The agent does not get “the internet.” It gets two doors you opened. If it tries a third host, the gateway blocks it and the attempt is audited (you will see that shape in the next step).
+
+Prefer OpenRouter + a cheap model when Hermes asks.
+
+**You are ready for the next step when** a local invoke returns a normal friendly weather answer (not a blank error).
 
 ---
 
-## Step 6: Confirm lineage and audits locally
+## Step 5: The big reveal - lineage and audits
 
-Still in Hermes, paste:
+This is the moment that separates AgentPaaS from “it ran in a terminal once.”
+
+In Hermes, paste:
 
 ```text
 Show me lineage and audits
 ```
 
-**Done when:** you see that the run was recorded (lineage / audit style output). That is the “governed” part working on your Mac.
+### What you are looking at
+
+**Lineage** answers: *what is this agent artifact, and how was it produced?*  
+Expect a signed pack story: project identity, version, image digest, publisher fingerprint. That is the chain of custody for the bundle you just built, not a chat log.
+
+**Audit** answers: *what did this run actually do under policy?*  
+The harness writes a hash-chained event log for the run. You should see lifecycle events and, critically, **egress** decisions: which domains were allowed, and which were refused.
+
+### How to read an audit event
+
+A successful allow looks like a gateway decision that a host was on policy (event names vary slightly by version, but the idea is stable):
+
+```json
+{
+  "event_type": "egress_allowed",
+  "actor": "gateway",
+  "payload": {
+    "domain": "wttr.in"
+  }
+}
+```
+
+A block looks like this (illustrative):
+
+```json
+{
+  "seq": 2,
+  "prev_hash": "a3f2...",
+  "record_hash": "b7c1...",
+  "event_type": "egress_denied",
+  "deployment_mode": "local",
+  "actor": "gateway",
+  "payload": {
+    "domain": "evil.example.com",
+    "reason": "policy_denied"
+  }
+}
+```
+
+Read that twice: **the agent asked; the platform said no; the refusal is on the permanent record.** The `prev_hash` / `record_hash` chain is why this is tamper-evident: silent edits break the chain.
+
+On disk (optional, if you want to poke around yourself):
+
+```bash
+RUN=$(ls -t ~/.agentpaas/state/runs | head -1)
+rg 'egress_allowed|egress_denied' ~/.agentpaas/state/runs/$RUN/harness-audit.jsonl | tail
+```
+
+**This is the product idea:** you can run agents that are useful *and* constrained, and you can **prove** what they were allowed to touch.
 
 ---
 
-## Step 7: Put the same agent on AgentPaaS Cloud
+## Step 6 (optional but powerful): Watch a deny, then fix it
 
-In Hermes, paste:
+If you want the security lesson to stick, ask Hermes:
+
+```text
+Demonstrate governance: remove the weather host from policy, repack, invoke again and show the denial in the audit. Then add the host back, confirm with me, repack, and invoke successfully.
+```
+
+You should see a failed or empty weather fetch paired with `egress_denied` (or a clear policy error), then a clean run after the host is restored. That is default-deny working as designed, not a flaky network.
+
+---
+
+## Step 7: Run the same agent on AgentPaaS Cloud
+
+Same governance story, managed service.
+
+In Hermes:
 
 ```text
 Make it run in the AgentPaaS cloud
 ```
 
-When Hermes asks you to log in to cloud:
-
-1. Open **your own Terminal** (not Hermes’s hidden shell if it blocks).
-2. Run:
+When login is required, **you** run this in your own Terminal (same browser session as the claim):
 
 ```bash
 agentpaas cloud login
 ```
 
-3. Approve the browser window in the **same browser** you used to claim the trial.
-4. Return to Hermes and let it continue (push / deploy / invoke).
+Approve the browser prompt, then let Hermes push, deploy, bind the secret, and invoke.
 
-**Done when:** Hermes reports a cloud deployment and a successful invoke (or points you at a run in the console).
-
-Details: [Cloud login](./cloud-login)
+More detail: [Cloud login](./cloud-login)
 
 ---
 
-## Step 8: Look at the result in the console
+## Step 8: See it in the console
 
-Open [https://cloud.agentpaas.ai/](https://cloud.agentpaas.ai/) and sign in if needed.
-
-Click through these tabs (read-only is fine for the trial):
+Open [https://cloud.agentpaas.ai/](https://cloud.agentpaas.ai/)
 
 | Tab | What to notice |
 |-----|----------------|
-| **Agents** | Your weather agent project |
-| **Deployments** | A deployment for that agent |
+| **Agents** | Your weather agent |
+| **Deployments** | The cloud deployment |
 | **Runs** | The invoke you just did |
-| **Cron** | Empty until you schedule something |
-| **Usage** | Rough usage for the trial |
+| **Cron** | Empty until you schedule |
+| **Usage** | Trial usage |
 
-**Done when:** you can find the agent, a deployment, and at least one run.
+You are looking for the same story as local: an agent that ran under policy, with a run you can open and inspect.
 
-Details: [Dashboard tour](./dashboard-tour)
+More detail: [Dashboard tour](./dashboard-tour)
 
 ---
 
-## Step 9 (optional): Schedule a run every 5 minutes
-
-Only if you want a repeating invoke. In Terminal:
+## Step 9 (optional): Schedule it
 
 ```bash
-agentpaas cloud cron list
 agentpaas cloud cron set <deployment-id> --expr every_5m
 ```
 
-Replace `<deployment-id>` with the id from the Deployments tab (or from `agentpaas cloud` output). Turn it off when you are done:
+Turn it off when you are finished:
 
 ```bash
 agentpaas cloud cron disable <schedule-id>
 ```
 
-Details: [Schedule with cron](./cloud-cron)
+More detail: [Schedule with cron](./cloud-cron)
 
 ---
 
-## You are done
+## What you just proved
 
-You have:
+1. An agent can be built and run without handing it the open internet.  
+2. Only approved hosts leave the sandbox; denials are audited.  
+3. Secrets are brokered, not pasted into the agent.  
+4. Lineage ties the artifact to a signed build story.  
+5. The same model works locally and on AgentPaaS Cloud.
 
-1. A claimed cloud trial  
-2. CLI + daemon on the Mac  
-3. A packed weather agent  
-4. Local lineage/audit  
-5. The same agent on cloud with a run visible in the console  
+That is AgentPaaS: **a secure place to run agents**, not another unbounded chatbot with shell access.
 
-Next ideas:
-
-- Edit and redeploy: [Cloud pull](./cloud-pull)  
-- More console tabs: [Dashboard tour](./dashboard-tour)  
-- Problems: [Troubleshooting](./troubleshooting)
+Next: [Cloud pull](./cloud-pull) to edit and redeploy, or [Troubleshooting](./troubleshooting) if something failed.
