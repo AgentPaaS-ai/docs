@@ -9,7 +9,7 @@ The console shows what your agents did. It does **not** replace the CLI for depl
 
 | Tab | What you see | How you change things |
 |-----|--------------|------------------------|
-| Overview | Trial days, CPU, runs, agents | - |
+| Overview | Trial days, CPU, runs, agents | |
 | Agents | Images; expand row for provenance, invoke URLs | `cloud push` / Hermes |
 | Deployments | Live slots; expand for invoke + cron hint | `cloud deploy` / `undeploy` |
 | Runs | History; expand under row for summary/events | `cloud invoke` / cron |
