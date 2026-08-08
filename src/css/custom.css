@@ -1,0 +1,399 @@
+/* AgentPaaS design system — match agentpaas.ai + cloud.agentpaas.ai */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/jetbrains-mono-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/inter-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  /* Brand tokens */
+  --ap-bg-0: #0a0a0a;
+  --ap-bg-1: #111111;
+  --ap-ink: #ededed;
+  --ap-dim: #adadad;
+  --ap-line: #262626;
+  --ap-signal: #e5484d;
+  --ap-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --ap-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Infima / Docusaurus — light mode still branded dark-adjacent for consistency */
+  --ifm-color-primary: #e5484d;
+  --ifm-color-primary-dark: #d63d42;
+  --ifm-color-primary-darker: #ca393e;
+  --ifm-color-primary-darkest: #a62f33;
+  --ifm-color-primary-light: #e95d61;
+  --ifm-color-primary-lighter: #eb6a6e;
+  --ifm-color-primary-lightest: #f08b8e;
+  --ifm-color-secondary: #262626;
+  --ifm-color-success: #55c982;
+  --ifm-color-info: #adadad;
+  --ifm-color-warning: #d99a2b;
+  --ifm-color-danger: #e5484d;
+
+  --ifm-font-family-base: var(--ap-sans);
+  --ifm-font-family-monospace: var(--ap-mono);
+  --ifm-heading-font-family: var(--ap-mono);
+  --ifm-font-weight-semibold: 500;
+  --ifm-font-weight-bold: 700;
+  --ifm-code-font-size: 90%;
+  --ifm-line-height-base: 1.6;
+  --ifm-global-radius: 4px;
+  --ifm-button-border-radius: 4px;
+
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #111111;
+  --ifm-color-content: #ededed;
+  --ifm-color-content-secondary: #adadad;
+  --ifm-navbar-background-color: rgba(10, 10, 10, 0.92);
+  --ifm-navbar-shadow: none;
+  --ifm-navbar-link-color: #adadad;
+  --ifm-navbar-link-hover-color: #ededed;
+  --ifm-navbar-link-active-color: #ededed;
+  --ifm-footer-background-color: #0a0a0a;
+  --ifm-footer-color: #adadad;
+  --ifm-footer-link-color: #ededed;
+  --ifm-footer-title-color: #e5484d;
+  --ifm-menu-color: #adadad;
+  --ifm-menu-color-active: #ededed;
+  --ifm-menu-color-background-active: rgba(229, 72, 77, 0.12);
+  --ifm-menu-color-background-hover: rgba(255, 255, 255, 0.04);
+  --ifm-toc-border-color: #262626;
+  --ifm-toc-link-color: #adadad;
+  --ifm-link-color: #e5484d;
+  --ifm-link-hover-color: #f08b8e;
+  --ifm-hr-background-color: #262626;
+  --ifm-table-border-color: #262626;
+  --ifm-table-stripe-background: #111111;
+  --ifm-blockquote-border-color: #e5484d;
+  --ifm-code-background: #111111;
+  --ifm-pre-background: #111111;
+  --ifm-color-emphasis-100: #111111;
+  --ifm-color-emphasis-200: #1a1a1a;
+  --ifm-color-emphasis-300: #262626;
+  --ifm-color-emphasis-400: #3a3a3a;
+  --ifm-color-emphasis-500: #adadad;
+  --ifm-color-emphasis-600: #c8c8c8;
+  --ifm-color-emphasis-700: #ededed;
+  --ifm-color-emphasis-800: #f5f5f5;
+  --ifm-color-emphasis-900: #ffffff;
+  --ifm-hover-overlay: rgba(255, 255, 255, 0.04);
+  --docusaurus-highlighted-code-line-bg: rgba(229, 72, 77, 0.12);
+  --ifm-breadcrumb-item-background-active: transparent;
+  --docsearch-primary-color: #e5484d;
+}
+
+html[data-theme="dark"],
+html[data-theme="light"] {
+  /* Force brand palette in both modes (product is dark-first) */
+  --ifm-background-color: #0a0a0a;
+  --ifm-background-surface-color: #111111;
+  --ifm-color-content: #ededed;
+  --ifm-color-content-secondary: #adadad;
+  --ifm-navbar-background-color: rgba(10, 10, 10, 0.92);
+  --ifm-footer-background-color: #0a0a0a;
+  --ifm-color-primary: #e5484d;
+  --ifm-link-color: #e5484d;
+  --ifm-link-hover-color: #f08b8e;
+  --ifm-menu-color: #adadad;
+  --ifm-menu-color-active: #ededed;
+  --ifm-toc-border-color: #262626;
+  --ifm-code-background: #111111;
+  --ifm-pre-background: #111111;
+  --ifm-table-border-color: #262626;
+  --ifm-table-stripe-background: #111111;
+  --ifm-color-emphasis-200: #1a1a1a;
+  --ifm-color-emphasis-300: #262626;
+  --ifm-hover-overlay: rgba(255, 255, 255, 0.04);
+  --docusaurus-highlighted-code-line-bg: rgba(229, 72, 77, 0.12);
+  color-scheme: dark;
+}
+
+html {
+  background: var(--ap-bg-0);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: var(--ap-bg-0) !important;
+  color: var(--ap-ink);
+  font-family: var(--ap-sans);
+}
+
+::selection {
+  background: var(--ap-signal);
+  color: var(--ap-ink);
+}
+
+/* Navbar */
+.navbar {
+  border-bottom: 1px solid var(--ap-line);
+  backdrop-filter: blur(8px);
+  height: 60px;
+}
+.navbar__title {
+  font-family: var(--ap-mono);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.02em;
+}
+.navbar__link {
+  font-family: var(--ap-mono);
+  font-size: 13px;
+  font-weight: 400;
+}
+.navbar__brand:hover {
+  color: var(--ap-ink);
+}
+.navbar__logo img {
+  height: 28px;
+}
+
+/* Sidebar */
+.theme-doc-sidebar-container {
+  border-right: 1px solid var(--ap-line) !important;
+}
+.menu__link {
+  font-family: var(--ap-sans);
+  font-size: 14px;
+  border-radius: 4px;
+}
+.menu__link--active:not(.menu__link--sublist) {
+  border-left: 2px solid var(--ap-signal);
+  border-radius: 0 4px 4px 0;
+  font-weight: 500;
+}
+.menu__list-item-collapsible .menu__link {
+  font-family: var(--ap-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ap-signal) !important;
+}
+
+/* Content */
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown > header h1 {
+  font-family: var(--ap-mono);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ap-ink);
+}
+.markdown h1 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
+.markdown a {
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+.markdown code {
+  font-family: var(--ap-mono);
+  border: 1px solid var(--ap-line);
+  border-radius: 4px;
+  background: var(--ap-bg-1);
+  color: var(--ap-ink);
+}
+.markdown pre {
+  border: 1px solid var(--ap-line);
+  border-radius: 4px;
+  background: var(--ap-bg-1) !important;
+}
+.markdown pre code {
+  border: none;
+  background: transparent;
+}
+.markdown table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+.markdown th {
+  font-family: var(--ap-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ap-dim);
+  background: var(--ap-bg-1);
+}
+.markdown th,
+.markdown td {
+  border: 1px solid var(--ap-line);
+  padding: 10px 12px;
+}
+.markdown blockquote {
+  border-left: 3px solid var(--ap-signal);
+  background: var(--ap-bg-1);
+  color: var(--ap-dim);
+}
+
+/* Breadcrumbs / TOC / pagination */
+.breadcrumbs__link {
+  font-family: var(--ap-mono);
+  font-size: 12px;
+}
+.table-of-contents__link {
+  font-size: 13px;
+}
+.table-of-contents__link--active {
+  color: var(--ap-signal) !important;
+}
+.pagination-nav__link {
+  border: 1px solid var(--ap-line);
+  border-radius: 4px;
+  background: var(--ap-bg-1);
+}
+.pagination-nav__link:hover {
+  border-color: var(--ap-dim);
+}
+.pagination-nav__sublabel {
+  font-family: var(--ap-mono);
+  font-size: 11px;
+  color: var(--ap-signal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--ap-line);
+}
+.footer__title {
+  font-family: var(--ap-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ap-signal) !important;
+}
+.footer__link-item {
+  font-size: 14px;
+}
+.footer__copyright {
+  font-family: var(--ap-mono);
+  font-size: 12px;
+  color: var(--ap-dim);
+}
+
+/* Hide external-link icon noise on sister-site links */
+.navbar__item.navbar__link svg.iconExternalLink_nPIU,
+.footer__link-item svg {
+  display: none;
+}
+
+/* Doc cards / admonitions */
+.theme-admonition {
+  border-radius: 4px;
+  border-left-width: 3px;
+}
+.alert--info {
+  --ifm-alert-background-color: #111111;
+  --ifm-alert-border-color: #adadad;
+}
+.alert--warning {
+  --ifm-alert-background-color: #201a10;
+  --ifm-alert-border-color: #d99a2b;
+}
+.alert--danger {
+  --ifm-alert-background-color: #2a1012;
+  --ifm-alert-border-color: #e5484d;
+}
+
+/* Main wrapper */
+.main-wrapper {
+  background: var(--ap-bg-0);
+}
+.docMainContainer_TBSr,
+.docItemContainer_Djhp {
+  background: transparent;
+}
+
+/* Color mode toggle — keep but muted */
+.colorModeToggle_DEke {
+  opacity: 0.7;
+}
+
+/* Footer readability — high contrast on dark bg */
+.footer {
+  background: #0a0a0a !important;
+  border-top: 1px solid #262626;
+}
+.footer__title {
+  color: #e5484d !important;
+  opacity: 1 !important;
+}
+.footer__item,
+.footer__link-item,
+.footer a,
+.footer__link-item:link,
+.footer__link-item:visited {
+  color: #ededed !important;
+  opacity: 1 !important;
+}
+.footer__link-item:hover {
+  color: #e5484d !important;
+}
+.footer__copyright {
+  color: #adadad !important;
+  opacity: 1 !important;
+}
+/* footer-contrast-1786153883 */
+
+/* FORCE footer contrast (last wins) */
+footer.footer,
+.footer.footer--dark {
+  background-color: #0a0a0a !important;
+  color: #ededed !important;
+}
+footer.footer .footer__title,
+.footer .footer__title {
+  color: #e5484d !important;
+}
+footer.footer .footer__link-item,
+footer.footer a.footer__link-item,
+.footer a,
+.footer__links a {
+  color: #ededed !important;
+  opacity: 1 !important;
+}
+footer.footer .footer__link-item:hover,
+.footer a:hover {
+  color: #e5484d !important;
+}
+footer.footer .footer__copyright {
+  color: #adadad !important;
+}
