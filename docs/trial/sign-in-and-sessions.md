@@ -1,11 +1,9 @@
 ---
 id: sign-in-and-sessions
 title: Sign in and sessions
+unlisted: true
 ---
 
-- Browser session cookie powers the dashboard.
-- Log out from the dashboard header.
-- CLI uses a separate tenant token in Keychain (`agentpaas-cloud-api-token`) from **Approve CLI Login**.
-- Tokens tab may show **bootstrap** (`default`) and **cli-login**. Day to day CLI uses cli-login.
+Covered in the [guided demo](./guided-demo).
 
-If whoami says not logged in, run cloud login again (see [Cloud login](./cloud-login)).
+Use the same browser for claim and for `agentpaas cloud login` approve. The console uses your browser session; the CLI uses a separate approved login.
