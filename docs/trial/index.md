@@ -1,6 +1,7 @@
 ---
 id: index
-title: Trial docs (spine)
+title: Index
+sidebar_label: Index
 ---
 
 These pages are the trial path for a human or a coding agent (Hermes).
