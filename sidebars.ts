@@ -9,7 +9,7 @@ const sidebars: SidebarsConfig = {
       collapsed: false,
       items: [
         'trial/index',
-        'trial/what-agentpaas-is',
+        'trial/what-is-agentpaas',
         'trial/thirty-minute-path',
         'trial/claim-your-trial',
         'trial/sign-in-and-sessions',
