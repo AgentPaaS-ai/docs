@@ -8,7 +8,7 @@ AgentPaaS versions a few surfaces separately:
 | Surface | How you see it |
 |---------|----------------|
 | **CLI / daemon** | `agentpaas version` (e.g. `0.3.7`) and the brew cask |
-| **Cloud console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai) — always the live product |
+| **Cloud console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai): always the live product |
 | **These docs** | Match the current CLI line on the [home page](/) |
 
 ### What to install

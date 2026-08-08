@@ -1,8 +1,8 @@
 # AgentPaaS Docs
 
-**Live:** https://docs.agentpaas.ai  
-**Org:** [AgentPaaS-ai](https://github.com/AgentPaaS-ai)  
-**This repo is product documentation only** — not the CLI runtime, not the cloud control plane, not the marketing site.
+**Live:** https://docs.agentpaas.ai 
+**Org:** [AgentPaaS-ai](https://github.com/AgentPaaS-ai) 
+**This repo is product documentation only** - not the CLI runtime, not the cloud control plane, not the marketing site.
 
 ## Repos (separate on purpose)
 
@@ -17,30 +17,30 @@ Do **not** put website Markdown under `agentpaas/docs/docs/`. Edit here.
 
 ## Edit / PR
 
-1. Browse https://docs.agentpaas.ai  
-2. **Edit this page** → opens the `.md` file in this repo  
-3. Open a pull request  
+1. Browse https://docs.agentpaas.ai 
+2. **Edit this page** → opens the `.md` file in this repo 
+3. Open a pull request 
 4. Owner merges → deploy docs site
 
 ```bash
-cd ~/projects/agentpaas/docs-site   # local clone of this repo
+cd ~/projects/agentpaas/docs-site # local clone of this repo
 # edit docs/**/*.md
-npm start                           # preview
-npm run build && npx wrangler deploy  # publish to docs.agentpaas.ai
+npm start # preview
+npm run build && npx wrangler deploy # publish to docs.agentpaas.ai
 ```
 
 ## Layout
 
 ```
-docs/                 # Markdown (Docusaurus content)
-  index.md
-  trial/
-  releases/
-  security/
-  ...
+docs/ # Markdown (Docusaurus content)
+ index.md
+ trial/
+ releases/
+ security/
+ ...
 docusaurus.config.ts
-src/css/custom.css    # brand tokens (match agentpaas.ai / cloud)
-wrangler.toml         # worker agentpaas-docs
+src/css/custom.css # brand tokens (match agentpaas.ai / cloud)
+wrangler.toml # worker agentpaas-docs
 ```
 
 ## License
