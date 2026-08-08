@@ -58,7 +58,7 @@ That is the supported onboarding path. Hermes pulls the AgentPaaS plugin and loc
 
 If tools do not show up, type `/quit`, reopen Hermes, and try the same line once more.
 
-More detail: [Hermes plugin](./hermes-plugin)
+More detail: [Hermes plugin setup](./hermes-plugin)
 
 ---
 
