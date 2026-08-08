@@ -1,18 +1,13 @@
 ---
 id: cloud-pull
-title: Cloud pull (edit loop)
+title: Cloud pull
+unlisted: true
 ---
 
-Requires CLI **0.3.7+**.
+After the [guided demo](./guided-demo), ask Hermes to pull, edit, and redeploy if you want a second version.
 
-```bash
-agentpaas cloud pull weather-agent --out ./weather-from-cloud
-cd ./weather-from-cloud
-# edit agent.yaml / main.py
-# bump version in agent.yaml
-agentpaas pack --target linux/amd64
-agentpaas cloud push --lock ~/.agentpaas/state/agents/weather-agent/agent.lock
-agentpaas cloud deploy latest
+```text
+Pull my weather agent from cloud, help me edit it, pack, push, and redeploy.
 ```
 
-Pull returns project metadata for the edit loop. Keep a local project as your source of truth when you can.
+Keep a local project as source of truth when you can.

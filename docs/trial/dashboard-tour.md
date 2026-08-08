@@ -1,23 +1,28 @@
 ---
 id: dashboard-tour
-title: Dashboard tour (cloud.agentpaas.ai)
+title: Console tour
+sidebar_label: Console tour
 ---
 
-The console shows what your agents did. It does **not** replace the CLI for deploys, cron, or invokes (except Tokens and Secrets forms).
+The cloud console at [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) is where you **see** what happened after Hermes builds and deploys agents.
+
+It is mostly read-only for day-to-day work. You change things by asking Hermes (or using the CLI if you prefer). Tokens and Secrets forms in the UI are fine when you need them.
 
 ## Tabs
 
-| Tab | What you see | How you change things |
-|-----|--------------|------------------------|
-| Overview | Trial days, CPU, runs, agents | |
-| Agents | Images; expand row for provenance, invoke URLs | `cloud push` / Hermes |
-| Deployments | Live slots; expand for invoke + cron hint | `cloud deploy` / `undeploy` |
-| Runs | History; expand under row for summary/events | `cloud invoke` / cron |
-| Cron | Schedules (read-only) | `cloud cron set|disable|enable` |
-| Secrets | Labels only | UI or `cloud secrets push|bind` |
-| Tokens | API tokens | UI mint/revoke or CLI login |
-| Usage / Plan | Quota | Contact agentpaas.ai |
+| Tab | What you see |
+|-----|----------------|
+| **Overview** | Trial status, high-level counts |
+| **Agents** | Your agent images; expand a row for provenance and details |
+| **Deployments** | What is live in the cloud; expand for invoke info |
+| **Runs** | History of invokes; expand under the row for summary and events |
+| **Cron** | Schedules (view only - ask Hermes to change them) |
+| **Secrets** | Labels only (never secret values) |
+| **Tokens** | API tokens for automation |
+| **Usage / Plan** | Trial usage |
 
-## Navigation
+## Tips
 
-Agents, Deployments, and Runs support filter, page size, prev/next, and a **count on the top right**. Click a row to expand detail underneath (not a side drawer).
+- Large lists: filter, page size, and counts sit on the table.  
+- Click a row to expand detail **under** that row.  
+- After the [guided demo](./guided-demo), you should find your weather agent, a deployment, and at least one run.

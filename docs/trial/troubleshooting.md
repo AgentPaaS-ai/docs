@@ -1,46 +1,38 @@
 ---
 id: troubleshooting
-title: Troubleshooting (trial)
+title: Troubleshooting
+sidebar_label: Troubleshooting
 ---
 
-## 6.1 Claim / login
+Quick fixes for the [guided demo](./guided-demo). Prefer asking Hermes in plain language after you unblock yourself.
 
-| Symptom | Fix |
-|---------|-----|
-| "Open your claim link first" | You need a claim URL from AgentPaaS before browser login |
-| Hermes stuck on cloud login | Stop. Run `agentpaas cloud login` yourself; open URL in claim browser |
-| Wrong browser | Approve CLI login in the **same** browser as claim |
+## Claim and browser login
 
-## 6.2 Install / Gatekeeper
+| Problem | What to do |
+|---------|------------|
+| No access yet | Request a trial on [agentpaas.ai](https://agentpaas.ai/) and open the claim email |
+| Hermes stuck on cloud login | Stop. In your Terminal run `agentpaas cloud login`, open the URL in the **same browser** as the claim, Approve, then tell Hermes to continue |
+| Wrong browser | CLI approve must use the claim browser |
 
-| Symptom | Fix |
-|---------|-----|
-| macOS malware warning | `xattr -cr` on brew binaries, or right-click Open |
-| Tools missing in Hermes | `/quit` and reopen after plugin install |
+## Hermes and install
 
-## 6.3 Invoke empty / no weather
+| Problem | What to do |
+|---------|------------|
+| AgentPaaS tools missing | Paste `Install from https://github.com/AgentPaaS-ai/agentpaas` again; `/quit` and reopen Hermes if needed |
+| macOS blocks binaries | Ask Hermes how to clear quarantine, or right-click Open on the app |
 
-| Symptom | Fix |
-|---------|-----|
-| succeeded but empty output | Check `cloud secrets bindings <dep>`; bind openrouter-key to openrouter.ai |
-| secret delete fails 409 | Expected if deployments bound; rotate same label or force delete |
+## Agent ran but answer is empty
 
-## 6.4 Dashboard
+| Problem | What to do |
+|---------|------------|
+| No weather / empty LLM answer | Ask Hermes to check cloud secret bindings for your deployment and bind your OpenRouter (or LLM) secret to the right host |
+| Policy denial | Check lineage/audits for `egress_denied`; add only the host you intend, then repack |
 
-| Symptom | Fix |
-|---------|-----|
-| Looking for "Logs" | Tab is named **Runs** |
-| Cron not editable in UI | Use `agentpaas cloud cron set/disable/enable` |
-| Agents table empty after push | Hard refresh; confirm `cloud images` shows admitted |
+## Console
 
-## Commands that must work as printed
+| Problem | What to do |
+|---------|------------|
+| Cannot find the run | Open **Runs**, filter by time; expand the row |
+| Want a schedule | Ask Hermes: "Schedule this deployment every 5 minutes" |
 
-```bash
-agentpaas version
-agentpaas doctor
-agentpaas cloud whoami
-agentpaas cloud images
-agentpaas cloud deployments
-agentpaas cloud cron list
-agentpaas cloud invoke <dep> --body '{"query":"San Francisco"}' --wait
-```
+Still stuck? Reply on your trial email thread or contact from [agentpaas.ai](https://agentpaas.ai/).

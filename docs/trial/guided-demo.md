@@ -7,18 +7,18 @@ sidebar_label: Guided demo
 
 # Run an agent you do not have to trust
 
-Most “AI agent” demos give a model a terminal and hope for the best. That is fine until the agent follows a bad prompt, pulls a sketchy dependency, or decides the whole internet is fair game.
+Most AI agent demos give a model a terminal and hope for the best. That breaks down when the agent follows a bad prompt, pulls a risky dependency, or treats the whole internet as fair game.
 
-**This demo is different.** You will build a friendly weather agent with Hermes, pack it into AgentPaaS, and watch the platform do what product security actually requires:
+**This demo is different.** With Hermes you build a friendly weather agent, pack it into AgentPaaS, and see real product security:
 
-- The agent runs in an **isolated container**, not as your laptop user.
-- **Network is default-deny.** It cannot call random websites. Only hosts you approve (for this demo: weather + your LLM provider) go through.
-- **Secrets stay out of agent code.** Your API key is brokered at request time, not dumped into the prompt or env for the model to exfiltrate.
-- Every meaningful action lands in a **tamper-evident audit trail**, and the image carries a **signed lineage** so you can see what was built and by whom.
+- Isolated container, not your laptop user account  
+- **Default-deny network** - only hosts you approve (weather + LLM)  
+- **Brokered secrets** - API keys never sit in agent code or chat  
+- **Lineage and audit** - proof the agent is secure and is being governed and audited  
 
-By the end you will have the same agent on your Mac and on [AgentPaaS Cloud](https://cloud.agentpaas.ai/), with proof that the agent is secure and is being governed and audited.
+You finish with the same agent on your Mac and on [AgentPaaS Cloud](https://cloud.agentpaas.ai/).
 
-Follow the steps in order. Paste the Hermes lines as written. Detail pages are linked when you want a deeper dive.
+Follow the steps in order. Prefer pasting the Hermes lines as written.
 
 ---
 
@@ -26,164 +26,81 @@ Follow the steps in order. Paste the Hermes lines as written. Detail pages are l
 
 | | |
 |--|--|
-| **Mac** | Where Hermes and the local AgentPaaS runtime run |
-| **Hermes** | Already installed ([Hermes docs](https://hermes-agent.nousresearch.com/docs)) |
-| **Claim link** | An invite email for the trial from AgentPaaS ([get it here](https://agentpaas.ai/)) |
+| **Mac** | Hermes + local AgentPaaS runtime |
+| **Hermes** | [Install Hermes](https://hermes-agent.nousresearch.com/docs) if needed |
+| **Trial invite** | Claim email from AgentPaaS ([get it here](https://agentpaas.ai/)) |
 | **LLM key** | Prefer [OpenRouter](https://openrouter.ai/) and a cheap model |
 
-You will **not** hand-install the CLI with brew in this path. You tell Hermes to install AgentPaaS from GitHub; it sets up the plugin and tools for you.
+---
+
+## Step 1: Claim your trial
+
+Open the claim link from your email in a browser you will keep using. Set a password (Google optional). Use the same email the trial was issued for.
+
+You are done when you can open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and see the console.
 
 ---
 
-## Step 1: Claim your cloud trial
+## Step 2: Install AgentPaaS in Hermes
 
-1. Open the **claim link** from your AgentPaaS email (keep using that browser).
-2. Set a password (link Google if you want).
-3. Use the **same email** the trial was issued for.
-4. Confirm you can open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and see the console.
-
-More detail: [Claim your trial](./claim-your-trial) · [Sign in and sessions](./sign-in-and-sessions)
-
----
-
-## Step 2: Install AgentPaaS through Hermes
-
-Open Hermes and paste **one** line:
+In Hermes, paste:
 
 ```text
 Install from https://github.com/AgentPaaS-ai/agentpaas
 ```
 
-That is the supported onboarding path. Hermes pulls the AgentPaaS plugin and local tooling from the public GitHub project so you can pack, run, and inspect governed agents without wiring the stack by hand.
-
-If tools do not show up, type `/quit`, reopen Hermes, and try the same line once more.
-
-More detail: [Hermes plugin setup](./hermes-plugin)
+Hermes installs the plugin and local tooling. If tools are missing, `/quit`, reopen Hermes, and paste again.
 
 ---
 
-## Step 3: Add your LLM key the safe way
-
-Your weather agent will call an LLM. The key must **never** live in chat history or in the agent image as plain text.
+## Step 3: Add your LLM key (you paste once, privately)
 
 Ask Hermes:
 
 ```text
-Set up my publisher identity and OpenRouter credential for a weather agent. Coach me to run secret add in MY terminal only, then confirm with secret list (labels only).
+Set up my publisher identity and OpenRouter credential for a weather agent. Coach me to add the secret in MY terminal only, then confirm labels only with secret list.
 ```
 
-When Hermes tells you to run a command, do it in **your** Terminal window. Typical shape:
-
-```bash
-agentpaas secret add openrouter
-```
-
-Paste the key when prompted (stdin). Hermes should only verify that a **label** exists, never print the secret.
-
-More detail: [Your LLM key](./llm-key)
+When Hermes asks you to run a command, do it in **your** Terminal window and paste the key at the prompt. Never put the key in chat.
 
 ---
 
-## Step 4: Build the weather agent (narrow internet on purpose)
+## Step 4: Build the weather agent
 
-Paste this **one sentence** into Hermes:
+In Hermes:
 
 ```text
 Build a weather agent that uses an LLM, and responds in a friendly demeanour
 ```
 
-Let Hermes scaffold, pack, and run it. When policy or egress comes up, keep the allow-list tight:
+Keep egress tight: weather host + OpenRouter (or your LLM host) only. Everything else is denied by default.
 
-| Allowed host (example) | Why |
-|------------------------|-----|
-| `wttr.in` (or the weather API Hermes picks) | Fetch weather |
-| `openrouter.ai` (or your LLM host) | Summarize with the model |
-
-**Everything else is denied by default.** The agent does not get “the internet.” It gets two doors you opened. If it tries a third host, the gateway blocks it and the attempt is audited (you will see that shape in the next step).
-
-Prefer OpenRouter + a cheap model when Hermes asks.
-
-**You are ready for the next step when** a local invoke returns a normal friendly weather answer (not a blank error).
+You are ready when a local invoke returns a friendly weather answer.
 
 ---
 
 ## Step 5: The big reveal - lineage and audits
 
-This is the moment that separates AgentPaaS from “it ran in a terminal once.”
-
-In Hermes, paste:
+In Hermes:
 
 ```text
 Show me lineage and audits
 ```
 
-### What you are looking at
+**Lineage** is the signed build story of the agent artifact (who packed what version and digest).  
+**Audit** is the run log under policy, including **egress_allowed** and **egress_denied**.
 
-**Lineage** answers: *what is this agent artifact, and how was it produced?*  
-Expect a signed pack story: project identity, version, image digest, publisher fingerprint. That is the chain of custody for the bundle you just built, not a chat log.
+If the agent tried a website that was not on the allow list, you should see a denial recorded by the gateway. That is the product working.
 
-**Audit** answers: *what did this run actually do under policy?*  
-The harness writes a hash-chained event log for the run. You should see lifecycle events and, critically, **egress** decisions: which domains were allowed, and which were refused.
-
-### How to read an audit event
-
-A successful allow looks like a gateway decision that a host was on policy (event names vary slightly by version, but the idea is stable):
-
-```json
-{
-  "event_type": "egress_allowed",
-  "actor": "gateway",
-  "payload": {
-    "domain": "wttr.in"
-  }
-}
-```
-
-A block looks like this (illustrative):
-
-```json
-{
-  "seq": 2,
-  "prev_hash": "a3f2...",
-  "record_hash": "b7c1...",
-  "event_type": "egress_denied",
-  "deployment_mode": "local",
-  "actor": "gateway",
-  "payload": {
-    "domain": "evil.example.com",
-    "reason": "policy_denied"
-  }
-}
-```
-
-Read that twice: **the agent asked; the platform said no; the refusal is on the permanent record.** The `prev_hash` / `record_hash` chain is why this is tamper-evident: silent edits break the chain.
-
-On disk (optional, if you want to poke around yourself):
-
-```bash
-RUN=$(ls -t ~/.agentpaas/state/runs | head -1)
-rg 'egress_allowed|egress_denied' ~/.agentpaas/state/runs/$RUN/harness-audit.jsonl | tail
-```
-
-**This is the product idea:** you can run agents that are useful *and* constrained, and you can **prove** what they were allowed to touch.
-
----
-
-## Step 6 (optional but powerful): Watch a deny, then fix it
-
-If you want the security lesson to stick, ask Hermes:
+Optional teaching moment:
 
 ```text
-Demonstrate governance: remove the weather host from policy, repack, invoke again and show the denial in the audit. Then add the host back, confirm with me, repack, and invoke successfully.
+Demonstrate governance: remove the weather host from policy, repack, invoke and show the denial in the audit. Then add the host back, confirm with me, repack, and invoke successfully.
 ```
-
-You should see a failed or empty weather fetch paired with `egress_denied` (or a clear policy error), then a clean run after the host is restored. That is default-deny working as designed, not a flaky network.
 
 ---
 
-## Step 7: Run the same agent on AgentPaaS Cloud
-
-Same governance story, managed service.
+## Step 6: Run it on AgentPaaS Cloud
 
 In Hermes:
 
@@ -191,60 +108,38 @@ In Hermes:
 Make it run in the AgentPaaS cloud
 ```
 
-When login is required, **you** run this in your own Terminal (same browser session as the claim):
+When login is needed, Hermes should **not** hang in a browser for you. In **your** Terminal:
 
 ```bash
 agentpaas cloud login
 ```
 
-Approve the browser prompt, then let Hermes push, deploy, bind the secret, and invoke.
-
-More detail: [Cloud login](./cloud-login)
+Approve in the **same browser** you used to claim the trial, then tell Hermes to continue (push, deploy, bind secret, invoke).
 
 ---
 
-## Step 8: See it in the console
+## Step 7: Look in the console
 
-Open [https://cloud.agentpaas.ai/](https://cloud.agentpaas.ai/)
+Open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and check **Agents**, **Deployments**, and **Runs**. Expand a row to see detail.
 
-| Tab | What to notice |
-|-----|----------------|
-| **Agents** | Your weather agent |
-| **Deployments** | The cloud deployment |
-| **Runs** | The invoke you just did |
-| **Cron** | Empty until you schedule |
-| **Usage** | Trial usage |
+Optional schedule (ask Hermes in plain language):
 
-You are looking for the same story as local: an agent that ran under policy, with a run you can open and inspect.
-
-More detail: [Dashboard tour](./dashboard-tour)
-
----
-
-## Step 9 (optional): Schedule it
-
-```bash
-agentpaas cloud cron set <deployment-id> --expr every_5m
+```text
+Schedule this cloud deployment every 5 minutes, then show me how to disable it.
 ```
 
-Turn it off when you are finished:
-
-```bash
-agentpaas cloud cron disable <schedule-id>
-```
-
-More detail: [Schedule with cron](./cloud-cron)
+Or explore tabs yourself: [Console tour](./dashboard-tour).
 
 ---
 
-## What you just proved
+## What you proved
 
-1. An agent can be built and run without handing it the open internet.  
-2. Only approved hosts leave the sandbox; denials are audited.  
-3. Secrets are brokered, not pasted into the agent.  
-4. Lineage ties the artifact to a signed build story.  
-5. The same model works locally and on AgentPaaS Cloud.
+1. The agent never got the open internet - only approved hosts.  
+2. Denials and allows are audited.  
+3. Secrets stayed out of chat and agent source.  
+4. Lineage ties the artifact to a signed build.  
+5. The same governed agent runs locally and in cloud.
 
-That is AgentPaaS: **a secure place to run agents**, not another unbounded chatbot with shell access.
+That is AgentPaaS: a secure place to run agents.
 
-Next: [Cloud pull](./cloud-pull) to edit and redeploy, or [Troubleshooting](./troubleshooting) if something failed.
+If something fails: [Troubleshooting](./troubleshooting).
