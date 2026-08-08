@@ -1,24 +1,37 @@
 ---
 id: llm-key
 title: Your LLM key
+sidebar_label: Your LLM key
 ---
 
-For the first trial, use **OpenRouter** (only cold path fully proven).
+Your agent needs an LLM API key. For the trial we recommend **[OpenRouter](https://openrouter.ai/)** and a low-cost model so setup stays simple and inexpensive.
+
+## Store the key on your Mac
+
+Run this in **your** Terminal (not in chat). Paste the key when prompted so it never appears in the command line or in Hermes history.
 
 ```bash
-agentpaas secret add openrouter-key
-# paste key at the prompt (stdin). Never put the key on the command line or in chat.
+agentpaas secret add openrouter
 agentpaas secret list
 ```
 
-Cheap OpenRouter defaults: `deepseek/deepseek-chat` or `openai/gpt-4o-mini`.  
-Do not use stale model ids from old docs.
+`secret list` shows **labels only**, never the secret value.
 
-Cloud: after deploy,
+Good starter models on OpenRouter: `deepseek/deepseek-chat` or `openai/gpt-4o-mini`.
+
+## Use the key on AgentPaaS Cloud
+
+After you deploy an agent that needs the LLM:
 
 ```bash
-agentpaas cloud secrets push openrouter-key
-agentpaas cloud secrets bind <deployment> openrouter-key --as bearer --host openrouter.ai
+agentpaas cloud secrets push openrouter
+agentpaas cloud secrets bind <deployment> openrouter --as bearer --host openrouter.ai
 ```
 
-Rotate by pushing the **same label** again. Delete is blocked while deployments are bound (409) unless forced.
+Replace `<deployment>` with your deployment id from the console or CLI.
+
+## Tips
+
+- Prefer OpenRouter for the guided weather demo; other HTTPS providers work when your agent policy allows their host.
+- Rotate by running `secret add` / `cloud secrets push` again for the **same label**.
+- You cannot delete a secret while deployments still bind it (unless you force unbind first).
