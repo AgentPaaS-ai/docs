@@ -1,20 +1,29 @@
 ---
 id: install-macos
-title: Install on macOS
+title: Install on macOS (manual)
+sidebar_label: Install on macOS (manual)
 ---
 
-Requires **AgentPaaS CLI 0.3.7+** (brew).
+Most trial users should skip this page and use Hermes instead:
 
-# Install on macOS
+```text
+Install from https://github.com/AgentPaaS-ai/agentpaas
+```
 
-Mac required (darwin/arm64). Docker via Colima is expected for local pack/run.
+See [Hermes plugin setup](./hermes-plugin).
+
+---
+
+Use this only if you want the **AgentPaaS CLI** on the Mac without Hermes, or to repair a local install.
+
+Requires **CLI 0.3.7+** and Docker/Colima for local pack/run.
 
 ```bash
-# Brew install (see github.com/AgentPaaS-ai/agentpaas README for current cask)
+brew install --cask AgentPaaS-ai/homebrew-tap/agentpaas
 export PATH="/opt/homebrew/bin:$PATH"
-agentpaas version
 # If macOS blocks the binary:
 xattr -cr "$(brew --prefix)/bin/agentpaas" "$(brew --prefix)/bin/agentpaasd" 2>/dev/null || true
+agentpaas version
 agentpaas daemon start
 agentpaas doctor
 ```
