@@ -26,4 +26,4 @@ On your Mac, the CLI packs and runs agents under local policy. On [AgentPaaS Clo
 | **LLM access** | Bring your own key (OpenRouter and other HTTPS providers via policy/egress) |
 | **Agents** | Pack and run project-based agents with signed images and audit |
 
-Next: [The 30-minute path](./thirty-minute-path).
+Next: [Guided demo](./guided-demo).
