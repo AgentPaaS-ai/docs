@@ -3,6 +3,8 @@
  */
 
 const REDIRECTS = {
+  "/trial/thirty-minute-path": "/trial/guided-demo",
+  "/trial/thirty-minute-path/": "/trial/guided-demo/",
   "/trial/what-agentpaas-is": "/trial/what-is-agentpaas",
   "/trial/what-agentpaas-is/": "/trial/what-is-agentpaas/",
 };

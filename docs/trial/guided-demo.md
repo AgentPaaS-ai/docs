@@ -1,7 +1,8 @@
 ---
-id: thirty-minute-path
-title: The 30-minute path
-sidebar_label: The 30-minute path
+id: guided-demo
+slug: /trial/guided-demo
+title: Guided demo
+sidebar_label: Guided demo
 ---
 
 # Run an agent you do not have to trust

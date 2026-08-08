@@ -10,7 +10,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'trial/index',
         'trial/what-is-agentpaas',
-        'trial/thirty-minute-path',
+        'trial/guided-demo',
         'trial/claim-your-trial',
         'trial/sign-in-and-sessions',
         'trial/install-macos',

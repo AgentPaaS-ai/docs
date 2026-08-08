@@ -7,7 +7,7 @@ sidebar_label: Index
 Trial path for AgentPaaS Cloud and the local CLI.
 
 1. [What is AgentPaaS?](./what-is-agentpaas)
-2. [The 30-minute path](./thirty-minute-path)
+2. [Guided demo](./guided-demo)
 3. [Claim your trial](./claim-your-trial)
 4. [Sign in and sessions](./sign-in-and-sessions)
 5. [Install on macOS](./install-macos)
