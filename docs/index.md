@@ -6,42 +6,33 @@ title: AgentPaaS documentation
 
 # AgentPaaS documentation
 
-Trial guides, cloud console, and CLI reference for the current release.
+Guides for using AgentPaaS: local CLI, cloud console, and the trial path.
 
 ## CLI version
 
-| Version | Status | Notes |
-|---------|--------|--------|
-| **[v0.3.7](./releases/v0.3.7)** | Current | Brew cask · `agentpaas version` → `CLI: 0.3.7` |
-
-Only one public CLI line is documented right now. Older lines are not kept on this site until the next minor cut.
+| Version | Status |
+|---------|--------|
+| **[v0.3.7](./releases/v0.3.7)** | Current (`agentpaas version` → `CLI: 0.3.7`) |
 
 ## Start here
 
-| Go | Link |
-|----|------|
-| **Trial path** | [Trial guide](./trial/) |
-| **Release notes** | [v0.3.7](./releases/v0.3.7) |
-| **Console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
-| **Home** | [agentpaas.ai](https://agentpaas.ai/) |
-| **How we version** | [Versioning](./versioning) |
+| | |
+|--|--|
+| **New to AgentPaaS?** | [Trial guide](./trial/) |
+| **What shipped in this release** | [Release notes v0.3.7](./releases/v0.3.7) |
+| **Cloud console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
+| **Product home** | [agentpaas.ai](https://agentpaas.ai/) |
 
-## Install CLI (v0.3.7)
+## Install the CLI (macOS)
 
 ```bash
 brew install --cask AgentPaaS-ai/homebrew-tap/agentpaas
-# or upgrade:
+# already installed:
 brew upgrade --cask AgentPaaS-ai/homebrew-tap/agentpaas
+
 xattr -cr "$(brew --prefix)/bin/agentpaas" "$(brew --prefix)/bin/agentpaasd"
-agentpaas version   # expect CLI: 0.3.7
+agentpaas version
+agentpaas doctor
 ```
 
-## Edit these docs
-
-**Edit this page** (bottom of each article) opens the Markdown file on GitHub.
-
-1. Anyone signed into GitHub can propose a change (fork → edit → **open a pull request**).
-2. You (repo owner) review and merge.
-3. After merge, rebuild/deploy docs so the live site updates.
-
-Same path works for agents (Hermes, etc.): patch the `.md` file, open a PR, you accept.
+Trial access is **invite-gated**. If you do not have a claim link yet, request a trial from [agentpaas.ai](https://agentpaas.ai/).
