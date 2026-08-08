@@ -15,7 +15,7 @@ Most “AI agent” demos give a model a terminal and hope for the best. That is
 - **Secrets stay out of agent code.** Your API key is brokered at request time, not dumped into the prompt or env for the model to exfiltrate.
 - Every meaningful action lands in a **tamper-evident audit trail**, and the image carries a **signed lineage** so you can see what was built and by whom.
 
-By the end you will have the same agent on your Mac and on [AgentPaaS Cloud](https://cloud.agentpaas.ai/), with proof in the audit log that governance is not a slide deck.
+By the end you will have the same agent on your Mac and on [AgentPaaS Cloud](https://cloud.agentpaas.ai/), with proof that the agent is secure and is being governed and audited.
 
 Follow the steps in order. Paste the Hermes lines as written. Detail pages are linked when you want a deeper dive.
 
