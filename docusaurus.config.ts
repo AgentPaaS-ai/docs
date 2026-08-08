@@ -76,12 +76,6 @@ const config: Config = {
           target: '_self',
         },
         {
-          href: 'https://cloud.agentpaas.ai/login',
-          label: 'Sign in',
-          position: 'right',
-          target: '_self',
-        },
-        {
           href: 'https://github.com/AgentPaaS-ai/docs',
           label: 'GitHub',
           position: 'right',
@@ -105,7 +99,6 @@ const config: Config = {
           items: [
             {label: 'Cloud console', href: 'https://cloud.agentpaas.ai/'},
             {label: 'Home', href: 'https://agentpaas.ai/'},
-            {label: 'Sign in', href: 'https://cloud.agentpaas.ai/login'},
             {label: 'Docs on GitHub', href: 'https://github.com/AgentPaaS-ai/docs'},
             {label: 'CLI source', href: 'https://github.com/AgentPaaS-ai/agentpaas'},
           ],
