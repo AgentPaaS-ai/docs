@@ -86,7 +86,9 @@ bindings   List secret bindings on a deployment
 ## cloud cron
 
 ```text
-set        Create or change a schedule (enables it) --expr every_1m|every_5m|every_15m|every_1h
+set        Create or change a schedule (enables it)
+           --expr every_1m|every_5m|every_15m|every_1h
+           or 5-field UTC cron: "30 9 * * 1-5"
 list       List schedules
 disable    Disable without deleting stored schedule
 enable     Re-enable
