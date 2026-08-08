@@ -31,7 +31,8 @@ const config: Config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/AgentPaaS-ai/docs/edit/main/docs/',
+          editUrl: ({docPath}: {docPath: string}) =>
+            `https://github.com/AgentPaaS-ai/docs/edit/main/docs/${docPath}`,
           showLastUpdateTime: false,
         },
         blog: false,
