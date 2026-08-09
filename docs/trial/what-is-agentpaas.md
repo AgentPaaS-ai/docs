@@ -4,10 +4,11 @@ slug: /trial/what-is-agentpaas
 title: What is AgentPaaS?
 sidebar_label: What is AgentPaaS?
 ---
+{/* <!-- COPY TWIN: oss/docs/customer/trial/01-what-agentpaas-is.md — change both or neither (D-W7) --> */}
 
-AgentPaaS is an open-source runtime for **agent security**. AI agents can be steered by poisoned prompts, risky dependencies, or generated code - so the platform assumes the agent itself may be untrusted. You run that workload in isolated containers with default-deny egress, brokered credentials, and tamper-evident audit, instead of giving a free-form agent the keys to your environment.
+AgentPaaS is a secure execution platform for agentic workflows. It runs AI agents you can't trust: agents can be steered by poisoned prompts, risky dependencies, or their own generated code, so the platform assumes the agent itself may be compromised. Every agent runs in an isolated container, behind default-deny egress, with gateway-brokered credentials and a tamper-evident audit trail.
 
-On your Mac, the CLI packs and runs agents under local policy. On [AgentPaaS Cloud](https://cloud.agentpaas.ai/), you push, deploy, invoke, and schedule the same kind of governed agents. Start from the [trial guide](/trial/) with a claim link from AgentPaaS, or request access on [agentpaas.ai](https://agentpaas.ai/).
+Build, test, and run agents locally with the open-source CLI (macOS). Deploy the same governed agents to [AgentPaaS Cloud](https://cloud.agentpaas.ai/) in one command. Start from the [trial guide](/trial/) with a claim link, or request access on [agentpaas.ai](https://agentpaas.ai/).
 
 ## Surfaces
 
