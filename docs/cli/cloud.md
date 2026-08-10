@@ -50,9 +50,14 @@ Labels only on list/bindings. Never prints values.
 
 ## Invoke and runs
 
+Public invoke (agent or MCP) needs a **deployment invoke token** first.
+See [Invoke tokens](./invoke-tokens) for why, and [MCP demos](./mcp-demos) for Hermes and Codex.
+
 ```bash
-agentpaas cloud invoke-token <deployment>
-agentpaas cloud invoke <deployment> --body '{"query":"weather in Folsom"}'
+agentpaas cloud invoke-token <deployment>    # dep_… ; prints inv_… once
+export AGENTPAAS_CLOUD_INVOKE_TOKEN='inv_…' # or CLI token store
+
+agentpaas cloud invoke <deployment> --body '{"query":"weather in Folsom"}' --wait
 agentpaas cloud run <deployment>
 agentpaas cloud status <run-id>
 agentpaas cloud result <run-id>
@@ -60,6 +65,17 @@ agentpaas cloud logs <run-id>
 agentpaas cloud events <run-id>
 agentpaas cloud cancel <run-id>
 ```
+
+Bare deployment URLs without `inv_…` return 401. Do not treat `dep_…` as a secret capability.
+
+MCP coding tools use:
+
+```text
+https://cloud.agentpaas.ai/v1/deployments/<dep_…>/mcp
+Header: X-Agentpaas-Invoke-Token: inv_…
+```
+
+Not `/invoke` for Streamable HTTP clients.
 
 ## Catalog and usage
 

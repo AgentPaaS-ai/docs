@@ -5,20 +5,24 @@ const sidebars: SidebarsConfig = {
     'index',
     {
       type: 'category',
-      label: 'Trial',
+      label: 'AgentPaaS Trial',
       collapsed: false,
       items: [
-        'trial/index',
         'trial/what-is-agentpaas',
         'trial/guided-demo',
-        'trial/dashboard-tour',
         'trial/troubleshooting',
       ],
     },
     {
       type: 'category',
+      label: 'AgentPaaS Console',
+      collapsed: true,
+      items: ['trial/dashboard-tour', 'versioning'],
+    },
+    {
+      type: 'category',
       label: 'AgentPaaS CLI',
-      collapsed: false,
+      collapsed: true,
       items: [
         'cli/index',
         'cli/install',
@@ -32,23 +36,20 @@ const sidebars: SidebarsConfig = {
         'cli/audit-lineage',
         'cli/cron',
         'cli/cloud',
+        'cli/invoke-tokens',
+        'cli/mcp-demos',
         'cli/reference',
       ],
     },
     {
       type: 'category',
-      label: 'Releases',
-      items: ['releases/v0.3.7'],
-    },
-    {
-      type: 'category',
-      label: 'Platform',
-      items: ['versioning', 'platform'],
-    },
-    {
-      type: 'category',
       label: 'Security',
       items: ['security/threat-model', 'security/how-enforcement-works'],
+    },
+    {
+      type: 'category',
+      label: 'Releases',
+      items: ['releases/v0.3.7', 'platform'],
     },
   ],
 };
