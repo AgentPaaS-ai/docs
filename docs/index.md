@@ -6,7 +6,7 @@ title: AgentPaaS documentation
 
 # AgentPaaS documentation
 
-Guides for AgentPaaS Cloud, the trial path, and the full **AgentPaaS CLI**.
+Guides for AgentPaaS - The Agent Platform as a Service, and the Opensource AgentPaaS CLI.
 
 ## CLI version
 
@@ -18,10 +18,10 @@ Guides for AgentPaaS Cloud, the trial path, and the full **AgentPaaS CLI**.
 
 | | |
 |--|--|
-| **New to AgentPaaS?** | [Trial guide](./trial/) and [Guided demo](./trial/guided-demo) |
-| **AgentPaaS CLI (humans and agents)** | [CLI overview](./cli/) - every command group, one by one |
+| **[What is AgentPaaS?](./trial/what-is-agentpaas)** | [Trial guide](./trial/) and [Guided demo](./trial/guided-demo) |
+| **AgentPaaS CLI** | [CLI overview](./cli/) |
 | **What shipped** | [Release notes v0.3.7](./releases/v0.3.7) |
 | **Cloud console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
 | **Product home** | [agentpaas.ai](https://agentpaas.ai/) |
 
-Trial access uses an invite from [agentpaas.ai](https://agentpaas.ai/). The guided demo is Hermes-first; the CLI section is the detailed control surface.
+To get a Free Trial get an invite from AgentPaas.ai.

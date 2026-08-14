@@ -51,10 +51,13 @@ const config: Config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'AgentPaaS Docs',
+      title: 'AgentPaaS',
       logo: {
         alt: 'AgentPaaS',
-        src: 'img/logo.svg',
+        src: 'img/logo-mark.png',
+        srcDark: 'img/logo-mark.png',
+        href: 'https://agentpaas.ai/',
+        target: '_self',
       },
       items: [
         {
