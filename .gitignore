@@ -4,3 +4,13 @@ build
 .DS_Store
 .env
 .wrangler
+
+# Internal demo planning — never commit if copied here by mistake
+DEMO-CHECKLIST.md
+**/DEMO-CHECKLIST.md
+demo-planning/
+
+# Internal feature planning — umbrella local/feature-planning/ only
+FEATURE-CHECKLIST.md
+**/FEATURE-CHECKLIST.md
+feature-planning/

@@ -4,9 +4,9 @@ title: Console tour
 sidebar_label: Console tour
 ---
 
-The cloud console at [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) is where you **see** what happened after Hermes builds and deploys agents.
+The cloud console at [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) is the human view of your AgentPaaS Cloud account. Use it to see what Hermes pushed, what is deployed, what is running, and what each run did.
 
-It is mostly read-only for day-to-day work. You change things by asking Hermes (or using the CLI if you prefer). Tokens and Secrets forms in the UI are fine when you need them.
+All changes go through the AgentPaaS CLI, including deploy, undeploy, adding or rotating secrets and keys, and changing schedules. Run the CLI through an Agent on your Mac using Hermes. The console shows the resulting state for you to review.
 
 ## Tabs
 

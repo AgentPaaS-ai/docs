@@ -4,35 +4,68 @@ title: Troubleshooting
 sidebar_label: Troubleshooting
 ---
 
-Quick fixes for the [guided demo](./guided-demo). Prefer asking Hermes in plain language after you unblock yourself.
+Use this page when the guided demo stops moving. Start with the section that matches what you see.
 
-## Claim and browser login
+## Trial access and browser login
 
-| Problem | What to do |
-|---------|------------|
-| No access yet | Request a trial on [agentpaas.ai](https://agentpaas.ai/) and open the claim email |
-| Hermes stuck on cloud login | Stop. In your Terminal run `agentpaas cloud login`, open the URL in the **same browser** as the claim, Approve, then tell Hermes to continue |
-| Wrong browser | CLI approve must use the claim browser |
+### No trial access
 
-## Hermes and install
+Request a trial at [agentpaas.ai](https://agentpaas.ai/). Open the claim link from the email you receive.
 
-| Problem | What to do |
-|---------|------------|
-| AgentPaaS tools missing | Paste `Install from https://github.com/AgentPaaS-ai/agentpaas` again; `/quit` and reopen Hermes if needed |
-| macOS blocks binaries | Ask Hermes how to clear quarantine, or right-click Open on the app |
+### Hermes is stuck on Cloud login
 
-## Agent ran but answer is empty
+Run the login command in your Terminal:
 
-| Problem | What to do |
-|---------|------------|
-| No weather / empty LLM answer | Ask Hermes to check cloud secret bindings for your deployment and bind your OpenRouter (or LLM) secret to the right host |
-| Policy denial | Check lineage/audits for `egress_denied`; add only the host you intend, then repack |
+```bash
+agentpaas cloud login
+```
 
-## Console
+Open the URL it prints in the same browser you used to claim the trial. Approve the login, then tell Hermes to continue.
 
-| Problem | What to do |
-|---------|------------|
-| Cannot find the run | Open **Runs**, filter by time; expand the row |
-| Want a schedule | Ask Hermes: "Schedule this deployment every 5 minutes" |
+### You used the wrong browser
 
-Still stuck? Reply on your trial email thread or contact from [agentpaas.ai](https://agentpaas.ai/).
+Run the approval again in the browser you used for the claim. The CLI approval must use that browser.
+
+## Hermes and installation
+
+### AgentPaaS tools are missing
+
+Paste this into Hermes again:
+
+```text
+Install from https://github.com/AgentPaaS-ai/agentpaas
+```
+
+Quit the session with `/quit`, restart Hermes, and paste the instruction again.
+
+### macOS blocks a binary
+
+Ask Hermes how to clear the quarantine flag. You can also right-click the app and choose **Open**.
+
+## The agent runs without an answer
+
+### The weather response or LLM answer is empty
+
+Ask Hermes to check the Cloud secret bindings for the deployment. Bind your OpenRouter or other LLM secret to the host used by the deployment.
+
+### The run shows a policy denial
+
+Open the lineage and audit records. Look for `egress_denied`.
+
+If the denied host is required, add only that host to the policy, then repack the agent and run it again.
+
+## Finding results in the console
+
+### The run is missing
+
+Open **Runs**, filter by time, and expand the matching row.
+
+### You want an automated schedule
+
+Ask Hermes:
+
+```text
+Schedule this deployment every 5 minutes
+```
+
+Still stuck? Reply to your trial email thread or contact [agentpaas.ai](https://agentpaas.ai/).

@@ -157,6 +157,10 @@ body {
 }
 
 /* Navbar */
+.navbar__brand:empty {
+ display: none;
+}
+
 .navbar {
  border-bottom: 1px solid var(--ap-line);
  backdrop-filter: blur(8px);
@@ -174,10 +178,20 @@ body {
  font-weight: 400;
 }
 .navbar__brand:hover {
- color: var(--ap-ink);
+  color: var(--ap-ink);
+}
+.navbar__logo {
+  margin-right: 10px;
 }
 .navbar__logo img {
- height: 28px;
+  height: 23px;
+  width: 28px;
+}
+.navbar__title {
+  font-family: var(--ap-mono);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: -0.02em;
 }
 
 /* Sidebar */
@@ -236,6 +250,19 @@ body {
  border: none;
  background: transparent;
 }
+.theme-doc-markdown pre.language-text {
+ border-color: var(--ap-signal);
+ box-shadow: inset 3px 0 0 var(--ap-signal);
+}
+.theme-doc-markdown pre.language-bash {
+ border-color: #55c982;
+ box-shadow: inset 3px 0 0 #55c982;
+}
+.ap-alert-red {
+ color: var(--ap-signal);
+ font-weight: 700;
+}
+
 .markdown table {
  display: table;
  width: 100%;
