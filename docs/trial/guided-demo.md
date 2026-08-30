@@ -138,4 +138,6 @@ You have now seen how AgentPaaS contains an agent's access, records its actions,
 
 Ready to run agents with your team? Sign up for the **TEAM** or **ENTERPRISE** plan in the [AgentPaaS Cloud console](https://cloud.agentpaas.ai/).
 
+Optional: after weather works, you may compose a workflow in Hermes. Weather stays a single-agent run.
+
 If something fails: [Troubleshooting](./troubleshooting).

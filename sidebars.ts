@@ -8,16 +8,12 @@ const sidebars: SidebarsConfig = {
       label: 'AgentPaaS Trial',
       collapsed: false,
       items: [
+        'trial/index',
         'trial/what-is-agentpaas',
         'trial/guided-demo',
+        'trial/dashboard-tour',
         'trial/troubleshooting',
       ],
-    },
-    {
-      type: 'category',
-      label: 'AgentPaaS Console',
-      collapsed: true,
-      items: ['trial/dashboard-tour', 'versioning'],
     },
     {
       type: 'category',
@@ -49,7 +45,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Releases',
-      items: ['releases/v0.3.7', 'platform'],
+      items: ['releases/v0.4.0', 'releases/v0.3.7', 'platform'],
     },
   ],
 };

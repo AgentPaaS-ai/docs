@@ -12,7 +12,7 @@ Guides for AgentPaaS - The Agent Platform as a Service, and the Opensource Agent
 
 | Version | Status |
 |---------|--------|
-| **[v0.3.7](./releases/v0.3.7)** | Current (`agentpaas version` → `CLI: 0.3.7`) |
+| **[v0.4.0](./releases/v0.4.0)** | Current (`agentpaas version` → `CLI: 0.4.0`) |
 
 ## Start here
 
@@ -20,7 +20,7 @@ Guides for AgentPaaS - The Agent Platform as a Service, and the Opensource Agent
 |--|--|
 | **[What is AgentPaaS?](./trial/what-is-agentpaas)** | [Trial guide](./trial/) and [Guided demo](./trial/guided-demo) |
 | **AgentPaaS CLI** | [CLI overview](./cli/) |
-| **What shipped** | [Release notes v0.3.7](./releases/v0.3.7) |
+| **What shipped** | [Release notes v0.4.0](./releases/v0.4.0) |
 | **Cloud console** | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
 | **Product home** | [agentpaas.ai](https://agentpaas.ai/) |
 

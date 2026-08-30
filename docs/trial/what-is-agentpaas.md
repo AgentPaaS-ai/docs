@@ -4,31 +4,51 @@ slug: /trial/what-is-agentpaas
 title: What is AgentPaaS?
 sidebar_label: What is AgentPaaS?
 ---
-{/* <!-- COPY TWIN: oss/docs/customer/trial/01-what-agentpaas-is.md — change both or neither (D-W7) --> */}
 
-AgentPaaS is a secure execution platform for agentic workflows. It runs AI agents you can't trust: agents can be steered by poisoned prompts, risky dependencies, or their own generated code, so the platform assumes the agent itself may be compromised. Every agent runs in an isolated container, behind default-deny egress, with gateway-brokered credentials and a tamper-evident audit trail.
+{/* COPY TWIN: oss/docs/customer/trial/01-what-agentpaas-is.md. Change both or neither. */}
 
-Build, test, and run agents locally with the open-source CLI (macOS). Deploy the same governed agents to [AgentPaaS Cloud](https://cloud.agentpaas.ai/) in one command. Start from the [trial guide](/trial/) with a claim link, or request access on [agentpaas.ai](https://agentpaas.ai/).
+AgentPaaS is a secure execution platform for agents you cannot trust. Every agent runs in an isolated container, behind default-deny egress, with gateway-brokered credentials and a tamper-evident audit trail.
 
-## Surfaces
+Build, pack, and run on macOS with the open-source CLI. Deploy the same governed agents to [AgentPaaS Cloud](https://cloud.agentpaas.ai/).
 
-| Surface | What you get |
-|---------|----------------|
-| **Local (macOS)** | `agentpaas` CLI, daemon, and Docker/Colima - build, pack, and run on your machine |
-| **Cloud** | Managed console and API at [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) - push, deploy, invoke, cron |
+## Four controls
 
-## Supported platforms
+1. Isolated container
+2. Default-deny egress
+3. Gateway-brokered credentials
+4. Tamper-evident audit
 
-| | Supported today |
-|--|-----------------|
-| **Local runtime** | macOS (Apple Silicon and Intel with Docker/Colima) |
-| **CLI install** | Homebrew cask (`AgentPaaS-ai/homebrew-tap`) |
-| **Cloud** | Browser console + API (invite-gated trial) |
-| **LLM access** | Bring your own key (OpenRouter and other HTTPS providers via policy/egress) |
-| **Agents** | Pack and run project-based agents with signed images and audit |
+The documentation word for that trail is **Audit**. The cloud console navigation label is **Logs**.
 
-## How security is enforced
+## The object path
 
-Policy is topology: the agent only reaches the internet through a default-deny gateway. See the diagram and walkthrough in [How enforcement works](/security/how-enforcement-works).
+Hermes packs and pushes a component into the registry. Deploy the parts you want live; they show under Deployments and take slots. Compose a workflow from those components; it shows under Workflows and is not live compute. Invoke a deployed agent (no workflow required) or invoke a workflow; both show under Runs. Evidence of what ran is under Logs.
 
-Next: [Guided demo](./guided-demo).
+A single agent does not need a workflow. Deploy it, invoke it. That is a run. The weather trial is this path. A workflow is only for more than one step: A then B, A phones B, choice, or fan-out. There is no deploy-the-workflow object. Ready means every member component is already deployed. That status belongs on the Workflows card, not as a Deployments row.
+
+The console is read-only. Create, pack, deploy, and invoke happen in Hermes or the CLI.
+
+## Two surfaces
+
+| Surface | What |
+|---------|------|
+| Local (macOS) | `agentpaas` CLI, daemon, Docker/Colima. Pack and run on your machine. |
+| Cloud | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/). Push, deploy, invoke, cron. Claim-link trial, not open signup. |
+
+## What 0.4 includes
+
+- Governed MCP and tool deployments
+- Signed cloud workflows: linear, fan-out (join all), choice (fail-closed), phone-call (depth 1)
+- Read-only console: Components, Workflows, Deployments, Runs, Logs
+- Cron (named minimum every 5 minutes), webhooks via Hermes or the API, file inputs (50 MiB)
+
+## What it does not do yet
+
+- Linux or Windows local runtime (macOS only for local)
+- Open self-serve signup (trial is a claim-link invite)
+- Production-grade multi-tenant vault isolation (cloud secrets are a preview vault)
+- Local multi-stage run (fail-closed; use a cloud envelope)
+- Native HITL, join-any, for-each, wait/delay, spawn deeper than 1
+- OpenAI or Anthropic as the stranger cold LLM path (use OpenRouter first)
+
+Next: [Guided demo](./guided-demo). Kinds and numbers: [workflow kinds](./workflow-kinds-and-edges) and [platform limits](./platform-limits).
