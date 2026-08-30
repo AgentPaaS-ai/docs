@@ -1,6 +1,6 @@
 ---
-unlisted: true
 title: Workflows
+sidebar_label: Workflows
 ---
 
 # Workflows

@@ -12,6 +12,11 @@ const sidebars: SidebarsConfig = {
         'trial/what-is-agentpaas',
         'trial/guided-demo',
         'trial/dashboard-tour',
+        'trial/workflows',
+        'trial/workflow-kinds-and-edges',
+        'trial/mcp-and-tools',
+        'trial/platform-limits',
+        'trial/webhooks',
         'trial/troubleshooting',
       ],
     },
@@ -45,7 +50,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Releases',
-      items: ['releases/v040', 'releases/v0.3.7', 'platform'],
+      items: ['releases/v040', 'releases/v0.3.7', 'platform', 'versioning'],
     },
   ],
 };

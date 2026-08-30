@@ -1,6 +1,6 @@
 ---
-unlisted: true
 title: MCP and tools
+sidebar_label: MCP and tools
 ---
 
 # MCP and tools
