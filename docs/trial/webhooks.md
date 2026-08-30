@@ -1,6 +1,6 @@
 ---
-unlisted: true
 title: Webhooks
+sidebar_label: Webhooks
 ---
 
 # Webhooks

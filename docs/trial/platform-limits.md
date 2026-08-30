@@ -1,6 +1,6 @@
 ---
-unlisted: true
 title: Platform limits
+sidebar_label: Platform limits
 ---
 
 # Platform limits

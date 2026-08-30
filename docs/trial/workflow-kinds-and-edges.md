@@ -1,6 +1,6 @@
 ---
-unlisted: true
 title: Workflow kinds and edges
+sidebar_label: Workflow kinds
 ---
 
 # Workflow kinds and edges
