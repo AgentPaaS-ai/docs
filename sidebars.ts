@@ -45,7 +45,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Releases',
-      items: ['releases/v0.4.0', 'releases/v0.3.7', 'platform'],
+      items: ['releases/v040', 'releases/v0.3.7', 'platform'],
     },
   ],
 };
