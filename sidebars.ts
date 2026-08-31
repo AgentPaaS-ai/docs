@@ -12,6 +12,7 @@ const sidebars: SidebarsConfig = {
         'trial/what-is-agentpaas',
         'trial/guided-demo',
         'trial/dashboard-tour',
+        'trial/what-athena-can-do',
         'trial/workflows',
         'trial/workflow-kinds-and-edges',
         'trial/mcp-and-tools',
