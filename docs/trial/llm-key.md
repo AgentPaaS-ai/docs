@@ -1,9 +1,12 @@
----
-id: llm-key
-title: Your LLM key
-unlisted: true
----
+# Add an LLM key
 
-Covered in the [guided demo](./guided-demo) (Step 3).
+OpenRouter is the first cold path. Add the secret in your terminal, never in Hermes chat.
 
-Ask Hermes to coach you. Paste the key only in **your** Terminal when prompted. Prefer OpenRouter and a cheap model for the trial.
+```bash
+agentpaas secret add openrouter-key
+agentpaas cloud secrets push openrouter-key
+agentpaas cloud secrets bind <deployment-id> openrouter-key --as bearer --host openrouter.ai
+agentpaas cloud secrets bindings <deployment-id>
+```
+
+A bound deployment can use the credential through the gateway. If secret deletion returns a conflict while a deployment is bound, rotate the same label or unbind it first.

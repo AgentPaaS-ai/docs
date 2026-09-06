@@ -1,22 +1,34 @@
----
-title: Webhooks
-sidebar_label: Webhooks
----
-
 # Webhooks
 
-Three webhooks. The agent never POSTs them. The AgentPaaS control plane does. Configure them in Hermes or via the API. The 0.4.0 brew cask does not add a `cloud webhook` command.
+Webhooks provide ingress and completion delivery through the API. Configure them with the `agentpaas cloud webhook` commands.
 
-## Ingress
+## Ingress webhook
 
-A signed POST to AgentPaaS starts a run. Bad signature is 401 and creates no run. This starts work. It does not mean the job finished.
+An ingress webhook lets an external service start a run. Configure it with the CLI and keep the HMAC secret in your credential store.
 
-## Completion
+```bash
+agentpaas cloud webhook set dep_EXAMPLE --provider generic_hmac --secret-stdin
+```
 
-When the run reaches a terminal state, AgentPaaS POSTs a receipt to your HTTPS URL: run id and status. HMAC header present.
+The CLI configures `PUT /v1/deployments/dep_EXAMPLE/webhook`. The configured response contains `configured`, `provider`, and `deployment_id`, and does not return the secret.
 
-## Delivery
+To send a signed test request:
 
-When the run succeeds, AgentPaaS POSTs declared final_output only. No logs, no secret values, no artifact dump.
+```bash
+agentpaas cloud webhook fire dep_EXAMPLE --body '{"ok":true}' --secret-stdin
+```
 
-Destination must be public HTTPS. Do not use your laptop as the destination. Do not paste webhook secrets into Hermes chat.
+The request uses `POST /v1/deployments/dep_EXAMPLE/hooks/generic_hmac` and the `X-Agentpaas-Signature` header. Invalid or stale signatures return HTTP `401` and do not start a run.
+
+## Completion and delivery webhooks
+
+Configure public HTTPS destinations for terminal status and final output delivery:
+
+```bash
+agentpaas cloud webhook completion dep_EXAMPLE --url https://webhook.site/example-completion
+agentpaas cloud webhook delivery dep_EXAMPLE --url https://webhook.site/example-delivery
+```
+
+These configure `PUT /v1/deployments/dep_EXAMPLE/completion-webhook` and `PUT /v1/deployments/dep_EXAMPLE/delivery-webhook`. Use different URLs so you can distinguish the two requests. Completion sends the run ID and terminal state. Delivery sends `final_output` only. Logs, secrets, and artifacts are not included.
+
+There is no dedicated console workflow for configuring webhooks. Use Hermes or the AgentPaaS CLI. See [Cloud commands](../cli/cloud) for the surrounding deployment and invoke flow.

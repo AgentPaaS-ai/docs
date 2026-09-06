@@ -20,7 +20,7 @@ The **AgentPaaS CLI** (`agentpaas`) is the full control surface for local agents
 | Scheduling | [Cron](./cron) |
 | Machine-readable output | Every command accepts global `--json` |
 
-Trial users who only want the happy path can stay on the [Guided demo](/trial/guided-demo). This CLI section is the detailed reference.
+Trial users who only want the happy path can stay on the [Agent Guided Demo](/trial/guided-demo). This CLI section is the detailed reference.
 
 ## Command map
 

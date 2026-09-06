@@ -1,15 +1,12 @@
----
-id: cloud-cron
-title: Schedule with cron
-unlisted: true
----
+# Cloud cron
 
-Covered in the [guided demo](./guided-demo).
+Set a schedule on a deployed agent. Cron starts an agent run; it does not create a workflow.
 
-Ask Hermes in plain language, for example:
-
-```text
-Schedule this cloud deployment every 5 minutes, then show me how to disable it.
+```bash
+agentpaas cloud cron set <deployment-id> --expr every_5m
+agentpaas cloud cron list
+agentpaas cloud cron disable <deployment-id>
+agentpaas cloud cron enable <deployment-id>
 ```
 
-The console Cron tab is view-only.
+Supported expressions exposed by the plugin are `every_1m`, `every_5m`, `every_15m`, and `every_1h`.

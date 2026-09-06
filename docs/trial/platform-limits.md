@@ -1,26 +1,38 @@
----
-title: Platform limits
-sidebar_label: Platform limits
----
-
 # Platform limits
 
-Hard numbers for the trial. Paid numbers are not listed here.
+Last reviewed: 2026-09-06
 
-| Dial | Trial |
-|------|-------|
-| Agents deployed | 5 |
-| Tools deployed | 5 |
-| MCP deployed | 5 |
-| Workflow recipes | Unlimited. Not a server. Running members count toward concurrent runs. |
-| Concurrent runs | 10. Extra invokes wait, then fail. A workflow step timeout fails the workflow. |
-| File via invoke upload | 50 MiB. Over is 413. |
-| API JSON body | 10 MiB. Over is 413. |
-| Cron | Named minimum every 5 minutes. Also every 15 minutes and hourly. One-minute is rejected. |
-| Fan-out copies | 1-64 |
-| Stages | At most 32 |
-| Retry | At most 3, transient only |
+Limits are part of the workflow design. Check them before packing.
 
-URL file input requires a host already packed on the agent. Google Drive and Docs share links are not 0.4.
+## Capacity
 
-Same-name deploy creates a new deployment id. Cron stays on the old id until you set cron on the new one and disable the old.
+A slot is one warm container for one deployment. The trial allows 10 live deployments and 5 concurrent runs. A three-agent workflow uses three slots when its three components are deployed. The workflow definition itself uses no slot. Undeploy a component to free its slot.
+
+```mermaid
+flowchart LR
+  A[Components] --> B[Deployments]
+  B --> C[Warm slots]
+  C --> D[Concurrent runs]
+  D --> E[Workflow members]
+  E --> F[Results]
+```
+
+## Payloads and files
+
+Input files are limited to 50 MiB at the workflow boundary and API request bodies to 10 MiB. A file pointer can pass a file through stages without embedding the file in every envelope. Keep the source file available to the component that consumes the pointer.
+
+## Unsupported paths
+
+Native human-in-the-loop, for-each, wait or delay, local multi-stage runs, join-any, spawn depth greater than one, and an undeclared standalone agent-to-agent call are unavailable. Use a declared pipeline, fan-out with join-all, choice, or a declared phone call. If a requested fact is not present in the installed CLI help or API source, verify it before relying on it.
+
+## File-through
+
+Pass a pointer when a file must move through stages. Keep the file within the limits of the API and workflow boundary.
+
+```mermaid
+flowchart LR
+  A[Input file] --> B[File pointer]
+  B --> C[Stage one]
+  C --> D[Stage two]
+  D --> E[Final artifact]
+```

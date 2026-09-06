@@ -1,28 +1,25 @@
----
-title: Workflow kinds and edges
-sidebar_label: Workflow kinds
----
+# Workflows
 
-# Workflow kinds and edges
+Workflows are signed recipes. They are stored under Workflows, do not take slots, and run only when their member deployments are ready.
 
-Use this page when you already know you need more than one step. A single agent is none of these: deploy it and invoke it.
+| Kind | Use it for | Edge behavior |
+|---|---|---|
+| Linear | A then B | The next stage receives the prior result. |
+| Fan-out | Several specialists in parallel | The parent waits for all selected branches. |
+| Choice | One selected branch | The condition selects the matching specialist. |
+| Phone call | A living agent calls B | The call must be declared in the envelope and both deployments must be ready. |
 
-## Linear
+```mermaid
+flowchart LR
+  A[Input] --> B{Kind}
+  B --> C[Linear edge]
+  B --> D[Fan-out edges]
+  B --> E[Choice edge]
+  B --> F[Phone-call edge]
+  C --> G[Workflow run]
+  D --> G
+  E --> G
+  F --> G
+```
 
-Default. A then B. A writes a work order and exits. B runs. A does not need to stay up.
-
-## Fan-out
-
-N copies of one child workflow. Join all only. Parent result must contain each child's answer, not only ids. Join-any is not shipped.
-
-## Choice
-
-Closed menu. Routes map a string to a child workflow. No default route. If the value is missing, not a string, or not declared, the run fails closed. The classifier cannot invent a branch. Create the branch workflows first.
-
-## Phone-call
-
-Only when a living A is required. A stays up and pays. A may call only the signed callee list. A call outside the list is denied. Stop A cancels that A's children. Depth is 1. Standalone A cannot call agents. Mixing choice or fan-out with callees is rejected.
-
-## Not in 0.4
-
-Native HITL, for-each, wait/delay, join-any, spawn deeper than 1, in-envelope stage jumps.
+Children are deployed before the parent. A standalone agent cannot call another agent outside the envelope. There is no for-each, wait, delay, join-any, or native human-in-the-loop path in this release. A local multi-stage `agentpaas run` is fail-closed; use the cloud envelope path for staged execution.
