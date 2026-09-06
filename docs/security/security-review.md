@@ -17,9 +17,13 @@ Use this page as the starting point for a security review of AgentPaaS. It links
 - [Credentials and secrets](./credentials) describes storage, gateway brokering, policy bindings, and credential audit records.
 - [Data handling and LLM providers](./data-handling) explains where prompts and tool data can go, US Cloud residency, and which provider settings remain your responsibility.
 
-## Evidence and attestations
+## Governance and audit
 
+- [Governance and audit](./governance-and-audit) explains how AgentPaaS connects workload identity, policy decisions, run lineage, and audit evidence.
+- [Runs and Audit Logs](../trial/runs-audit-logs) covers run status, logs, events, and operational review.
 - [Audit export and verification](./audit-export) covers signed, hash-chained JSONL exports and what verification can detect. Tail deletion remains a documented limitation.
+
+## Evidence and attestations
 - [Compliance and attestations](./compliance) states the current SOC 2 status, sole infrastructure subprocessor, US data residency, and penetration-testing status.
 
 ## Read the limits

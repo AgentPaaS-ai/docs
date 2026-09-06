@@ -27,6 +27,8 @@ Read these pages together. The threat model and enforcement page describe the se
 - [How enforcement works](https://docs.agentpaas.ai/security/how-enforcement-works)
 - [Known limitations](https://docs.agentpaas.ai/security/known-limitations)
 - [Credentials and secrets](https://docs.agentpaas.ai/security/credentials)
+- [Governance and audit](https://docs.agentpaas.ai/security/governance-and-audit)
+- [Runs, audit, and logs](https://docs.agentpaas.ai/trial/runs-audit-logs)
 - [Audit export and verification](https://docs.agentpaas.ai/security/audit-export)
 - [Compliance and attestations](https://docs.agentpaas.ai/security/compliance)
 - [Data handling](https://docs.agentpaas.ai/security/data-handling)
