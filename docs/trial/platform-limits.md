@@ -1,5 +1,7 @@
 # Platform limits
 
+Last reviewed: 2026-09-06
+
 Limits are part of the workflow design. Check them before packing.
 
 ## Capacity

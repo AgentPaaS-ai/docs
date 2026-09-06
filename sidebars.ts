@@ -3,8 +3,9 @@ import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 const sidebars: SidebarsConfig = {
   docs: [
     'index',
+    'documentation-map', 'faq',
     {type: 'category', label: 'AgentPaaS', collapsed: false, items: [
-      'trial/what-is-agentpaas', 'trial/index', 'trial/guided-demo', 'trial/install-macos', 'trial/concepts',
+      'trial/what-is-agentpaas', 'trial/choose-your-path', 'trial/index', 'trial/guided-demo', 'trial/install-macos', 'trial/concepts',
       {type: 'category', label: 'Agents', items: ['trial/agents', 'trial/build-agent', 'trial/guided-demo']},
       {type: 'category', label: 'MCP servers', items: ['trial/mcp-servers', 'trial/build-mcp-server', 'cli/mcp-demos']},
       {type: 'category', label: 'Tools', items: ['trial/tools', 'trial/build-tool']},
@@ -27,7 +28,7 @@ const sidebars: SidebarsConfig = {
       'cli/cloud', 'cli/invoke-tokens', 'cli/reference',
     ]},
     {type: 'category', label: 'Security', items: [
-      'security/threat-model', 'security/how-enforcement-works', 'security/credentials',
+      'security/security-review', 'security/threat-model', 'security/how-enforcement-works', 'security/credentials',
       'security/audit-export', 'security/trust-model', 'security/known-limitations',
       'security/data-handling', 'security/compliance',
     ]},

@@ -4,6 +4,8 @@ title: How enforcement works
 sidebar_label: How enforcement works
 ---
 
+Last reviewed: 2026-09-06
+
 # Policy, enforced by default
 
 AgentPaaS does not ask the model to "please behave." It places the agent where policy is enforced before any bytes leave. The same sealed bundle you build on a laptop runs under that model locally and on AgentPaaS Cloud. What changes between the two is how the enforcement is anchored, and we spell that out below rather than leave it to assumption.

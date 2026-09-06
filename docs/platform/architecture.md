@@ -4,6 +4,8 @@ title: Architecture
 sidebar_label: Architecture
 ---
 
+Last reviewed: 2026-09-06
+
 # AgentPaaS architecture
 
 This page gives security and platform teams a high-level view of how AgentPaaS builds, admits, runs, and audits agents, MCP servers, tools, and workflows. Use it to answer architecture and security RFI questions, then follow the linked pages for control-level detail.

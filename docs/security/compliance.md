@@ -4,6 +4,8 @@ title: Compliance and attestations
 sidebar_label: Compliance
 ---
 
+Last reviewed: 2026-09-06
+
 This page states where AgentPaaS stands on third-party compliance
 attestations, subprocessors, data residency, and penetration testing. We would
 rather you read an accurate answer here than assume one.
