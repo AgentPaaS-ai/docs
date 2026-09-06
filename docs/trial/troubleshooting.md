@@ -1,71 +1,21 @@
----
-id: troubleshooting
-title: Troubleshooting
-sidebar_label: Troubleshooting
----
+# Troubleshooting
 
-Use this page when the guided demo stops moving. Start with the section that matches what you see.
+## Login
 
-## Trial access and browser login
+Run `agentpaas cloud login` in your terminal and approve the same browser session used for the claim link. If Hermes waits for login, stop Hermes, run the command yourself, then approve in the claim browser. Never paste an `apc_` token into chat.
 
-### No trial access
+## Workflow invocation
 
-Request a trial at [agentpaas.ai](https://agentpaas.ai/). Open the claim link from the email you receive.
+If a workflow run fails with `deployment_not_found`, one of its member deployments was deleted or is missing. The workflow definition remains stored, but the affected stage cannot launch without its deployment. Redeploy every member component, then invoke the workflow again. Deleting a deployment also removes its secret bindings, so restore those bindings before the next run.
 
-### Hermes is stuck on Cloud login
+## Empty cloud output
 
-Run the login command in your Terminal:
+If `final_output` is empty, inspect secret bindings and the run logs before retrying.
 
-```bash
-agentpaas cloud login
-```
+## Pack failure
 
-Open the URL it prints in the same browser you used to claim the trial. Approve the login, then tell Hermes to continue.
+Cloud images need `agentpaas pack . --target linux/amd64`. Local multi-stage runs fail closed. Use a signed cloud envelope for staged execution.
 
-### You used the wrong browser
+## Missing Hermes tools
 
-Run the approval again in the browser you used for the claim. The CLI approval must use that browser.
-
-## Hermes and installation
-
-### AgentPaaS tools are missing
-
-Paste this into Hermes again:
-
-```text
-Install from https://github.com/AgentPaaS-ai/agentpaas
-```
-
-Quit the session with `/quit`, restart Hermes, and paste the instruction again.
-
-### macOS blocks a binary
-
-Ask Hermes how to clear the quarantine flag. You can also right-click the app and choose **Open**.
-
-## The agent runs without an answer
-
-### The weather response or LLM answer is empty
-
-Ask Hermes to check the Cloud secret bindings for the deployment. Bind your OpenRouter or other LLM secret to the host used by the deployment.
-
-### The run shows a policy denial
-
-Open the lineage and audit records. Look for `egress_denied`.
-
-If the denied host is required, add only that host to the policy, then repack the agent and run it again.
-
-## Finding results in the console
-
-### The run is missing
-
-Open **Runs**, filter by time, and expand the matching row.
-
-### You want an automated schedule
-
-Ask Hermes:
-
-```text
-Schedule this deployment every 5 minutes
-```
-
-Still stuck? Reply to your trial email thread or contact [agentpaas.ai](https://agentpaas.ai/).
+Run `/quit`, reopen Hermes, and run the AgentPaaS doctor command.

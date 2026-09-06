@@ -1,11 +1,11 @@
 ---
 id: guided-demo
 slug: /trial/guided-demo
-title: Guided demo
-sidebar_label: Guided demo
+title: Agent Guided Demo
+sidebar_label: Agent Guided Demo
 ---
 
-# Build your first governed AI agent
+# Agent Guided Demo: Build your first governed AI agent
 
 In this guided demo, you will build a friendly weather agent with Hermes, run it locally, and deploy the same agent to AgentPaaS Cloud.
 
@@ -36,7 +36,7 @@ Follow the steps in order. Paste the Hermes prompts exactly as written, and run 
 
 ## Step 1: Claim your trial
 
-Open the claim link in your invite email using the browser you plan to use for the demo. Create your password, or choose Google sign-in. Use the same email address that received the trial invitation.
+Open the claim link in your invite email using the browser you plan to use for the demo. Create your password using the sign-in option shown in the claim page. Use the same email address that received the trial invitation.
 
 Your trial is ready when you can open https://cloud.agentpaas.ai/ and see the AgentPaaS console.
 
@@ -112,7 +112,7 @@ agentpaas cloud login
 
 ## Step 6: Look in the console
 
-Open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and check **Agents**, **Deployments**, and **Runs**. Expand a row to see detail.
+Open [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) and check **Components**, **Workflows**, **Deployments**, **Runs**, and **Logs**. Expand a row to see detail. The weather walkthrough remains a single-agent run, not a workflow.
 
 Optional: Schedule an automated run
 
@@ -136,6 +136,6 @@ You built and ran an agent under runtime controls, then deployed the same govern
 
 You have now seen how AgentPaaS contains an agent's access, records its actions, and carries the same controls from local development into the Cloud.
 
-Ready to run agents with your team? Sign up for the **TEAM** or **ENTERPRISE** plan in the [AgentPaaS Cloud console](https://cloud.agentpaas.ai/).
+For limits and optional multi-step workflows, see [platform limits](./platform-limits) and [workflows](./workflows).
 
 If something fails: [Troubleshooting](./troubleshooting).

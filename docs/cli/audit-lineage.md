@@ -1,52 +1,31 @@
 ---
 id: audit-lineage
-title: Audit and lineage
-sidebar_label: Audit and lineage
+title: Runs and Logs
+sidebar_label: Runs and Logs
 ---
 
-## audit (local)
+A run is one execution. The console lists it under Runs. The signed,
+hash-chained evidence of execution and policy decisions is under Logs.
+Documentation calls the four-control mechanism Audit. Logs are not stdout.
+
+Use the run identifier shown after invoke to inspect the result and logs.
+
+## Export and verify
+
+You can export a run's audit trail and verify its hash chain on a second
+machine. This is the workflow a security reviewer uses to trust run evidence.
 
 ```bash
-agentpaas audit
-agentpaas audit export
+agentpaas audit query
+agentpaas audit query --run-id <run-id>
+agentpaas audit export --output audit.jsonl
+agentpaas audit verify --file audit.jsonl
 ```
 
-Inspect harness events for runs under `~/.agentpaas/state/runs/`.
+See [Audit export and verification](/security/audit-export) for the record
+format, what verification detects, and the tail-truncation limitation.
 
-Useful event types:
+## Related
 
-| Event | Meaning |
-|-------|---------|
-| `egress_allowed` | Gateway allowed a host on policy |
-| `egress_denied` | Gateway blocked a host |
-| run lifecycle | start / end / failure |
-
-Example denial shape:
-
-```json
-{
-  "event_type": "egress_denied",
-  "actor": "gateway",
-  "payload": {
-    "domain": "evil.example.com",
-    "reason": "policy_denied"
-  }
-}
-```
-
-## provenance
-
-```bash
-agentpaas provenance <ref>
-```
-
-Signed build / publisher chain for the artifact.
-
-## Cloud
-
-```bash
-agentpaas cloud audit
-agentpaas cloud audit export <run-id>
-agentpaas cloud events <run-id>
-agentpaas cloud metrics
-```
+- [Audit export and verification](/security/audit-export)
+- [How enforcement works](/security/how-enforcement-works)

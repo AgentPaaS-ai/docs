@@ -1,15 +1,10 @@
----
-id: cloud-login
-title: Cloud login
-unlisted: true
----
+# Log in to Cloud
 
-Covered in the [guided demo](./guided-demo) (Step 6).
-
-When Hermes needs cloud access, run in **your** Terminal:
+Open your claim link in a browser first. Then run login in your own terminal and confirm the tenant.
 
 ```bash
 agentpaas cloud login
+agentpaas cloud whoami
 ```
 
-Approve in the same browser you used to claim the trial, then tell Hermes to continue.
+For scripted access, use the token supplied by the operator through stdin. Never paste the token into chat. If Hermes gets stuck, stop it and complete these commands yourself.

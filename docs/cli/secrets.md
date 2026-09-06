@@ -1,29 +1,40 @@
 ---
 id: secrets
-title: Secrets
+title: Secrets and bindings
 sidebar_label: Secrets
 ---
 
-Secrets live in the macOS Keychain. **Values are never printed** by `list`.
-
-## Local
+Store secret values locally through stdin. Push the label to Cloud, then bind
+the label to a deployment. Values are brokered at request time. The agent
+never holds the raw secret. For the mechanism and what the gateway enforces,
+see [Credentials and secrets](/security/credentials).
 
 ```bash
-# create / update (value from stdin or TTY prompt)
-agentpaas secret add openrouter
-printf '%s' "$OPENROUTER_API_KEY" | agentpaas secret add openrouter
-
-agentpaas secret list
-agentpaas secret rotate openrouter
-agentpaas secret test openrouter --provider openrouter
-agentpaas secret remove openrouter
+agentpaas secret add <label>
+agentpaas cloud secrets push <label>
+agentpaas cloud secrets bind <deployment-id> <label> --as bearer --host <approved-host>
+agentpaas cloud secrets bindings <deployment-id>
 ```
 
-Aliases: `secret` and `secrets`.
+## Local secret commands
 
-## Rules for agents
+Values are read from stdin (or a TTY prompt) and are never printed back.
 
-1. Never ask the user to paste a key into chat.  
-2. Coach: run `secret add <label>` in the **user terminal**.  
-3. Confirm with `secret list` (labels only).  
-4. For cloud, push and bind after deploy (see [Cloud](./cloud)).
+```bash
+printf '%s' "$KEY" | agentpaas secret add <label>   # create or update (alias: set)
+agentpaas secret list                               # names + timestamps, never values
+agentpaas secret test <label> --provider <name>     # verify a credential works
+printf '%s' "$NEW" | agentpaas secret rotate <label> # atomic replace
+agentpaas secret remove <label>                     # delete (alias: rm)
+```
+
+## Cloud secrets
+
+`cloud secrets list` and `cloud secrets bindings` print labels only, never
+values. If `cloud secrets` deletion returns a conflict while a deployment is
+bound, rotate the same label or unbind it first.
+
+## Related
+
+- [Credentials and secrets](/security/credentials)
+- [Data handling and LLM providers](/security/data-handling)
