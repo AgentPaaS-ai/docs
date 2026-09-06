@@ -126,7 +126,7 @@ are not fully shipped. See [Known limitations](./security/known-limitations).
 ## What can customers verify themselves?
 
 Customers can inspect the signed package and its declared policy, review the
-destination and credential bindings, and export the signed, hash-chained audit
+destination and credential bindings, and use the [governance and audit guide](./security/governance-and-audit) to inspect runs and export the signed, hash-chained audit
 trail. Run `agentpaas audit verify --file audit.jsonl` on a second machine to
 check modified, reordered, or inserted records. Verification does not detect
 truncation of the final records without an external checkpoint anchor. See

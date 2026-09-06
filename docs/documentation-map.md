@@ -25,7 +25,8 @@ Use this map to choose a starting page by task. The links are grouped by the wor
 | Compare enforcement tiers | [How enforcement works](./security/how-enforcement-works) | [Threat model](./security/threat-model), [Known limitations](./security/known-limitations) |
 | Review security boundaries and claims | [Threat model](./security/threat-model) | [Known limitations](./security/known-limitations), [Architecture](./platform/architecture) |
 | Check current security gaps | [Known limitations](./security/known-limitations) | [Threat model](./security/threat-model), [Audit export](./security/audit-export) |
-| Export and verify audit evidence | [Audit export](./security/audit-export) | [Audit and lineage](./cli/audit-lineage), [Known limitations](./security/known-limitations) |
+| Review governance and audit | [Governance and audit](./security/governance-and-audit) | [Runs, audit, and logs](./trial/runs-audit-logs), [Audit export](./security/audit-export), [Audit and lineage](./cli/audit-lineage) |
+| Export and verify audit evidence | [Audit export](./security/audit-export) | [Governance and audit](./security/governance-and-audit), [Known limitations](./security/known-limitations) |
 | Review compliance status and subprocessors | [Compliance and attestations](./security/compliance) | [Threat model](./security/threat-model), [Data handling](./security/data-handling) |
 | Check data residency and provider handling | [Data handling](./security/data-handling) | [Architecture](./platform/architecture), [Compliance and attestations](./security/compliance) |
 | Review package identity and provenance | [Trust model](./security/trust-model) | [Identity and trust](./cli/identity-trust), [Known limitations](./security/known-limitations) |

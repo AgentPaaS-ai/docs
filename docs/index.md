@@ -22,6 +22,7 @@ This documentation covers the AgentPaaS platform and the open source AgentPaaS C
 | Build a tool | [Build a tool](./trial/build-tool) |
 | Build a workflow | [Build workflows](./trial/workflows) |
 | Review security | [Security review](./security/security-review) |
+| Review governance and audit | [Governance and audit](./security/governance-and-audit) |
 | Choose a platform path | [Choose your path](./trial/choose-your-path) |
 | Use the CLI | [CLI overview](./cli/) |
 | Get answers | [Q&A](./faq) |

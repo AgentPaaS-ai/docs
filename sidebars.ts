@@ -5,7 +5,7 @@ const sidebars: SidebarsConfig = {
     'index',
     'documentation-map', 'faq',
     {type: 'category', label: 'AgentPaaS', collapsed: false, items: [
-      'trial/what-is-agentpaas', 'trial/index', 'trial/guided-demo',
+      'trial/what-is-agentpaas', 'trial/index', 'trial/guided-demo', 'trial/concepts', 'trial/choose-your-path',
       {type: 'category', label: 'Agents', items: ['trial/agents', 'trial/build-agent']},
       {type: 'category', label: 'MCP servers', items: ['trial/mcp-servers', 'trial/build-mcp-server', 'cli/mcp-demos']},
       {type: 'category', label: 'Tools', items: ['trial/tools', 'trial/build-tool']},
@@ -16,12 +16,15 @@ const sidebars: SidebarsConfig = {
       {type: 'category', label: 'Athena', collapsed: false, items: [
         'trial/what-athena-can-do', 'trial/athena-questions', 'trial/athena-debugging',
       ]},
-      'trial/choose-your-path', 'trial/install-macos', 'trial/concepts',
-      'trial/runs-audit-logs', 'trial/troubleshooting',
+      'trial/install-macos', 'trial/troubleshooting',
     ]},
     {type: 'category', label: 'Security', items: [
-      'security/security-review', 'security/threat-model', 'security/how-enforcement-works', 'security/credentials',
-      'security/audit-export', 'security/trust-model', 'security/known-limitations',
+      'security/security-review',
+      {type: 'category', label: 'Governance and audit', items: [
+        'security/governance-and-audit', 'trial/runs-audit-logs', 'security/audit-export',
+      ]},
+      'security/threat-model', 'security/how-enforcement-works', 'security/credentials',
+      'security/trust-model', 'security/known-limitations',
       'security/data-handling', 'security/compliance',
     ]},
     {type: 'category', label: 'Platform', items: ['platform/architecture', 'platform/access-control']},
