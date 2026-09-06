@@ -4,13 +4,29 @@ slug: /
 title: AgentPaaS documentation
 ---
 
-AgentPaaS.ai is the secure PaaS for agents, apps, MCP servers, and agentic workflows. You can deploy your enterprise agentic integration workflows securely at scale, with end-to-end auditability and governance.
+AgentPaaS is a secure PaaS for building, deploying, and governing agents, applications, MCP servers, and agentic integration workflows.
 
 # AgentPaaS documentation
 
-Welcome to AgentPaaS.ai Documentation - The Agent Platform as a Service, and the Opensource AgentPaaS CLI.
+This documentation covers the AgentPaaS platform and the open source AgentPaaS CLI.
 
 > **Learn with Athena:** If you want help understanding AgentPaaS or using the platform, ask Athena, the integrated Hermes chatbot in your tenancy. Try asking, “How do I build an agent?”
+
+## Choose a path
+
+| If you want to... | Start here |
+|---|---|
+| Understand the product | [Product overview](./trial/what-is-agentpaas) |
+| Build an agent | [Build an agent](./trial/build-agent) |
+| Build an MCP server | [Build an MCP server](./trial/build-mcp-server) |
+| Build a tool | [Build a tool](./trial/build-tool) |
+| Build a workflow | [Build workflows](./trial/workflows) |
+| Review security | [Security review](./security/security-review) |
+| Choose a platform path | [Choose your path](./trial/choose-your-path) |
+| Use the CLI | [CLI overview](./cli/) |
+| Get answers | [Q&A](./faq) |
+
+See the [documentation map](./documentation-map) for the full page tree.
 
 ## Get your free trial
 
@@ -31,6 +47,7 @@ The free trial lasts 30 days, requires no card, and includes the Individual tier
 | AgentPaaS | [What is AgentPaaS?](./trial/what-is-agentpaas), [Get your free trial](./trial/) and [Agent Guided Demo](./trial/guided-demo) |
 | AgentPaaS CLI | [CLI overview](./cli/) |
 | What shipped | [Release notes v0.4.0](./releases/v0.4.0) |
+| Documentation | [Documentation map](./documentation-map), [Q&A](./faq) |
 || Cloud console | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
 || Product home | [agentpaas.ai](https://agentpaas.ai/) |
 

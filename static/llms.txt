@@ -1,0 +1,82 @@
+# AgentPaaS documentation
+
+AgentPaaS is a platform for deploying agents, apps, MCP servers, tools, and agentic workflows. The documentation covers the AgentPaaS Cloud service, the local runtime, and the `agentpaas` CLI.
+
+## Reading this documentation
+
+Every documentation page has a raw Markdown form. Append `.md` to the page path and fetch it with an HTTP client or retrieval tool.
+
+- HTML: `https://docs.agentpaas.ai/security/threat-model`
+- Raw Markdown: `https://docs.agentpaas.ai/security/threat-model.md`
+
+The `.md` URL returns `text/markdown`. The content is the same as the HTML page, without the site rendering. Use raw Markdown when you need page content for an agent or other programmatic reader. Links in this file point to documented pages and use the site page paths without `.md`; append `.md` when fetching them as raw Markdown.
+
+## Start here
+
+- [Documentation home](https://docs.agentpaas.ai/)
+- [What is AgentPaaS?](https://docs.agentpaas.ai/trial/what-is-agentpaas)
+- [The 30-minute path](https://docs.agentpaas.ai/trial/02-thirty-minute-path)
+- [CLI overview](https://docs.agentpaas.ai/cli/)
+- [Architecture](https://docs.agentpaas.ai/platform/architecture)
+
+## Security and assurance
+
+Read these pages together. The threat model and enforcement page describe the security model. Known limitations records current gaps.
+
+- [Threat model](https://docs.agentpaas.ai/security/threat-model)
+- [How enforcement works](https://docs.agentpaas.ai/security/how-enforcement-works)
+- [Known limitations](https://docs.agentpaas.ai/security/known-limitations)
+- [Credentials and secrets](https://docs.agentpaas.ai/security/credentials)
+- [Audit export and verification](https://docs.agentpaas.ai/security/audit-export)
+- [Compliance and attestations](https://docs.agentpaas.ai/security/compliance)
+- [Data handling](https://docs.agentpaas.ai/security/data-handling)
+- [Trust model](https://docs.agentpaas.ai/security/trust-model)
+
+### Enforcement distinctions
+
+- Local runtime enforcement is topological. The agent container uses an internal-only network behind a gateway sidecar, with no route out except through the gateway.
+- AgentPaaS Cloud default-tier enforcement is at the per-instance egress boundary through the control plane and gateway. This tier does not claim substrate-enforced isolation.
+- The paid, on-request high-assurance tier adds substrate-enforced network policy in a dedicated Kubernetes namespace. The policy is enforced by the kernel independently of AgentPaaS code.
+- Governed network traffic is HTTP and HTTPS. Raw TCP, UDP, and ICMP are outside the current transparent proxy model.
+- AgentPaaS does not claim to prevent prompt injection. The controls contain an agent's blast radius and do not replace customer review of code, dependencies, policies, destinations, provider terms, or incident response.
+- AgentPaaS is working toward SOC 2 and is not yet certified.
+- AgentPaaS Cloud data is processed and stored in the United States.
+
+## CLI reference
+
+- [CLI overview and command map](https://docs.agentpaas.ai/cli/)
+- [Install](https://docs.agentpaas.ai/cli/install)
+- [Daemon](https://docs.agentpaas.ai/cli/daemon)
+- [Doctor](https://docs.agentpaas.ai/cli/doctor)
+- [Projects](https://docs.agentpaas.ai/cli/projects)
+- [Pack and run](https://docs.agentpaas.ai/cli/pack-run)
+- [Secrets](https://docs.agentpaas.ai/cli/secrets)
+- [Identity and trust](https://docs.agentpaas.ai/cli/identity-trust)
+- [Policy](https://docs.agentpaas.ai/cli/policy)
+- [Audit and lineage](https://docs.agentpaas.ai/cli/audit-lineage)
+- [Cloud](https://docs.agentpaas.ai/cli/cloud)
+- [Cron](https://docs.agentpaas.ai/cli/cron)
+- [CLI reference](https://docs.agentpaas.ai/cli/reference)
+
+The CLI accepts the global `--json` flag for machine-readable output.
+
+## Product and operations
+
+- [AgentPaaS concepts](https://docs.agentpaas.ai/trial/concepts)
+- [Agents](https://docs.agentpaas.ai/trial/agents)
+- [Build an agent](https://docs.agentpaas.ai/trial/build-agent)
+- [MCP servers](https://docs.agentpaas.ai/trial/mcp-servers)
+- [Tools](https://docs.agentpaas.ai/trial/tools)
+- [Workflows](https://docs.agentpaas.ai/trial/workflows)
+- [Workflow kinds and edges](https://docs.agentpaas.ai/trial/workflow-kinds-and-edges)
+- [Gateway](https://docs.agentpaas.ai/trial/gateway)
+- [Gateway security](https://docs.agentpaas.ai/trial/gateway-security)
+- [Runs, audit, and logs](https://docs.agentpaas.ai/trial/runs-audit-logs)
+- [Cloud login](https://docs.agentpaas.ai/trial/cloud-login)
+- [LLM key guide](https://docs.agentpaas.ai/trial/llm-key)
+- [Platform limits](https://docs.agentpaas.ai/trial/platform-limits)
+- [Troubleshooting](https://docs.agentpaas.ai/trial/troubleshooting)
+
+## Release information
+
+- [Release notes v0.4.0](https://docs.agentpaas.ai/releases/v0.4.0)

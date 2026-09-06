@@ -3,6 +3,8 @@ id: threat-model
 title: Threat model
 ---
 
+Last reviewed: 2026-09-06
+
 AgentPaaS contains agent blast radius with isolation, default-deny egress, brokered credentials, and tamper-evident audit.
 
 Full narrative (marketing-styled): [agentpaas.ai/docs/threat-model](https://agentpaas.ai/docs/threat-model/) (redirects here after cutover may apply).

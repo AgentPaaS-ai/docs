@@ -4,6 +4,8 @@ title: Known limitations
 sidebar_label: Known limitations
 ---
 
+Last reviewed: 2026-09-06
+
 This page records accepted trade-offs and capability gaps in the current
 release. A listed gap must not be mistaken for a shipped, operator-ready
 feature merely because a design or specification exists.
