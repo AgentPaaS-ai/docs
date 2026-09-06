@@ -1,54 +1,62 @@
----
-id: what-is-agentpaas
-slug: /trial/what-is-agentpaas
-title: What is AgentPaaS?
-sidebar_label: What is AgentPaaS?
----
+# What is AgentPaaS?
 
-{/* COPY TWIN: oss/docs/customer/trial/01-what-agentpaas-is.md. Change both or neither. */}
+AgentPaaS.ai is the secure PaaS for agents, apps, MCP servers, and agentic workflows. You can deploy your enterprise agentic integration workflows securely at scale, with end-to-end auditability and governance.
 
-AgentPaaS is a secure execution platform for agents you cannot trust. Every agent runs in an isolated container, behind default-deny egress, with gateway-brokered credentials and a tamper-evident audit trail.
+## Why Agentic workflows are harder to secure?
 
-Build, pack, and run on macOS with the open-source CLI. Deploy the same governed agents to [AgentPaaS Cloud](https://cloud.agentpaas.ai/).
+Non-deterministic workflows, also called agentic workflows, are inherently harder to secure because agents can choose actions at runtime. Prompt hacking can redirect an agent, generated code or dependencies can introduce malicious behavior, and exposed credentials can leak through tool calls or outbound requests. Agents can also access data they should not see, use tools in unsafe ways, or make changes that are difficult to trace.
 
-## Four controls
+## What is the security exposure?
 
-1. Isolated container
-2. Default-deny egress
-3. Gateway-brokered credentials
-4. Tamper-evident audit
+A redirected agent or an agent with excessive access can turn a model-level error into an enterprise security incident. Possible impacts include unauthorized data access, credential exposure, unapproved changes in connected systems, and loss of confidence in the affected workflow's outputs. Investigation also becomes harder when actions are difficult to trace.
 
-The documentation word for that trail is **Audit**. The cloud console navigation label is **Logs**.
+Treat agentic workflows as production workloads. Define their allowed network destinations and required secrets, limit permissions to the task, review packages and dependencies, and retain audit exports for incident investigation. AgentPaaS reduces the agent's blast radius through the controls below. It does not replace application authorization, data classification, approval requirements for high-impact actions, or your incident response process.
 
-## The object path
+## How does AgentPaaS contain the risk?
 
-Hermes packs and pushes a component into the registry. Deploy the parts you want live; they show under Deployments and take slots. Compose a workflow from those components; it shows under Workflows and is not live compute. Invoke a deployed agent (no workflow required) or invoke a workflow; both show under Runs. Evidence of what ran is under Logs.
+AgentPaaS runs agents in an isolated container, on a default-deny network, with gateway-brokered credentials and a tamper-evident audit trail.
 
-A single agent does not need a workflow. Deploy it, invoke it. That is a run. The weather trial is this path. A workflow is only for more than one step: A then B, A phones B, choice, or fan-out. There is no deploy-the-workflow object. Ready means every member component is already deployed. That status belongs on the Workflows card, not as a Deployments row.
+The four controls are:
 
-The console is read-only. Create, pack, deploy, and invoke happen in Hermes or the CLI.
+- Isolated container
+- Default-deny egress
+- Gateway-brokered credentials
+- Tamper-evident audit
 
-## Two surfaces
+## Here is how you can use AgentPaaS:
 
-| Surface | What |
-|---------|------|
-| Local (macOS) | `agentpaas` CLI, daemon, Docker/Colima. Pack and run on your machine. |
-| Cloud | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/). Push, deploy, invoke, cron. Claim-link trial, not open signup. |
+1. **Build and evaluate locally.** Build your agent in Hermes, then test it and evaluate its behavior in your own environment.
+2. **Pack it with AgentPaaS.** When the agent is ready, pack it with AgentPaaS. Confirm that its declared egress and required secrets work before sending it to the cloud.
+3. **Push the component to the cloud.** AgentPaaS pushes the signed package to the cloud component registry.
+4. **Deploy the component.** Deploy the component to make it available for invocation.
+5. **Invoke the agent.** Run the deployed agent when you are ready to execute it.
+6. **Inspect the run logs.** Each invocation creates a run, and the platform records logs and audit evidence for that run.
 
-## What 0.4 includes
+Try now: [Agent Guided Demo](guided-demo.md).
 
-- Governed MCP and tool deployments
-- Signed cloud workflows: linear, fan-out (join all), choice (fail-closed), phone-call (depth 1)
-- Read-only console: Components, Workflows, Deployments, Runs, Logs
-- Cron (named minimum every 5 minutes), webhooks via Hermes or the API, file inputs (50 MiB)
+Workflows follow the same path. Build and evaluate each agent in Hermes, pack each component with AgentPaaS, and push the components to the cloud component registry. Compose the workflow from those registry components, deploy the components it needs, then invoke the workflow. The workflow run appears under **Runs**, and its execution records appear under **Logs**.
 
-## What it does not do yet
+The working pattern is simple: build securely in your own environment, then push to AgentPaaS Cloud when you are ready to run and scale agentic workflows. The number of live deployments and concurrent runs depends on your trial or plan limits. See [platform limits](platform-limits.md) before composing a workflow.
 
-- Linux or Windows local runtime (macOS only for local)
-- Open self-serve signup (trial is a claim-link invite)
-- Production-grade multi-tenant vault isolation (cloud secrets are a preview vault)
-- Local multi-stage run (fail-closed; use a cloud envelope)
-- Native HITL, join-any, for-each, wait/delay, spawn deeper than 1
-- OpenAI or Anthropic as the stranger cold LLM path (use OpenRouter first)
+```mermaid
+flowchart TD
+  A["1. Build and evaluate in Hermes"] --> B["2. Pack with AgentPaaS"]
+  B --> C["3. Push to cloud component registry"]
+  C --> D["4. Deploy component"]
+  D --> E["5. Invoke agent"]
+  E --> F["6. Run and logs"]
+  C --> G["3a. Compose workflow locally"]
+  G --> H["4a. Push workflow definition to cloud"]
+  H --> I["5a. Invoke workflow"]
+  I --> F
+```
 
-Next: [Guided demo](./guided-demo). Kinds and numbers: [workflow kinds](./workflow-kinds-and-edges) and [platform limits](./platform-limits).
+A single agent, MCP server, or tool application does not need a workflow. Build and test it in Hermes or your own environment, pack it with AgentPaaS, push its component to the cloud registry, deploy it, and invoke the deployment. The weather demo follows this single-agent path.
+
+Use a workflow when a task needs more than one step. A step can be an agent or a tool. The workflow can run one component after another, choose a branch, fan out work, or make a phone call to another agent. Compose the workflow locally from its components, then pack and push the components, deploy every member component, and push the workflow definition to the cloud. Invoke the workflow after its member components are deployed. The workflow is a recipe, not a deployment. See [workflows](workflows.md) for the details.
+
+The console is read-only. Use Hermes or the CLI to create, pack, deploy, and invoke. Open **Logs** in the console to inspect execution records. In this documentation, **Audit** names the evidence trail for the four controls.
+
+> **Note:** You can build any agent with Hermes on your Mac. Windows support is coming.
+
+See [workflow kinds and edges](workflow-kinds-and-edges.md) and [platform limits](platform-limits.md) before composing a workflow.

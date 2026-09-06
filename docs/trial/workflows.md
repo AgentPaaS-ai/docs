@@ -1,32 +1,46 @@
----
-title: Workflows
-sidebar_label: Workflows
----
+# Build a workflow
 
-# Workflows
+> **Use Hermes for the whole flow:** Ask Hermes to build a workflow and it can run the AgentPaaS CLI commands for composing, pushing, starting, and inspecting it. You still approve cloud login in your browser and enter private credentials in your Terminal when prompted.
 
-A workflow is a signed recipe. It names components you already packed. It is not a deployment and it does not take a slot.
+Use a workflow when a task needs more than one step. Build and evaluate the member agents or tools locally, deploy those components, then create and push the signed workflow definition.
 
-Ready means every member component is already deployed. That status lives on the Workflows card. There is no deploy-the-workflow object.
+```mermaid
+flowchart LR
+  A[Prompt in Hermes] --> B[Workers and policy]
+  B --> C[Signed envelope]
+  C --> D[Stored workflow]
+  D --> E[Start]
+  E --> F[Workflow run]
+  F --> G[Console graph and Logs]
+```
 
-## Path
+## Authoring path
 
-1. In Hermes, describe the job. Hermes shows the graph and waits for yes.
-2. Create child workflows first, then the parent.
-3. Start once.
-4. Watch the run under Runs. The signed trail is under Logs.
+1. Tell Hermes what the workflow should do.
+2. Let Hermes write the workers and signed envelope.
+3. Show the Mermaid graph and confirm it.
+4. Pack and push the components.
+5. Deploy children first, then the parent component.
+6. Resolve real component, deployment, and workflow IDs from the API.
+7. Start once on a cold walkthrough.
 
-Weather is not this path. Weather is pack, deploy, invoke. One agent.
+Use this prompt:
 
-## Shapes in 0.4
+> Build a support workflow. Classify the ticket as refund, escalate, or close, then run only the matching specialist.
 
-| Kind | When | Edge |
-|------|------|------|
-| Linear | A then B | A writes a work order and exits. B runs. |
-| Fan-out | N copies of one child | Join all. Parent shows each child answer, not only ids. |
-| Choice | Closed menu after a classifier | No default route. Undeclared value fails closed. |
-| Phone-call | Living A must stay up | Depth 1. Off-list denied. Stop A cancels those children. |
+A workflow is a recipe. A deployment is live compute. A run is one execution. Do not deploy a workflow. Ready means every member component is already deployed. The console graph is read-only.
 
-Not in 0.4: native HITL, join-any, for-each, wait/delay, spawn deeper than 1.
+The default is a pipeline. A phone call is for a living agent that must call another living agent. A call outside the signed envelope fails closed.
 
-See also [workflow kinds and edges](./workflow-kinds-and-edges) and the [CLI overview](/cli/).
+See [Workflows](workflow-kinds-and-edges.md), [MCP servers](mcp-servers.md), [Tools](tools.md), and [Platform limits](platform-limits.md).
+
+## Phone-call shape
+
+Use a phone call only when the parent agent must stay alive while a named teammate works.
+
+```mermaid
+flowchart LR
+  A[Living agent A] --> B[Signed call edge]
+  B --> C[Deployed agent B]
+  C --> D[Returned result]
+```

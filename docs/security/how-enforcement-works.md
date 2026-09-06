@@ -4,6 +4,8 @@ title: How enforcement works
 sidebar_label: How enforcement works
 ---
 
+Last reviewed: 2026-09-06
+
 # Policy, enforced by default
 
 AgentPaaS does not ask the model to "please behave." It places the agent where policy is enforced before any bytes leave. The same sealed bundle you build on a laptop runs under that model locally and on AgentPaaS Cloud. What changes between the two is how the enforcement is anchored, and we spell that out below rather than leave it to assumption.
@@ -30,7 +32,7 @@ AgentPaaS does not ask the model to "please behave." It places the agent where p
                                                  declared allow-listed destinations only
 ```
 
-Build and sign locally. Deploy the same sealed bundle to cloud. Isolation, default-deny egress, brokered credentials, and tamper-evident audit. Same guarantees on any substrate.
+Build and sign locally, then deploy the sealed bundle to AgentPaaS Cloud. The policy model remains the same. The enforcement mechanism depends on the tier.
 
 ## What the diagram is saying
 
@@ -43,7 +45,7 @@ On the right, the agent runs in an isolated **container**. Its allowed destinati
 Widening what an agent can touch always means changing the declared allow list and repacking, not hoping a prompt holds. That is true on every tier. What differs is the strength of the guarantee underneath.
 
 - **Locally, enforcement is topological.** The agent container sits on an internal-only network behind a dedicated gateway sidecar, so there is no route out except through the gateway. That holds because of the network's shape.
-- **On cloud's default tier, enforcement is at the egress boundary.** The per-instance egress policy and the gateway do the same job, but they are enforced by our control plane and proven on every release by review plus adversarial testing, rather than by the network shape.
+- **On Cloud's default tier, enforcement is at the egress boundary.** The per-instance egress policy and gateway enforce the boundary through the control plane. This tier does not claim substrate-enforced isolation.
 - **On the high-assurance tier (paid, on request), enforcement is substrate-level.** Workloads run in a dedicated Kubernetes namespace with a network policy compiled from your signed policy and enforced by the kernel, independent of our code.
 
 We do not claim substrate-enforced isolation on the default tier. That claim belongs to the high-assurance tier, and the [threat model](./threat-model) says so plainly.

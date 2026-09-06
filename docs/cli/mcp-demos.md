@@ -19,7 +19,7 @@ agentpaas cloud deployments
 # note kind=mcp deployment id, e.g. dep_…
 ```
 
-Pack and deploy an MCP package if you do not have one yet (`kind: mcp_service` in the package, then `cloud push` and deploy with MCP kind). Demo package path used in founder gates:
+Pack and deploy an MCP package if you do not have one yet (`kind: mcp_service` in the package, then `cloud push` and deploy with MCP kind). Try the MCP package from an example local project path:
 
 ```text
 # example local tree (builders)
