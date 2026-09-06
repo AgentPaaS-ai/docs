@@ -1,28 +1,14 @@
----
-id: dashboard-tour
-title: Console tour
-sidebar_label: Console tour
----
+# Dashboard tour
 
-The cloud console at [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) is the human view of your AgentPaaS Cloud account. Use it to see what Hermes pushed, what is deployed, what is running, and what each run did.
+The cloud console is read-only. Build agents, MCP servers, tools, and agentic workflows in Hermes with the AgentPaaS SDK. Use Hermes or the AgentPaaS CLI to pack, push, deploy, and invoke them. The console mirrors those operations for monitoring, governance, and audits.
 
-All changes go through the AgentPaaS CLI, including deploy, undeploy, adding or rotating secrets and keys, and changing schedules. Run the CLI through an Agent on your Mac using Hermes. The console shows the resulting state for you to review.
+Use [Athena](what-athena-can-do.md) when you need help or want to investigate a run from the console.
 
-## Tabs
+- **Components**: signed packed agents, MCP servers, and tools admitted to the registry.
+- **Workflows**: signed recipes and their graphs. A workflow is not a deployment.
+- **Deployments**: live agents, MCP servers, and tools using warm slots.
+- **Runs**: standalone invokes and workflow executions.
+- **Logs**: the signed, hash-chained execution and policy trail.
+- **Settings**: tenant settings, schedules, and usage.
 
-| Tab | What you see |
-|-----|----------------|
-| **Overview** | Trial status, high-level counts |
-| **Agents** | Your agent images; expand a row for provenance and details |
-| **Deployments** | What is live in the cloud; expand for invoke info |
-| **Runs** | History of invokes; expand under the row for summary and events |
-| **Cron** | Schedules (view only - ask Hermes to change them) |
-| **Secrets** | Labels only (never secret values) |
-| **Tokens** | API tokens for automation |
-| **Usage / Plan** | Trial usage |
-
-## Tips
-
-- Large lists: filter, page size, and counts sit on the table.  
-- Click a row to expand detail **under** that row.  
-- After the [guided demo](./guided-demo), you should find your weather agent, a deployment, and at least one run.
+Look in Logs after an invoke. Logs are not run stdout. The four-control documentation word is Audit.
