@@ -18,21 +18,21 @@ const sidebars: SidebarsConfig = {
       ]},
       'trial/runs-audit-logs', 'trial/troubleshooting',
     ]},
-    {type: 'category', label: 'Operations', collapsed: true, items: [
-      'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
-      'trial/webhooks', 'trial/platform-limits',
-    ]},
-    {type: 'category', label: 'AgentPaaS CLI', collapsed: true, items: [
-      'cli/index', 'cli/install', 'cli/daemon', 'cli/doctor', 'cli/projects', 'cli/pack-run',
-      'cli/secrets', 'cli/identity-trust', 'cli/policy', 'cli/audit-lineage', 'cli/cron',
-      'cli/cloud', 'cli/invoke-tokens', 'cli/reference',
-    ]},
     {type: 'category', label: 'Security', items: [
       'security/security-review', 'security/threat-model', 'security/how-enforcement-works', 'security/credentials',
       'security/audit-export', 'security/trust-model', 'security/known-limitations',
       'security/data-handling', 'security/compliance',
     ]},
     {type: 'category', label: 'Platform', items: ['platform/architecture', 'platform/access-control']},
+    {type: 'category', label: 'AgentPaaS CLI', collapsed: true, items: [
+      'cli/index', 'cli/install', 'cli/daemon', 'cli/doctor', 'cli/projects', 'cli/pack-run',
+      'cli/secrets', 'cli/identity-trust', 'cli/policy', 'cli/audit-lineage', 'cli/cron',
+      'cli/cloud', 'cli/invoke-tokens', 'cli/reference',
+    ]},
+    {type: 'category', label: 'Operations', collapsed: true, items: [
+      'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
+      'trial/webhooks', 'trial/platform-limits',
+    ]},
     {type: 'category', label: 'Releases', items: ['releases/v0.4.0', 'releases/v0.3.7', 'platform']},
   ],
 };
