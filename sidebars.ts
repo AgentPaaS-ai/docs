@@ -5,8 +5,8 @@ const sidebars: SidebarsConfig = {
     'index',
     'documentation-map', 'faq',
     {type: 'category', label: 'AgentPaaS', collapsed: false, items: [
-      'trial/what-is-agentpaas', 'trial/choose-your-path', 'trial/index', 'trial/guided-demo', 'trial/install-macos', 'trial/concepts',
-      {type: 'category', label: 'Agents', items: ['trial/agents', 'trial/build-agent', 'trial/guided-demo']},
+      'trial/what-is-agentpaas', 'trial/index', 'trial/guided-demo',
+      {type: 'category', label: 'Agents', items: ['trial/agents', 'trial/build-agent']},
       {type: 'category', label: 'MCP servers', items: ['trial/mcp-servers', 'trial/build-mcp-server', 'cli/mcp-demos']},
       {type: 'category', label: 'Tools', items: ['trial/tools', 'trial/build-tool']},
       {type: 'category', label: 'Workflows', items: ['trial/workflow-kinds-and-edges', 'trial/workflows']},
@@ -16,6 +16,7 @@ const sidebars: SidebarsConfig = {
       {type: 'category', label: 'Athena', collapsed: false, items: [
         'trial/what-athena-can-do', 'trial/athena-questions', 'trial/athena-debugging',
       ]},
+      'trial/choose-your-path', 'trial/install-macos', 'trial/concepts',
       'trial/runs-audit-logs', 'trial/troubleshooting',
     ]},
     {type: 'category', label: 'Security', items: [
