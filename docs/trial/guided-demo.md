@@ -9,6 +9,22 @@ sidebar_label: Agent Guided Demo
 
 In this guided demo, you will build a friendly weather agent with Hermes, run it locally, and deploy the same agent to AgentPaaS Cloud.
 
+## Watch the weather demo
+
+Watch the full walkthrough before you start, or keep it open while you follow the steps:
+
+<div style={{position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden'}}>
+  <iframe
+    src="https://www.youtube.com/embed/bYqKO3O3wsE"
+    title="AgentPaaS weather demo"
+    style={{position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0}}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowFullScreen
+  />
+</div>
+
+[Open the weather demo on YouTube](https://youtu.be/bYqKO3O3wsE)
+
 You will see each protection working as you use it:
 
 - Your agent runs inside an isolated container
