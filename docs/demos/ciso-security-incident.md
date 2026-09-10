@@ -1,47 +1,85 @@
 ---
 id: ciso-security-incident
-title: CISO security incident review in Slack
-sidebar_label: CISO incident review
+title: CISO CVE review in Slack
+sidebar_label: CISO CVE review
 ---
 
-# CISO security incident review in Slack
+# CISO CVE review in Slack
 
-Use this demo to show how a security team can bring a suspicious incident into a controlled analysis run from Slack. The CISO, incident commander, and identity team share evidence in one thread. An AgentPaaS deployment uses an OpenRouter model, such as Kimi K3, to organize the evidence, assess severity, map likely attack techniques, and propose the next team actions.
+Use this demo to show a security team handling a customer call about a vulnerability warning in an automated run. The security engineer pastes one complete incident packet into Slack. The AgentPaaS deployment receives that packet, researches the named vulnerability, checks the supplied repository and internal architecture evidence, and returns a recommendation in the Slack thread.
 
-The demo uses synthetic evidence. Do not paste production secrets, access tokens, customer data, or unredacted incident records into an external model provider. The OpenRouter model is a stand-in for the security team's future approved in-house model.
+Each mention is a new run. The bot has no memory of earlier Slack messages. Every invocation in this demo includes the customer call, scan result, repository facts, architecture notes, source URLs, and the question for the security team.
+
+This demo uses synthetic customer data and a fictional repository. Do not paste production secrets, access tokens, customer data, or unredacted incident records into an external model provider. OpenRouter and Kimi K3 are stand-ins for the security team's future approved in-house model.
 
 ## The scenario
 
-A security monitoring system flags a newly approved OAuth application called **Northstar Exporter**. Within 20 minutes of approval, the application requests access to 42 employee mailboxes and 11 shared document spaces. The identity team sees successful requests from `198.51.100.42`, a documentation-only test address, and the alert contains no confirmed data theft.
+A customer calls the platform support team after an automated security run reports **CVE-2024-3094**, the XZ Utils backdoor vulnerability. The customer asks, "The new automated run shows a critical CVE warning. Fix it before our next release."
 
-The CISO needs a fast first assessment before the team disables the application. The team needs four answers:
+The CISO's security engineer needs to answer the customer without guessing. The team must determine:
 
-1. How severe is the event based on the evidence in the thread?
-2. Which facts are confirmed, and which facts still need checking?
-3. Which containment and investigation actions should the team take next?
-4. What should the incident commander record for the next update?
+1. Whether the vulnerable package is present in the final production image or only in a discarded build layer
+2. Whether the service uses the vulnerable library at runtime
+3. What the public vulnerability sources say about affected versions and exploitation
+4. Whether the right fix is a dependency update, a base-image rebuild, or a documented false positive
+5. What the security engineer should tell the customer and what evidence must be collected next
 
-The agent produces an analysis in the Slack thread. It does not disable accounts, revoke tokens, contact customers, or declare that an incident is closed. A human incident commander owns those decisions.
+The supplied repository evidence says the service builds a Go binary in a Debian builder stage, then copies the binary into a minimal runtime image. The repository does not import or link `liblzma`. The scanner report identifies `xz-utils` in the builder layer. The agent must still verify the CVE facts and recommend a rebuild and rescan rather than dismissing the warning from the package name alone.
+
+The agent produces analysis and a customer response draft. It does not change a repository, rebuild an image, suppress a finding, or contact the customer. The security engineer decides what to do next.
 
 ## What the finished demo looks like
 
-In `#security-incident-review`, a CISO mentions the bot with a sanitized alert:
+In `#security-incident-review`, the security engineer mentions the bot with a complete packet:
 
 ```text
-@security-reviewer Review this identity incident.
+@incident-review Analyze this customer security call. Treat the JSON packet below as the complete context for this run. Do not rely on earlier Slack messages.
 
-Incident: IR-2026-041
-Alert: OAuth application Northstar Exporter was approved by svc-reporting
-at 09:14 UTC. It requested Mail.Read for 42 users and Files.ReadWrite for
-11 shared spaces. The first observed request was from 198.51.100.42 at
-09:32 UTC. No confirmed downloads are in the evidence attached to this
-thread. The identity team has not revoked the grant.
+{
+  "incident_id": "IR-2026-052",
+  "customer": "Northstar Payments",
+  "request": "The automated run shows a new critical CVE warning. Fix it before our next release.",
+  "cve": "CVE-2024-3094",
+  "scan": {
+    "tool": "synthetic-sbom-scan",
+    "image": "northstar/payments-api:2026.09.10",
+    "finding": "xz-utils 5.6.1 in build layer builder-0",
+    "final_image_contains_package": "unknown",
+    "runtime_linkage": "unknown"
+  },
+  "repository": {
+    "url": "https://github.com/example/northstar-payments-api",
+    "commit": "8f31c2e",
+    "dockerfile_excerpt": "FROM debian:bookworm-slim AS builder; RUN apt-get install -y build-essential xz-utils; RUN go build -o /out/payments-api ./cmd/payments-api; FROM registry.example.net/distroless/static-debian12; COPY --from=builder /out/payments-api /payments-api",
+    "go_mod_excerpt": "module example.com/northstar/payments-api\n\ngo 1.23\n\nrequire example.com/internal/ledger v2.8.1",
+    "sbom_excerpt": "builder-0: xz-utils 5.6.1; runtime-0: no xz-utils package; runtime-0: no liblzma linkage"
+  },
+  "internal_architecture_excerpt": "The payments API runtime is a statically linked Go binary. The Debian builder layer is discarded. Production starts only the copied binary. Release policy requires rebuilding the final image and attaching a fresh SBOM after a base-image or build-tool change.",
+  "sources_to_check": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+    "https://www.openwall.com/lists/oss-security/2024/03/29/4"
+  ],
+  "questions": [
+    "Is the final runtime exposed?",
+    "What should we change before release?",
+    "What should we tell Northstar Payments?",
+    "What evidence should the security engineer collect next?"
+  ]
+}
 
-Return a severity, confirmed facts, unknowns, likely ATT&CK techniques,
-containment actions, investigation queries, and the next incident update.
+Research the public sources with the agent's HTTP capability when available. Return:
+Severity:
+Decision:
+Confirmed facts:
+Public-source findings:
+Exposure assessment:
+Recommended fix:
+Evidence to collect:
+Customer response draft:
+Open questions:
 ```
 
-The bot replies in the same thread with a bounded triage report. The team can add a follow-up by mentioning the bot again with new evidence. Each mention starts a new run, so include the relevant prior evidence in the follow-up.
+The bot replies in the same thread with a structured assessment. The reply should say that the supplied evidence points to a builder-layer finding with no confirmed runtime exposure, then recommend rebuilding with a fixed builder package, generating a fresh SBOM, checking the final image, and retaining the scan evidence. It must label that conclusion as conditional until the final image digest and linkage check are verified.
 
 ## Before you start
 
@@ -52,7 +90,7 @@ The bot replies in the same thread with a bounded triage report. The team can ad
 - A Slack workspace where you are a workspace owner or administrator
 - A Slack channel where you can invite the bot
 - Permission to create and install a custom Slack app in that workspace
-- Synthetic incident data for the demo
+- Synthetic customer, repository, and scanner data
 
 ## Part 1: Build the security review agent
 
@@ -71,27 +109,46 @@ Restart Hermes when it asks. Keep the OpenRouter key out of Hermes chat.
 In Hermes, paste this request:
 
 ```text
-Build a security incident review agent for a CISO security team.
+Build a security CVE review agent for a CISO security team.
 
-The agent receives a JSON payload from Slack. Analyze only the incident
-text and evidence provided in that payload. Return a concise report with
-these headings:
+The agent receives one JSON payload from Slack. The payload's text contains
+a complete incident packet. Treat that packet as the complete context for the
+run. Do not rely on earlier Slack messages, hidden memory, or a previous run.
+If the packet is missing a field, say that it is missing.
+
+Use the supplied public source URLs to research the named CVE with the
+agent's HTTP capability when available. State which sources were fetched and
+which could not be reached. Treat repository excerpts and internal
+architecture excerpts as claims to assess, not as proof that a remediation
+was completed.
+
+Return exactly these headings:
 
 Severity: Critical, High, Medium, Low, or Unconfirmed
+Decision:
 Confirmed facts:
-Unknowns and evidence gaps:
-Likely ATT&CK techniques:
-Containment actions:
-Investigation queries:
-Next incident update:
+Public-source findings:
+Exposure assessment:
+Recommended fix:
+Evidence to collect:
+Customer response draft:
+Open questions:
 
-Separate observations from recommendations. Never claim that an account was
-disabled, a token was revoked, evidence was collected, or a customer was
-notified unless the input explicitly says that action happened. If evidence
-is missing, name the missing evidence and ask the team for it. Do not make
-changes to systems. Do not include secrets or reproduce tokens in the reply.
-Use the OpenRouter model configured for this agent. I will select Kimi K3
-when the model identifier is available in my OpenRouter account.
+Separate confirmed evidence, public-source findings, inference, and
+recommendation. For a finding in a discarded build layer, check whether the
+final image contains the package or links the vulnerable library. Recommend a
+base-image or build-tool update and a fresh final-image SBOM when the supplied
+evidence does not prove the final image is clean. Do not suppress a finding
+just because runtime exposure seems unlikely.
+
+Never claim that a dependency was updated, an image was rebuilt, a finding
+was closed, or a customer was contacted unless the input explicitly says that
+it happened. Do not make repository or production changes. Do not include
+secrets or reproduce tokens in the reply. Keep the customer response draft
+clear enough for a security engineer to review before sending.
+
+Use the OpenRouter model configured for this agent. I will select the Kimi K3
+model identifier shown in my OpenRouter account.
 ```
 
 Hermes will ask for the LLM credential during setup. In a separate Terminal, add the key through the local credential store:
@@ -100,23 +157,19 @@ Hermes will ask for the LLM credential during setup. In a separate Terminal, add
 printf '%s' "$OPENROUTER_API_KEY" | agentpaas secret add openrouter-key
 ```
 
-When Hermes asks you to continue, tell it that `openrouter-key` is stored. The agent should use `openrouter.ai` as its declared LLM destination. If Hermes asks for a model identifier, select the Kimi K3 identifier shown in your OpenRouter account. Model names can change at the provider, so copy the identifier from that account instead of guessing it.
+When Hermes asks you to continue, tell it that `openrouter-key` is stored. Configure the agent to use `openrouter.ai`. Add the public research hosts from the incident packet to the agent's allowed HTTP destinations. The demo packet uses `nvd.nist.gov` and `oss-security.openwall.org`. If Hermes asks for a model identifier, select the Kimi K3 identifier shown in your OpenRouter account instead of guessing one.
 
-### Step 3: Test the analysis locally
+### Step 3: Test with the complete packet locally
 
-In Hermes, paste a synthetic test payload:
+In Hermes, paste the full packet from the [finished demo message](#what-the-finished-demo-looks-like), including the `@incident-review` line and the JSON object. Then add:
 
 ```text
-Run the security incident review agent with this synthetic payload:
-
-{
-  "text": "Incident IR-2026-041. OAuth application Northstar Exporter was approved by svc-reporting at 09:14 UTC. It requested Mail.Read for 42 users and Files.ReadWrite for 11 shared spaces. The first observed request was from 198.51.100.42 at 09:32 UTC. No confirmed downloads are in the evidence. The grant is still active.",
-  "channel": "security-incident-review",
-  "trigger": "slack"
-}
+Run the CVE review using only the complete packet above. Do not use context
+from any earlier message. Return all nine required headings and mark the
+runtime exposure as conditional until the final image digest is verified.
 ```
 
-Check that the response separates confirmed facts from unknowns and does not claim that containment has already happened. Fix the agent prompt before moving to Cloud if it invents an action or a confirmed compromise.
+Check that the response contains all nine headings, names the source status, and distinguishes the builder-layer finding from confirmed runtime exposure. If the agent says it fixed the dependency or contacted Northstar Payments, revise the prompt before moving to Cloud.
 
 ## Part 2: Move the agent to Cloud
 
@@ -136,20 +189,21 @@ Use the same browser that you used to claim the tenant. Do not paste the tenant 
 Ask Hermes:
 
 ```text
-Pack this security incident review agent for AgentPaaS Cloud, run its checks,
-and push the signed linux/amd64 package to the Cloud registry. Stop before
-deploying and show me the package result.
+Pack this CVE review agent for AgentPaaS Cloud, run its checks, and push the
+signed linux/amd64 package to the Cloud registry. Stop before deploying and
+show me the package result.
 ```
 
 When the package is ready, deploy it:
 
 ```text
-Deploy the security incident review agent to my AgentPaaS Cloud tenant and
-show me the deployment ID. Use the existing OpenRouter credential label
-openrouter-key and declare openrouter.ai for the model request.
+Deploy the CVE review agent to my AgentPaaS Cloud tenant and show me the
+deployment ID. Use the existing OpenRouter credential label openrouter-key,
+declare openrouter.ai, nvd.nist.gov, and oss-security.openwall.org for the
+HTTP requests, and stop after deployment.
 ```
 
-The deployment receives a `dep_...` ID. Record it. Hermes or the CLI performs the pack, push, deploy, and binding steps. The Cloud commands involved in the credential binding are:
+The deployment receives a `dep_...` ID. Record it. The Cloud credential commands are:
 
 ```bash
 agentpaas cloud secrets push openrouter-key
@@ -161,21 +215,21 @@ The bindings command prints labels and destinations, never the key value. If the
 
 ### Step 6: Test the Cloud deployment before Slack
 
-Use a deployment invoke token in your Terminal. The token is shown once, so store it locally and never paste it into Slack or Hermes:
+Mint a deployment invoke token in your Terminal. Store it locally and never paste it into Slack or Hermes:
 
 ```bash
 agentpaas cloud invoke-token dep_01J...
 ```
 
-Invoke the deployment with the same synthetic incident:
+Invoke the deployment with the exact complete JSON packet from the finished demo message. Put the packet in the `text` field of the JSON body:
 
 ```bash
 agentpaas cloud invoke dep_01J... \
-  --body '{"text":"Incident IR-2026-041. OAuth application Northstar Exporter was approved by svc-reporting at 09:14 UTC. It requested Mail.Read for 42 users and Files.ReadWrite for 11 shared spaces. The first observed request was from 198.51.100.42 at 09:32 UTC. No confirmed downloads are in the evidence. The grant is still active.","channel":"security-incident-review","trigger":"slack"}' \
+  --body '{"text":"<paste the complete incident packet here>","channel":"security-incident-review","trigger":"slack"}' \
   --wait
 ```
 
-Confirm that the Cloud result has the required headings and that **Runs** and **Logs** show the execution. Do this before connecting Slack. A silent Slack bot is a poor debugging interface.
+The `<paste the complete incident packet here>` text is the full packet shown above, including all fields and source URLs. Do not replace it with only `IR-2026-052` or a short question. Confirm that the Cloud result has all nine headings and that **Runs** and **Logs** show the execution.
 
 ## Part 3: Configure the Slack app
 
@@ -205,7 +259,7 @@ Install the app to the workspace. Copy the bot token, which begins with `xoxb-`,
 Create or open `#security-incident-review`, then run this in Slack:
 
 ```text
-/invite @security-reviewer
+/invite @incident-review
 ```
 
 A workspace owner or administrator may need to approve the custom app installation. A channel member must invite the bot. For a private channel, the person running `/invite` must already belong to that channel.
@@ -228,7 +282,7 @@ Create one source for this Slack app. The command prints the source ID and Reque
 ```bash
 printf '%s' "$SLACK_SIGNING_SECRET" | agentpaas cloud ingress source create \
   --provider slack \
-  --label "CISO security review Slack app" \
+  --label "CISO CVE review Slack app" \
   --secret-stdin
 ```
 
@@ -239,7 +293,7 @@ src_01J...
 Request URL: https://cloud.agentpaas.ai/v1/hooks/src_01J...
 ```
 
-One Slack app maps to one source. If the customer later wants a separate bot for another workspace or security function, create a separate source.
+One Slack app maps to one source. Create another source for another workspace or bot.
 
 ### Step 12: Connect the source to the deployment
 
@@ -247,7 +301,7 @@ Restrict this source to the review channel:
 
 ```bash
 agentpaas cloud ingress connect src_01J... dep_01J... \
-  --label "security incident review" \
+  --label "customer CVE review" \
   --filter '{"match":"all","rules":[{"field":"event.channel","op":"eq","value":"C0123"}]}'
 ```
 
@@ -268,29 +322,22 @@ AgentPaaS answers Slack's `url_verification` challenge. It verifies `X-Slack-Sig
 
 ## Part 5: Run the CISO demo
 
-### Step 14: Post the incident review request
+### Step 14: Post the complete customer-call packet
 
-In `#security-incident-review`, mention the bot with synthetic evidence:
+In `#security-incident-review`, mention the bot and paste the entire packet from [What the finished demo looks like](#what-the-finished-demo-looks-like). The first line must mention the bot:
 
 ```text
-@security-reviewer Review this identity incident.
-
-Incident: IR-2026-041
-Alert: OAuth application Northstar Exporter was approved by svc-reporting
-at 09:14 UTC. It requested Mail.Read for 42 users and Files.ReadWrite for
-11 shared spaces. The first observed request was from 198.51.100.42 at
-09:32 UTC. No confirmed downloads are in the evidence attached to this
-thread. The identity team has not revoked the grant.
-
-Return a severity, confirmed facts, unknowns, likely ATT&CK techniques,
-containment actions, investigation queries, and the next incident update.
+@incident-review Analyze this customer security call. Treat the JSON packet below as the complete context for this run. Do not rely on earlier Slack messages.
 ```
+
+Paste the full JSON object after that line. Do not send only the incident ID or the customer's question. The Slack message is the agent's complete input.
 
 Expected behavior:
 
 - Slack sends the signed event to the Request URL.
-- AgentPaaS verifies the request and returns the Slack acknowledgement without waiting for the model analysis.
-- The deployment receives the mapped payload, including `text`, `channel`, `thread_ts`, `user`, `team_id`, `event_id`, and `trigger: "slack"`.
+- AgentPaaS verifies the request and acknowledges Slack without waiting for the model analysis.
+- The deployment receives the message text, including the complete packet.
+- The agent researches the supplied public sources when its HTTP policy permits those hosts.
 - The run appears in the Cloud console under **Runs** and **Logs**.
 - The final analysis appears in the original Slack thread when the Slack reply credential is bound.
 
@@ -306,37 +353,66 @@ printf '%s' "$SLACK_BOT_TOKEN" | agentpaas cloud ingress source bind-reply src_0
 
 AgentPaaS posts the final output with Slack `chat.postMessage`, using the source channel and the originating `thread_ts`. The agent cannot redirect the reply to another channel. Replies are limited to 4,000 characters.
 
-### Step 16: Coordinate a follow-up
+### Step 16: Run a second review with a complete packet
 
-Have the identity lead add evidence in the same Slack thread, then mention the bot again:
+A short follow-up such as `@incident-review update this` has no prior context. Send the entire packet again with the new evidence included:
 
 ```text
-@security-reviewer Update IR-2026-041 with this new evidence.
+@incident-review Reassess this customer security call using only the complete packet below. The new evidence is included in the packet. Do not rely on the earlier thread.
 
-The identity team found three successful token uses from the same source
-address against two shared spaces. No file contents have been confirmed as
-read. The application owner says the approval was unexpected.
+{
+  "incident_id": "IR-2026-052",
+  "customer": "Northstar Payments",
+  "request": "The automated run shows a new critical CVE warning. Fix it before our next release.",
+  "cve": "CVE-2024-3094",
+  "scan": {
+    "tool": "synthetic-sbom-scan",
+    "image": "northstar/payments-api:2026.09.10",
+    "finding": "xz-utils 5.6.1 in build layer builder-0",
+    "final_image_contains_package": "verified absent",
+    "runtime_linkage": "verified absent"
+  },
+  "repository": {
+    "url": "https://github.com/example/northstar-payments-api",
+    "commit": "8f31c2e",
+    "sbom_excerpt": "runtime-0: no xz-utils package; runtime-0: no liblzma linkage",
+    "new_build_evidence": "builder rebuilt with xz-utils 5.6.4; final image digest sha256:example; fresh SBOM attached"
+  },
+  "internal_architecture_excerpt": "The payments API runtime is a statically linked Go binary. The Debian builder layer is discarded. Release policy requires a fresh SBOM after a build-tool change.",
+  "sources_to_check": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2024-3094",
+    "https://www.openwall.com/lists/oss-security/2024/03/29/4"
+  ],
+  "questions": [
+    "Can the security engineer tell the customer the final image is outside the affected runtime path?",
+    "What evidence should be retained with the release record?"
+  ]
+}
+
+Return the nine required headings and distinguish the new evidence from the original scan.
 ```
 
-Each mention starts a new run. Include the relevant prior evidence in the follow-up. The current ingress path does not provide automatic conversation memory or a wait state.
+This second run demonstrates the review loop without pretending that the bot remembers the first run. The security engineer can decide whether to approve the release, request more evidence, or keep the customer issue open.
 
 ## What to show the CISO
 
 Open the Cloud console after the Slack reply:
 
-1. **Deployments**, show the security review agent deployment.
-2. **Runs**, open the run created by the Slack mention.
-3. **Logs**, show the execution record and model request path.
-4. **Ingress**, show the Slack source, active connection, filter, and recent event status.
+1. **Deployments**, show the CVE review agent deployment.
+2. **Runs**, open the run created by the complete Slack packet.
+3. **Logs**, show the model request and allowed research destinations.
+4. **Ingress**, show the Slack source, active connection, channel filter, and recent event status.
 5. **Secrets**, show the `openrouter-key` and `slack-bot-token` labels without opening values.
 
 Explain the boundaries plainly:
 
+- The Slack message is the complete context for each run.
 - Slack authenticates the inbound event with its signing secret.
 - AgentPaaS checks the provider signature before a run exists.
 - The connection filter decides which deployment receives an admitted event.
 - The OpenRouter key and Slack bot token stay in the credential broker.
-- The agent returns analysis and recommendations. It does not execute containment.
+- Public research is limited to the hosts declared for the deployment.
+- The agent returns analysis and recommendations. It does not update dependencies, rebuild images, suppress findings, or contact the customer.
 - The Cloud default tier enforces egress at the per-instance boundary through the control plane and gateway. It does not claim substrate-enforced isolation.
 - OpenRouter receives the model request in this demo. A production security team should approve its data handling or replace it with the team's approved model endpoint.
 
@@ -354,9 +430,13 @@ agentpaas cloud ingress events src_01J... --tail 20
 
 If the event is `filtered`, change the connection filter or use the correct Slack channel ID. If it is `duplicate`, Slack retried an event that AgentPaaS already processed.
 
+If the run appears but the analysis says the packet is missing, resend the complete JSON packet. A thread does not provide context to a new run.
+
+If the analysis says it could not research a source, check that the deployment allows the source host and that the URL is reachable. The agent must say when a source was not fetched. It must not present an unverified source claim as a fetched result.
+
 If the run appears but the thread stays empty, bind the `xoxb-` bot token with `slack-bot-token`, confirm the bot has `chat:write`, and check that the deployment returned text or an `answer` field.
 
-If the model invents containment actions, return to Step 2 and strengthen the instruction that recommendations are not completed actions. Test again with synthetic evidence before posting another Slack event.
+If the model claims that the dependency was updated or the customer was contacted, return to Step 2 and strengthen the instruction that recommendations are not completed actions. Test again with synthetic evidence before posting another Slack event.
 
 ## Related
 
