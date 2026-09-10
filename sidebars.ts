@@ -4,6 +4,9 @@ const sidebars: SidebarsConfig = {
   docs: [
     'index',
     'documentation-map', 'faq',
+    {type: 'category', label: 'DEMOs', collapsed: false, items: [
+      'demos/ciso-security-incident', 'trial/guided-demo',
+    ]},
     {type: 'category', label: 'AgentPaaS', collapsed: false, items: [
       'trial/what-is-agentpaas', 'trial/choose-your-path', 'trial/index', 'trial/guided-demo', 'trial/install-macos', 'trial/concepts',
       {type: 'category', label: 'Agents', items: ['trial/agents', 'trial/build-agent', 'trial/guided-demo']},
