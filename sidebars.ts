@@ -34,7 +34,7 @@ const sidebars: SidebarsConfig = {
     ]},
     {type: 'category', label: 'Platform', items: ['platform/architecture', 'platform/access-control']},
     {type: 'category', label: 'DEMOs', collapsed: false, items: [
-      'demos/weather-agent', 'demos/ciso-security-incident',
+      'demos/build-weather-agent', 'demos/build-slack-bot',
     ]},
     {type: 'category', label: 'Releases', items: ['releases/v0.4.1', 'releases/v0.4.0', 'releases/v0.3.7', 'platform']},
   ],

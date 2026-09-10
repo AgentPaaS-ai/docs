@@ -32,7 +32,7 @@ Use this map to choose a starting page by task. The links are grouped by the wor
 | Find current product limits | [Platform limits](./trial/platform-limits) | [Known limitations](./security/known-limitations) |
 | Troubleshoot a trial or run | [Troubleshooting](./trial/troubleshooting) | [The 30-minute path](./trial/thirty-minute-path), [Doctor](./cli/doctor) |
 | Receive third-party events and start runs | [Ingress through the gateway](./trial/ingress) | [Gateway overview](./trial/gateway), [Cloud commands](./cli/cloud) |
-| Run a customer-facing demo | [CISO security incident review in Slack](./demos/ciso-security-incident) | [Agent Guided Demo](./trial/guided-demo), [Ingress through the gateway](./trial/ingress) |
+| Run a customer-facing demo | [Build a Slack Bot](./demos/build-slack-bot) | [Build a Weather Agent](./demos/build-weather-agent), [Ingress through the gateway](./trial/ingress) |
 | Read release changes | [Release notes v0.4.1](./releases/v0.4.1) | [Documentation home](/) |
 
 ## Security facts to keep in view
