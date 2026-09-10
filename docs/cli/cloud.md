@@ -90,6 +90,84 @@ agentpaas cloud metrics
 
 See [Cron](./cron).
 
+## Ingress
+
+Ingress connects an external app to one or more deployed agents. The source
+owns the external app and its Request URL. A connection selects the deployment
+that wakes for matching events.
+
+Use the `cloud ingress` commands for inbound sources and connections. The
+Slack source Request URL returned by `source create` has this form after this
+cut:
+
+```text
+https://cloud.agentpaas.ai/v1/hooks/src_01J...
+```
+
+Create a Slack source. Pipe the signing secret to standard input. The CLI
+prints the source ID and Request URL, never the secret.
+
+```bash
+printf '%s' "$SLACK_SIGNING_SECRET" | agentpaas cloud ingress source create --provider slack --label "support bot" --secret-stdin
+```
+
+Connect a deployment to the source. The filter is optional. This example
+accepts events from channel `C0123`.
+
+```bash
+agentpaas cloud ingress connect src_01JEXAMPLE dep_01JEXAMPLE --label "support triage" --filter '{"match":"all","rules":[{"field":"event.channel","op":"eq","value":"C0123"}]}'
+```
+
+Bind the Slack bot credential when the agent must reply in a thread.
+
+```bash
+printf '%s' "$SLACK_BOT_TOKEN" | agentpaas cloud ingress source bind-reply src_01JEXAMPLE --credential slack-bot-token --secret-stdin
+```
+
+List sources and inspect the connections attached to a source.
+
+```bash
+agentpaas cloud ingress sources
+agentpaas cloud ingress connections src_01JEXAMPLE
+```
+
+Disable a source to pause its inbound events, or disable one connection to
+stop that subscription while leaving the source available to other
+connections.
+
+```bash
+agentpaas cloud ingress source disable src_01JEXAMPLE
+agentpaas cloud ingress connection disable con_01JEXAMPLE
+```
+
+Rotate a source signing secret. Pipe the replacement secret to standard input.
+
+```bash
+printf '%s' "$NEW_SLACK_SIGNING_SECRET" | agentpaas cloud ingress source rotate src_01JEXAMPLE --secret-stdin
+```
+
+Inspect recent events for a source. The `--tail` value limits the displayed
+events.
+
+```bash
+agentpaas cloud ingress events src_01JEXAMPLE --tail 20
+```
+
+Test a filter without admitting an event. The command returns whether the
+event matched.
+
+```bash
+agentpaas cloud ingress test-filter src_01JEXAMPLE --filter '{"match":"all","rules":[{"field":"event.channel","op":"eq","value":"C0123"}]}' --event '{"event":{"channel":"C0123"}}'
+```
+
+Use `--secret-stdin` for source creation, reply binding, and rotation. Never
+put a secret in a command argument or paste one into chat. AgentPaaS does not
+print source secrets or reply tokens.
+
+`cloud webhook` remains the command group for outbound completion and delivery
+webhooks, plus the legacy deployment webhook doorbell. It does not configure
+the source and connection ingress plane described above.
+
 ## Agent checklist (cloud weather path)
 
 1. `cloud login` + `whoami`  

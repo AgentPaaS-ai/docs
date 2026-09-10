@@ -35,7 +35,7 @@ const sidebars: SidebarsConfig = {
     ]},
     {type: 'category', label: 'Operations', collapsed: true, items: [
       'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
-      'trial/webhooks', 'trial/platform-limits',
+      'trial/webhooks', 'trial/ingress', 'trial/platform-limits',
     ]},
     {type: 'category', label: 'Releases', items: ['releases/v0.4.0', 'releases/v0.3.7', 'platform']},
   ],

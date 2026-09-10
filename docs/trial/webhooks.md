@@ -1,24 +1,34 @@
 # Webhooks
 
-Webhooks provide ingress and completion delivery through the API. Configure them with the `agentpaas cloud webhook` commands.
+Use [Ingress](./ingress) for inbound app events, such as Slack mentions, that
+wake an agent through a source and connection.
 
-## Ingress webhook
+This page covers the existing `agentpaas cloud webhook` commands for outbound
+completion and delivery, plus the legacy deployment webhook doorbell.
 
-An ingress webhook lets an external service start a run. Configure it with the CLI and keep the HMAC secret in your credential store.
+## Legacy deployment webhook doorbell
+
+Keep using the legacy command when an external service sends a signed request
+straight to one deployment. New Slack app ingress belongs on the [Ingress](./ingress)
+source and connection path.
 
 ```bash
 agentpaas cloud webhook set dep_EXAMPLE --provider generic_hmac --secret-stdin
 ```
 
-The CLI configures `PUT /v1/deployments/dep_EXAMPLE/webhook`. The configured response contains `configured`, `provider`, and `deployment_id`, and does not return the secret.
+The CLI configures `PUT /v1/deployments/dep_EXAMPLE/webhook`. The configured
+response contains `configured`, `provider`, and `deployment_id`, and does not
+return the secret.
 
-To send a signed test request:
+Send a signed test request with:
 
 ```bash
 agentpaas cloud webhook fire dep_EXAMPLE --body '{"ok":true}' --secret-stdin
 ```
 
-The request uses `POST /v1/deployments/dep_EXAMPLE/hooks/generic_hmac` and the `X-Agentpaas-Signature` header. Invalid or stale signatures return HTTP `401` and do not start a run.
+The request uses `POST /v1/deployments/dep_EXAMPLE/hooks/generic_hmac` and the
+`X-Agentpaas-Signature` header. Invalid or stale signatures return HTTP `401`
+and do not start a run.
 
 ## Completion and delivery webhooks
 
