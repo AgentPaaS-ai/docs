@@ -4,11 +4,9 @@ slug: /
 title: AgentPaaS documentation
 ---
 
-AgentPaaS is a secure PaaS for building, deploying, and governing agents, applications, MCP servers, and agentic integration workflows.
+AgentPaaS.ai is a secure platform-as-a-service to run agents, applications, MCP servers, and agentic integration workflows — with end-to-end security and governance.
 
-# AgentPaaS documentation
-
-This documentation covers the AgentPaaS platform and the open source AgentPaaS CLI.
+This documentation covers the open-source AgentPaaS CLI and AgentPaaS Cloud. Agent Security is the foundation of the complete path: build, deploy, run, govern, and audit.
 
 > **Learn with Athena:** If you want help understanding AgentPaaS or using the platform, ask Athena, the integrated Hermes chatbot in your tenancy. Try asking, “How do I build an agent?”
 

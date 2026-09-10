@@ -1,6 +1,17 @@
 # What is AgentPaaS?
 
-AgentPaaS.ai is the secure PaaS for agents, apps, MCP servers, and agentic workflows. You can deploy your enterprise agentic integration workflows securely at scale, with end-to-end auditability and governance.
+**AgentPaaS.ai is a secure platform-as-a-service to run agents, applications, MCP servers, and agentic integration workflows — with end-to-end security and governance.**
+
+Agent Security is the foundation of the complete path from build to audit.
+
+- **Agents** that reason and act
+- **Applications** that support agent work
+- **MCP servers and tools** that extend capability
+- **Agentic integration workflows** that coordinate multiple steps
+
+Every governed workload uses isolated containers, default-deny egress, gateway-brokered credentials, signed bundles, and tamper-evident audit.
+
+[Start a free 30-day trial](https://agentpaas.ai/#contact). [Install the open-source CLI](https://github.com/AgentPaaS-ai/agentpaas#install). [Review security](../security/security-review.md).
 
 ## Watch the founder overview
 

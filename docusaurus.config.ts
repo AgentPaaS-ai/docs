@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'AgentPaaS Docs',
-  tagline: 'Secure PaaS for agents, applications, MCP servers, and agentic workflows',
+  tagline: 'Secure PaaS for agents, applications, MCP servers, and agentic integration workflows, with Agent Security at the foundation.',
   favicon: 'img/favicon.svg',
   future: {v4: true},
   url: 'https://docs.agentpaas.ai',
@@ -29,6 +29,7 @@ const config: Config = {
   ],
   themes: ['@docusaurus/theme-mermaid'],
   plugins: [require.resolve('./plugins/raw-markdown/index.js')],
+  scripts: [{src: 'https://agentpaas.ai/outer-analytics.js', async: true}],
   themeConfig: {
     image: 'img/social-card.png',
     colorMode: {defaultMode: 'dark', disableSwitch: true, respectPrefersColorScheme: false},
