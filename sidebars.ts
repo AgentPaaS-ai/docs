@@ -4,9 +4,6 @@ const sidebars: SidebarsConfig = {
   docs: [
     'index',
     'documentation-map', 'faq',
-    {type: 'category', label: 'DEMOs', collapsed: false, items: [
-      'demos/ciso-security-incident', 'trial/guided-demo',
-    ]},
     {type: 'category', label: 'AgentPaaS', collapsed: false, items: [
       'trial/what-is-agentpaas', 'trial/choose-your-path', 'trial/index', 'trial/guided-demo', 'trial/install-macos', 'trial/concepts',
       {type: 'category', label: 'Agents', items: ['trial/agents', 'trial/build-agent', 'trial/guided-demo']},
@@ -36,6 +33,9 @@ const sidebars: SidebarsConfig = {
       'security/data-handling', 'security/compliance',
     ]},
     {type: 'category', label: 'Platform', items: ['platform/architecture', 'platform/access-control']},
+    {type: 'category', label: 'DEMOs', collapsed: false, items: [
+      'demos/ciso-security-incident', 'trial/guided-demo',
+    ]},
     {type: 'category', label: 'Releases', items: ['releases/v0.4.1', 'releases/v0.4.0', 'releases/v0.3.7', 'platform']},
   ],
 };
