@@ -1,7 +1,7 @@
 ---
 id: ciso-security-incident
 title: CISO CVE review in Slack
-sidebar_label: CISO CVE review
+sidebar_label: Build A slack bot
 ---
 
 # CISO CVE review in Slack
