@@ -1,6 +1,8 @@
 # Webhooks
 
-Webhooks provide ingress and completion delivery through the API. Configure them with the `agentpaas cloud webhook` commands.
+Ingress is the gateway topic for third-party events that start runs. For provider-specific ingress, including Slack, Stripe, GitHub, filters, signing, and source lifecycle commands, see [Ingress through the gateway](./ingress).
+
+Completion and delivery webhooks remain deployment-level callbacks. Configure them with the `agentpaas cloud webhook` commands.
 
 ## Ingress webhook
 

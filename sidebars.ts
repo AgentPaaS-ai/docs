@@ -11,7 +11,7 @@ const sidebars: SidebarsConfig = {
       {type: 'category', label: 'Tools', items: ['trial/tools', 'trial/build-tool']},
       {type: 'category', label: 'Workflows', items: ['trial/workflow-kinds-and-edges', 'trial/workflows']},
       {type: 'category', label: 'Gateway', collapsed: false, items: [
-        'trial/gateway', 'trial/gateway-security', 'trial/gateway-roadmap',
+        'trial/gateway', 'trial/ingress', 'trial/gateway-security', 'trial/gateway-roadmap',
       ]},
       {type: 'category', label: 'Athena', collapsed: false, items: [
         'trial/what-athena-can-do', 'trial/athena-questions', 'trial/athena-debugging',
@@ -33,7 +33,7 @@ const sidebars: SidebarsConfig = {
       'security/data-handling', 'security/compliance',
     ]},
     {type: 'category', label: 'Platform', items: ['platform/architecture', 'platform/access-control']},
-    {type: 'category', label: 'Releases', items: ['releases/v0.4.0', 'releases/v0.3.7', 'platform']},
+    {type: 'category', label: 'Releases', items: ['releases/v0.4.1', 'releases/v0.4.0', 'releases/v0.3.7', 'platform']},
   ],
 };
 

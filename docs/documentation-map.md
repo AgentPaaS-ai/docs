@@ -31,7 +31,8 @@ Use this map to choose a starting page by task. The links are grouped by the wor
 | Review package identity and provenance | [Trust model](./security/trust-model) | [Identity and trust](./cli/identity-trust), [Known limitations](./security/known-limitations) |
 | Find current product limits | [Platform limits](./trial/platform-limits) | [Known limitations](./security/known-limitations) |
 | Troubleshoot a trial or run | [Troubleshooting](./trial/troubleshooting) | [The 30-minute path](./trial/thirty-minute-path), [Doctor](./cli/doctor) |
-| Read release changes | [Release notes v0.4.0](./releases/v0.4.0) | [Documentation home](/) |
+| Receive third-party events and start runs | [Ingress through the gateway](./trial/ingress) | [Gateway overview](./trial/gateway), [Cloud commands](./cli/cloud) |
+| Read release changes | [Release notes v0.4.1](./releases/v0.4.1) | [Documentation home](/) |
 
 ## Security facts to keep in view
 

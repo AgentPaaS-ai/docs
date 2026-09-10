@@ -90,6 +90,10 @@ agentpaas cloud metrics
 
 See [Cron](./cron).
 
+## Ingress
+
+Use [Ingress through the gateway](../trial/ingress) to connect Slack, Stripe, GitHub, or a compatible HMAC-signed JSON sender to a Cloud deployment.
+
 ## Agent checklist (cloud weather path)
 
 1. `cloud login` + `whoami`  
