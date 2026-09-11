@@ -263,24 +263,31 @@ body {
  font-weight: 700;
 }
 
+/* Tables: block + overflow-x so wide grids scroll inside the card, not the page */
 .markdown table {
- display: table;
- width: 100%;
- border-collapse: collapse;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 .markdown th {
- font-family: var(--ap-mono);
- font-size: 12px;
- font-weight: 500;
- letter-spacing: 0.04em;
- text-transform: uppercase;
- color: var(--ap-dim);
- background: var(--ap-bg-1);
+  font-family: var(--ap-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ap-dim);
+  background: var(--ap-bg-1);
 }
 .markdown th,
 .markdown td {
- border: 1px solid var(--ap-line);
- padding: 10px 12px;
+  border: 1px solid var(--ap-line);
+  padding: 10px 12px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 .markdown blockquote {
  border-left: 3px solid var(--ap-signal);
@@ -425,14 +432,135 @@ footer.footer .footer__copyright {
  color: #adadad !important;
 }
 
-/* ASCII architecture diagrams */
+/* ASCII architecture diagrams + code blocks */
 .theme-doc-markdown pre:has(code),
 .theme-doc-markdown pre {
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 .theme-doc-markdown pre code {
   font-family: var(--ap-mono) !important;
   font-size: 12px !important;
   line-height: 1.35 !important;
   white-space: pre;
+}
+
+/* Inline code / long URLs: wrap instead of blowing the viewport */
+.theme-doc-markdown p code,
+.theme-doc-markdown li code,
+.theme-doc-markdown td code,
+.theme-doc-markdown th code {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.theme-doc-markdown img,
+.theme-doc-markdown video,
+.theme-doc-markdown iframe,
+.theme-doc-markdown .mermaid,
+.docusaurus-mermaid-container {
+  max-width: 100%;
+  height: auto;
+}
+
+.docusaurus-mermaid-container,
+.theme-doc-markdown .mermaid {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Page shell: contain wide content without clipping the fixed navbar drawer */
+.main-wrapper,
+.theme-doc-wrapper,
+article,
+.theme-doc-markdown,
+.container {
+  max-width: 100%;
+  min-width: 0;
+}
+/* Doc column only — avoid html/body overflow clip (breaks position:fixed drawer) */
+.docItemCol_VOVn,
+main .col,
+.theme-doc-markdown {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* Mobile chrome: hamburger, sidebar drawer, tap targets, content gutters */
+@media (max-width: 996px) {
+  .navbar {
+    height: 56px;
+    padding-inline: 8px;
+  }
+  .navbar__inner {
+    min-width: 0;
+  }
+  .navbar__toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    margin-right: 4px;
+    color: var(--ap-ink);
+  }
+  .navbar__brand {
+    min-width: 0;
+    max-width: calc(100vw - 96px);
+  }
+  .navbar__title {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .navbar__logo img {
+    height: 22px;
+    width: 26px;
+  }
+  /* Drawer must sit above content and be fully tappable */
+  .navbar-sidebar {
+    max-width: min(100vw, 360px);
+  }
+  .navbar-sidebar__brand,
+  .navbar-sidebar__items {
+    max-width: 100%;
+  }
+  .navbar-sidebar .menu__link,
+  .navbar-sidebar .navbar-sidebar__back {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .navbar-sidebar__close {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  /* Doc body gutters + readable type on phone */
+  .theme-doc-markdown.markdown {
+    font-size: 16px;
+  }
+  .markdown h1 {
+    font-size: clamp(1.4rem, 6vw, 1.85rem);
+  }
+  .markdown th,
+  .markdown td {
+    padding: 8px 10px;
+    font-size: 13px;
+  }
+  .pagination-nav {
+    grid-template-columns: 1fr;
+  }
+  .pagination-nav__link {
+    min-height: 48px;
+  }
+  /* Footer stacks cleanly */
+  .footer__links {
+    margin-bottom: 1.5rem;
+  }
+  .footer__col {
+    margin-bottom: 1.25rem;
+  }
 }
