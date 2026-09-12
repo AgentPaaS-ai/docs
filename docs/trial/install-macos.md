@@ -11,7 +11,7 @@ Open the one-time claim link from your trial email in the browser you plan to us
 Install [Hermes](https://hermes-agent.nousresearch.com/docs) if needed. In Hermes, paste:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas
+Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
 Hermes installs the AgentPaaS plugin and local tooling. Restart the Hermes session when prompted. If the AgentPaaS tools do not appear, type `/quit` and reopen Hermes.
