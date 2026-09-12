@@ -47,7 +47,7 @@ Your trial is ready when you can open https://cloud.agentpaas.ai/ and see the Ag
 In Hermes, paste:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas
+Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
 Hermes installs the plugin and local tooling. You will be prompted to restart the session, so the plugin can be installed. Quit (`/quit`) and restart your hermes session.
