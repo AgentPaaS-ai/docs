@@ -30,10 +30,10 @@ Expect **CLI: 0.3.7** (or newer) on current brew.
 
 ## Hermes path
 
-Coding agents can install the plugin and tooling with:
+Coding agents can install AgentPaaS and its local tooling with:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
+Install AgentPaaS from github https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
 That still ends with a working `agentpaas` on PATH for the commands in this section.

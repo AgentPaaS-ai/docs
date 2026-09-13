@@ -6,15 +6,15 @@ Set up AgentPaaS through Hermes for the guided path. You can also install and us
 
 Open the one-time claim link from your trial email in the browser you plan to use. Set your password, then keep using that browser when the CLI asks you to approve access.
 
-## Install Hermes and the AgentPaaS plugin
+## Install AgentPaaS through Hermes
 
 Install [Hermes](https://hermes-agent.nousresearch.com/docs) if needed. In Hermes, paste:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
+Install AgentPaaS from github https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
-Hermes installs the AgentPaaS plugin and local tooling. Restart the Hermes session when prompted. If the AgentPaaS tools do not appear, type `/quit` and reopen Hermes.
+Hermes installs AgentPaaS and its local tooling. Restart the Hermes session when prompted. If the AgentPaaS tools do not appear, type `/quit` and reopen Hermes.
 
 ## Install the CLI directly
 
