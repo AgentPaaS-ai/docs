@@ -60,7 +60,7 @@ Hermes installs AgentPaaS and its local tooling. You will be prompted to restart
 In Hermes:
 
 ```text
-Build a weather agent that uses an LLM, and responds in a friendly demeanour
+Build a weather agent that uses an LLM, and responds with a friendly demeanour
 ```
 
 When Hermes asks for publisher identity, run this in your own Terminal (not in chat): `agentpaas identity init --name <yourname>` Do not use your Mac account name.
