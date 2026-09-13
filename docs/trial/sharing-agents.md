@@ -5,178 +5,187 @@ id: sharing-agents
 slug: /trial/sharing-agents
 ---
 
-Share an agent without sharing your keys. You hand someone a signed `.agentpaas` bundle, and they inspect its policy and provenance before they run it.
+Use this page from Hermes or another AI coding harness when you need to share a working AgentPaaS package. Pack and send the signed file, then give the receiver a separate fingerprint. On receipt, inspect the package, compare identity, review policy, install with explicit consent, map local secrets, and run it under the receiver's audit process.
 
-A signed bundle tells the receiver who signed it and whether the signed data changed. It does not tell them that the agent is safe. The receiver still reviews the code, policy hosts, credentials, and provenance.
+The same trust concept applies to agents, apps, MCP servers, tools, and workflows. If a type has its own pack or export command, use that type's pack command, then follow the same inspect, install, and fingerprint steps.
+
+## Who this is for
+
+This page is for Hermes and other AI coding harnesses operating an AgentPaaS project. After a component works locally, share its signed package. When you receive a package, confirm its identity, integrity, and policy before you run it.
 
 ## Prerequisites
 
-- macOS with AgentPaaS CLI 0.4.1 or newer
-- A working agent project, such as `weather-bot`
-- A publisher identity
+- AgentPaaS CLI 0.4.1 or newer
+- A working project directory
+- A publisher identity on the sender machine
 - A separate channel for the publisher fingerprint, such as a phone call or Signal
 
-## Sender: export an agent
+When using Hermes, do not run identity initialization or secret creation through the harness terminal tool. Ask the user to use their terminal for identity and keys. Keep the project and secret names generic, such as `name`, `city`, or `input`.
 
-Use the sender machine to create the bundle. Keep your local credentials on this machine.
+## Sender: pack and share a signed package
 
-### 1. Show your publisher identity
+### 1. Confirm the publisher identity
 
-If you already created the identity for the weather demo, display it before you share the bundle:
+Run this on the sender machine:
 
 ```bash
 agentpaas identity show
 ```
 
-Record the full 64-character hexadecimal fingerprint. You will give it to the receiver through a separate channel from the bundle.
+Record the full 64-character hexadecimal publisher fingerprint. Send it through a separate channel from the package file.
 
-For the identity command reference, see [Identity and trust](/cli/identity-trust).
+If the sender has not initialized an identity, stop and ask the user to initialize it in their own terminal. The harness must not initialize identity keys through its terminal tool.
 
 ### 2. Export the project
 
-Run the export from the project directory. This example writes `weather-bot.agentpaas` in the current directory:
+Export the working project as a signed AgentPaaS file:
 
 ```bash
-agentpaas export ./weather-bot --output weather-bot.agentpaas --yes
+agentpaas export <project-dir> --output <file.agentpaas> --yes
 ```
 
-The default export does not include a prebuilt image. The receiver rebuilds the image locally from the bundle contents.
+The default export has no prebuilt image. The receiver builds locally from the package contents. If the sender intentionally includes an image, use the verified `--with-image` export option and make that choice part of the policy review.
 
-### 3. Inspect the bundle
+### 3. Inspect the package
 
-Run the offline inspection before sending the file:
+Inspect the exported file before sending it:
 
 ```bash
-agentpaas bundle inspect weather-bot.agentpaas
+agentpaas bundle inspect <file.agentpaas>
 ```
 
-The inspection reports 9 checks. Review the publisher fingerprint, policy hosts, credentials, provenance, digests, and the image status. For the weather agent, the policy hosts include `wttr.in` and the LLM host used by the agent.
+The inspection reports 9 checks. Read each result. Check all of the following:
+
+- Publisher fingerprint
+- Signature and content digests
+- Policy hosts
+- Declared credentials
+- Provenance
+- Image status, including whether a prebuilt image is present
+- Package and dependency information
+
+The policy hosts are the destinations the component can call. Declared credentials identify secret inputs that the receiver must map locally. `agentpaas bundle inspect --json` does not expose `.policy_digest`.
 
 ### 4. Show provenance
 
-Check the signed lineage for the agent name:
+Show the signed lineage for the package name:
 
 ```bash
-agentpaas provenance show weather-bot
+agentpaas provenance show name
 ```
 
-### 5. Send the bundle and fingerprint separately
+Replace `name` with the package name recorded in the package. Review the publisher and prior package events before sending the file.
 
-Send the `.agentpaas` file through your normal file-sharing channel. Send the full 64-character fingerprint through a separate channel, such as a phone call or Signal.
+### 5. Send the file and fingerprint through separate channels
 
-Tell the receiver to compare the fingerprint from your message with the fingerprint reported by `agentpaas bundle inspect`. A matching signature identifies the signer and shows that the signed data is unmodified. It does not establish that the agent is safe.
+Send the `.agentpaas` file through your normal file-sharing channel. Send the full 64-character fingerprint through a separate channel.
 
-## Receiver: inspect, install, and run
+Tell the receiver to compare the fingerprint from the separate message with the fingerprint from `agentpaas bundle inspect`. A matching signature identifies the signer and shows that the signed data has not changed. It does not approve the package for execution and does not replace policy review.
 
-Review the bundle before you install it. The receiver owns the policy decision and supplies the local credentials.
+## Receiver: verify before running
 
-### 1. Inspect the received bundle
+The receiver owns the run decision, supplies local secrets, and keeps the local audit records. Do these checks before installation or invocation.
+
+### 1. Inspect the received package
 
 Save the file, then inspect it locally:
 
 ```bash
-agentpaas bundle inspect weather-bot.agentpaas
+agentpaas bundle inspect <file.agentpaas>
 ```
 
-Confirm that the inspection reports 9 checks and that the displayed publisher fingerprint matches the full 64-character fingerprint you received separately. Read the policy hosts and declared credentials. For the weather agent, check that the hosts match the destinations you expect, including `wttr.in` and the LLM host.
+Read all 9 checks. Confirm the displayed publisher fingerprint matches the full fingerprint received through the separate channel. Read the policy hosts, declared credentials, provenance, dependency information, and image status.
 
-If the fingerprint does not match, stop. Ask the sender for a fresh bundle and fingerprint pair through verified channels.
+If the fingerprint does not match, stop. Ask the sender for a new package and a new fingerprint sent through verified channels.
 
-### 2. Install with explicit consent values
+### 2. Read the policy digest from `agent.lock`
 
-Use the full publisher fingerprint and the policy digest from the bundle's `agent.lock`:
+Open the received package contents and read the `policy_digest` value from `agent.lock`. Use the 64-character hexadecimal value exactly as stored.
+
+Do not use `agentpaas bundle inspect --json` to obtain this value. It has no `.policy_digest` field. Do not add a `sha256:` prefix.
+
+### 3. Install with explicit consent
+
+Install only after the identity, integrity, hosts, credentials, provenance, and image status pass your review:
 
 ```bash
-agentpaas install weather-bot.agentpaas --yes --confirm-fingerprint <full-64-hex> --accept-policy <64-hex-policy-digest> --allow-unlocked-deps
+agentpaas install <file.agentpaas> --yes --confirm-fingerprint <full-64-hex> --accept-policy <64-hex-policy-digest> --allow-unlocked-deps
 ```
 
-Replace `<full-64-hex>` with the complete 64-character publisher fingerprint. Replace `<64-hex-policy-digest>` with the 64-character `policy_digest` value from `agent.lock`.
+`--confirm-fingerprint` takes the complete 64-character publisher fingerprint. `--accept-policy` takes the 64-character hexadecimal value from `agent.lock`, with no `sha256:` prefix.
 
-Do not prefix the policy digest with `sha256:`. That fails with:
+If you see `does not match the bundle policy digest`, the supplied policy digest does not match `agent.lock`. Read the value again and retry without a `sha256:` prefix. If the package or fingerprint changed, inspect the new package before retrying.
 
-```text
-does not match the bundle policy digest
-```
+### 4. Find the installed reference
 
-`agentpaas bundle inspect --json` does not expose `.policy_digest`. Do not use `jq .policy_digest` to obtain this value.
-
-For the general install reference, see [Install](/cli/install).
-
-### 3. Find the installed reference
-
-List the installed agents:
+List installed packages:
 
 ```bash
 agentpaas installed list
 ```
 
-Use the installed reference in the form `name@pub8`, for example:
+Use the exact installed reference, in the form `name@pub8`, in later commands.
 
-```text
-weather-bot@pub8
-```
+### 5. Map your local credentials
 
-The `pub8` suffix identifies the first 8 characters of the publisher fingerprint in the installed reference. Use the exact reference printed on your machine.
-
-### 4. Map your local credentials
-
-Map each declared credential to a secret name on the receiver machine. This example maps the declared `openrouter-key` credential to the receiver's local secret with the same name:
+Map each declared credential to a secret that belongs to the receiver:
 
 ```bash
-agentpaas installed map-credential weather-bot@pub8 openrouter-key=openrouter-key
+agentpaas installed map-credential name@pub8 <declared>=<local>
 ```
 
-The receiver supplies the local secret. The bundle does not transfer your secret, and the sender's secret never belongs in the shared file.
+The receiver supplies the local secret. The package does not transfer a secret, and the sender's secret must not be copied into the shared file or into the receiver's environment by the harness.
 
-### 5. Invoke the installed agent
+Do not add a secret through the harness terminal tool. Ask the user to create or approve local secrets in their own terminal, then map the declared name to that local secret.
 
-Invoke the agent with a JSON payload and wait for the result:
+### 6. Invoke the installed package
+
+Use the input shape required by the received component. For a component that accepts a generic city input, run:
 
 ```bash
-agentpaas trigger invoke weather-bot@pub8 --payload '{"city":"Folsom"}' --wait
+agentpaas trigger invoke name@pub8 --payload '{"city":"input"}' --wait
 ```
 
-Use the input shape required by the agent you received. The weather example accepts a `city` field.
+For another input shape, replace the JSON payload with the component's documented input. Do not send secrets in the payload unless the component explicitly requires that design and the receiver has approved it.
 
-### 6. Review your local audit records
+### 7. Review the local audit
 
-Review the run and audit records on the receiver machine using your local AgentPaaS audit tools and retention process. The receiver owns those records and their external anchoring. A sender's bundle does not give the sender access to the receiver's local audit history.
+Review the run and audit records on the receiver machine using the receiver's local AgentPaaS audit tools and retention process. The receiver owns those records and any external anchoring. The sender's package does not grant access to the receiver's audit history.
 
-See [Governance and audit](/security/governance-and-audit) and [Audit export](/security/audit-export) for the audit model and export path.
+See [Governance and audit](/security/governance-and-audit), [Audit export](/security/audit-export), [Trust model](/security/trust-model), and [Known limitations](/security/known-limitations).
 
-## Fork an installed agent
+## Forking creates a new publisher hop
 
-A receiver can create a new project from an installed reference, edit it, and publish it as a new publisher. The provenance chain records the additional hop.
+A receiver can fork an installed package into a new project, edit it, and publish a new signed package. The fork adds a provenance hop. Review the new publisher identity and repeat the sender checks before sharing the result.
 
 ### 1. Fork the installed reference
 
 ```bash
-agentpaas fork weather-bot@pub8 ./weather-bot-fork
+agentpaas fork name@pub8 <project-dir>
 ```
 
-Replace `weather-bot@pub8` with the exact reference from `agentpaas installed list`.
+Use the exact reference from `agentpaas installed list` and a new project directory for the fork.
 
-### 2. Pack the fork
+### 2. Pack or export the fork
 
-Edit the project as needed, then pack it:
+Use the fork project's normal pack step, then export it as a signed package:
 
 ```bash
-agentpaas pack ./weather-bot-fork
+agentpaas export <project-dir> --output <file.agentpaas> --yes
 ```
 
-### 3. Export the fork as a new bundle
+If the component type has a separate pack command, use that type's pack command before this export, then repeat the same inspect, provenance, fingerprint, install, and policy-consent steps.
+
+### 3. Inspect the new provenance
 
 ```bash
-agentpaas export ./weather-bot-fork --output weather-bot-fork.agentpaas --yes
+agentpaas provenance show name
 ```
 
-The new bundle is signed by the publisher identity on the fork machine. Its provenance shows the additional hop, so a receiver can inspect how the bundle reached its final signer.
+Confirm that the provenance includes the new publisher hop before sending the forked package.
 
-## What the checks mean
+## What a signature means
 
-- A signature identifies the key that signed the bundle and shows that the signed data is unmodified.
-- The policy summary lists the hosts the agent can call and the credentials it declares.
-- The SBOM is included in the bundle for dependency review.
-- The receiver's audit records are created and retained on the receiver machine. The receiver decides how to review and anchor them.
+A signature identifies the key that signed the package and shows whether the signed data was modified. It does not grant permission to skip policy review. A receiver still decides whether the package's hosts, declared credentials, dependencies, provenance, image status, and local secret mappings fit the receiver's policy.
 
-For the limits of signatures, rebuilt images, local enforcement, and audit records, read [Trust model](/security/trust-model) and [Known limitations](/security/known-limitations).
+Read the [Trust model](/security/trust-model) and [Known limitations](/security/known-limitations) before making claims about signatures, rebuilt images, local enforcement, or audit records.
