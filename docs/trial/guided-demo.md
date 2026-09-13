@@ -31,6 +31,7 @@ Follow the steps in order. Paste the Hermes prompts exactly as written, and run 
 | **Hermes** | [Install Hermes](https://hermes-agent.nousresearch.com/docs) if needed |
 | **Trial invite** | Claim email from AgentPaaS ([get it here](https://agentpaas.ai/)) |
 | **LLM key** | Prefer [OpenRouter](https://openrouter.ai/) and a cheap model |
+| **Hermes model** | For a dedicated testing profile, google/gemini-3.8-flash is a good default. Other models work. |
 
 ---
 
@@ -47,10 +48,10 @@ Your trial is ready when you can open https://cloud.agentpaas.ai/ and see the Ag
 In Hermes, paste:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
+Install AgentPaaS from github https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
-Hermes installs the plugin and local tooling. You will be prompted to restart the session, so the plugin can be installed. Quit (`/quit`) and restart your hermes session.
+Hermes installs AgentPaaS and its local tooling. You will be prompted to restart the session. Quit (`/quit`) and restart your hermes session.
 
 ---
 
@@ -62,7 +63,9 @@ In Hermes:
 Build a weather agent that uses an LLM, and responds in a friendly demeanour
 ```
 
-During the build, Hermes will ask you to add an LLM key, such as OpenRouter or another provider. Paste the key in a separate Terminal window when prompted. Hermes will also ask you to set your publisher identity using your name to create a fingerprint. Follow the instructions as they appear. Never put the key in chat.
+When Hermes asks for publisher identity, run this in your own Terminal (not in chat): `agentpaas identity init --name <yourname>` Do not use your Mac account name.
+
+During the build, Hermes will ask you to add an LLM key, such as OpenRouter or another provider. Paste the key in a separate Terminal window when prompted. Never put the key in chat.
 
 You are ready when a local invoke returns a friendly weather answer.
 
@@ -78,6 +81,17 @@ Show me lineage and audits
 
 **Lineage** is the signed build story of the agent artifact (who packed what version and digest).  
 **Audit** is the run log under policy, including **egress_allowed** and **egress_denied**.
+
+For a CISO review, the pack records four fingerprints:
+
+- **Image digest:** container that ran
+- **Policy digest:** signed allow-list
+- **Build input digest:** packed source
+- **SBOM digest:** pack-time bill of materials
+
+The simple weather agent SBOM is the OS (Debian slim) plus AgentPaaS harness Go modules. It is not a pip supply chain unless the agent declared pip dependencies.
+
+The audit trail reads in order: `run_start` with isolated network, `egress_allowed` GET to `wttr.in`, `egress_allowed` POST to OpenRouter with credential ID `openrouter-key` brokered from Keychain, `invoke`, `run_complete 0`, and `run_finalized 0 denials`. The weather host appears before the LLM request, so the record shows a real fetch followed by summarization.
 
 If the agent tried a website that was not on the allow list, you should see a denial recorded by the gateway. That is the product working.
 
@@ -97,7 +111,7 @@ Demonstrate governance: remove the weather host from policy, repack, invoke and 
 In Hermes:
 
 ```text
-Make it run in the AgentPaaS cloud
+Make it run in the agentpaas cloud
 ```
 
 Hermes will ask you to login to the Cloud, so the CLI can connect to it. In your terminal:
