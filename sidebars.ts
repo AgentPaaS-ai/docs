@@ -16,7 +16,7 @@ const sidebars: SidebarsConfig = {
       {type: 'category', label: 'Athena', collapsed: false, items: [
         'trial/what-athena-can-do', 'trial/athena-questions', 'trial/athena-debugging',
       ]},
-      'trial/install-macos', 'trial/troubleshooting',
+      'trial/install-macos', 'trial/sharing-agents', 'trial/troubleshooting',
     ]},
     {type: 'category', label: 'Security', items: [
       'security/security-review',
