@@ -4,7 +4,7 @@ title: Full command list
 sidebar_label: Full command list
 ---
 
-Generated from `agentpaas --help` on CLI **0.3.7**. Run `agentpaas <cmd> --help` on your machine for flags that may differ by patch version.
+Generated from the CLI 0.4.2 command surface. Run `agentpaas <cmd> --help` on your machine for flags that may differ by patch version.
 
 ## Top level
 
@@ -69,7 +69,7 @@ result       Show the result package for a cloud run
 run          Create a cloud run from a deployment
 secrets      Push, list, and delete cloud secrets (labels only)
 status       Show cloud run status
-undeploy     Undeploy a cloud deployment
+undeploy     Undeploy a cloud deployment (requires --yes and confirmation id)
 usage        Show cloud usage and plan limits
 whoami       Show authenticated cloud user info
 workflow     Manage cloud workflows
@@ -84,7 +84,7 @@ list       List cloud secret labels
 bind       Bind a cloud secret to a deployment
 bindings   List secret bindings on a deployment
 delete     Delete a cloud secret label
-           agentpaas cloud secrets delete <name> --yes --confirm-id <name>
+           agentpaas cloud secrets delete <name> --yes --confirm-id <name> [--force]
 ```
 
 ## cloud images

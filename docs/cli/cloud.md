@@ -26,11 +26,15 @@ agentpaas cloud deploy latest
 # or: agentpaas cloud deploy --lock <path>
 
 agentpaas cloud deployments
-agentpaas cloud undeploy <deployment>
+agentpaas cloud undeploy <deployment> --yes --confirm-id <deployment>
 agentpaas cloud images delete <img_or_sha256> --yes --confirm-id <img_or_sha256>
 ```
 
-If an image is deployed, deleting the Component fails. Undeploy it first, then delete the image.
+These commands require `--yes`, including with `--json`. In a non-TTY, pass `--confirm-id` with the exact deployment id, image id, or image digest. In a TTY, the CLI prompts you to type that same value, even when `--yes` is present. Run destructive commands in your own terminal. They are designed to reject agent-mediated confirmation.
+
+`cloud undeploy` deletes live compute, removes the deployment's secret bindings, and frees the deployment slot. A workflow that refers to the deployment remains stored, but a later run fails with `deployment_not_found` until you redeploy the component and restore its bindings.
+
+`cloud images delete` removes an admitted image by image id or `sha256:` digest. It does not undeploy a deployment. If the image is still referenced, the API returns HTTP 409 and the CLI prints an `agentpaas cloud undeploy <dep_> --yes --confirm-id <dep_>` command for each blocking deployment. Undeploy those deployments, then retry the image deletion.
 
 ## Pull (edit loop)
 
@@ -50,7 +54,7 @@ agentpaas cloud secrets bindings <deployment>
 agentpaas cloud secrets delete <name> --yes --confirm-id <name>
 ```
 
-Labels only on list, bindings, and delete operations. Never prints values. Deleting a bound secret fails until you remove the binding or pass `--force`.
+Labels only on list, bindings, and delete operations. Never prints values. `cloud secrets delete` requires `--yes` and the same TTY or non-TTY `--confirm-id` rule described above. If the secret is bound to deployments, the API returns HTTP 409 and the CLI prints the bound deployment ids. Remove the bindings and retry, or pass `--force` when you intend to delete the bound secret. Deleting it removes the cloud secret label and its value from the cloud secret store.
 
 ## Workflows
 
@@ -58,7 +62,7 @@ Labels only on list, bindings, and delete operations. Never prints values. Delet
 agentpaas cloud workflow retire <wf_id> --yes --confirm-id <wf_id>
 ```
 
-Retiring a workflow fails while it has running instances. Stop or hang up the running instances first.
+Retiring a workflow calls `POST /v1/workflows/:id/retire`. It retires the stored workflow recipe and does not delete in-use instances. If instances are still running, the API returns HTTP 409 and the CLI prints the in-use instance ids. Stop or hang up those instances, then retry. The command requires `--yes` and the same TTY or non-TTY `--confirm-id` rule described above.
 
 ## Invoke and runs
 
@@ -110,7 +114,7 @@ Use [Ingress through the gateway](../trial/ingress) to connect Slack, Stripe, Gi
 agentpaas cloud ingress source delete <src_id> --yes --confirm-id <src_id>
 ```
 
-Deleting an ingress source fails while any connection is enabled. Disable the connections first.
+Deleting an ingress source calls `DELETE /v1/ingress/sources/:id`. It does not automatically disable connections. If enabled connections still reference the source, the API returns HTTP 409 and the CLI prints `agentpaas cloud ingress connection disable <con_>` for each blocker. Disable those connections, then retry. The command requires `--yes` and the same TTY or non-TTY `--confirm-id` rule described above. Signing secrets are never printed.
 
 ## Agent checklist (cloud weather path)
 

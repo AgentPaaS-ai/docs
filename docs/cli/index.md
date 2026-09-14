@@ -6,7 +6,7 @@ sidebar_label: Overview
 
 The **AgentPaaS CLI** (`agentpaas`) is the full control surface for local agents and AgentPaaS Cloud. Humans and coding agents (Hermes and others) should prefer these commands when they need precise, repeatable setup.
 
-**Current brew line:** 0.3.7+ (`agentpaas version`)
+**Current brew line:** 0.4.2+ (`agentpaas version`)
 
 ## How to use this section
 
@@ -50,9 +50,11 @@ Trial users who only want the happy path can stay on the [Agent Guided Demo](/tr
 |---------|---------|
 | `login` / `logout` / `whoami` | Tenant session |
 | `push` / `pull` | Image up/down |
-| `deploy` / `undeploy` / `deployments` / `images` | Live slots |
+| `deploy` / `undeploy` / `deployments` / `images` | Live slots and admitted images |
+| `workflow ...` | Create, inspect, start, and retire workflows |
+| `ingress ...` | Manage ingress sources and connections |
 | `invoke` / `invoke-token` / `run` / `status` / `result` / `logs` / `events` / `cancel` | Runs |
-| `secrets …` | Push/list/bind (never print values) |
+| `secrets ...` | Push/list/bind/delete (never print values) |
 | `cron …` | Cloud schedules |
 | `registry` / `usage` / `audit` / `metrics` | Catalog and ops |
 
