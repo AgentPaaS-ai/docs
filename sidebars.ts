@@ -19,8 +19,8 @@ const sidebars: SidebarsConfig = {
       'trial/runs-audit-logs', 'trial/troubleshooting',
     ]},
     {type: 'category', label: 'Operations', collapsed: true, items: [
-      'trial/cloud-resource-lifecycle', 'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
-      'trial/webhooks', 'trial/platform-limits',
+      'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
+      'trial/webhooks', 'trial/ingress', 'trial/cloud-resource-lifecycle', 'trial/platform-limits',
     ]},
     {type: 'category', label: 'AgentPaaS CLI', collapsed: true, items: [
       'cli/index', 'cli/install', 'cli/daemon', 'cli/doctor', 'cli/projects', 'cli/pack-run',
