@@ -19,7 +19,7 @@ const sidebars: SidebarsConfig = {
       'trial/runs-audit-logs', 'trial/troubleshooting',
     ]},
     {type: 'category', label: 'Operations', collapsed: true, items: [
-      'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
+      'trial/cloud-resource-lifecycle', 'trial/cloud-login', 'trial/cloud-pull', 'trial/llm-key', 'trial/cloud-cron',
       'trial/webhooks', 'trial/platform-limits',
     ]},
     {type: 'category', label: 'AgentPaaS CLI', collapsed: true, items: [
