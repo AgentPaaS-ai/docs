@@ -55,7 +55,7 @@ cron         Manage cloud deployment cron schedules
 deploy       Deploy an admitted image
 deployments  List cloud deployments
 events       Show events for a cloud run
-images       List admitted cloud images
+images       List and delete admitted cloud images
 invoke       Invoke a cloud deployment
 invoke-token Mint a deployment invoke token
 login        Log in to AgentPaaS Cloud
@@ -67,11 +67,13 @@ push         Push a packed agent image
 registry     List tenant assets and the platform MCP catalog
 result       Show the result package for a cloud run
 run          Create a cloud run from a deployment
-secrets      Push and list cloud secrets (labels only)
+secrets      Push, list, and delete cloud secrets (labels only)
 status       Show cloud run status
 undeploy     Undeploy a cloud deployment
 usage        Show cloud usage and plan limits
 whoami       Show authenticated cloud user info
+workflow     Manage cloud workflows
+ingress      Manage ingress sources and connections
 ```
 
 ## cloud secrets
@@ -81,6 +83,29 @@ push       Push local keychain secrets to the cloud
 list       List cloud secret labels
 bind       Bind a cloud secret to a deployment
 bindings   List secret bindings on a deployment
+delete     Delete a cloud secret label
+           agentpaas cloud secrets delete <name> --yes --confirm-id <name>
+```
+
+## cloud images
+
+```text
+delete <img_or_sha256>  Delete an admitted cloud image
+                         agentpaas cloud images delete <img_or_sha256> --yes --confirm-id <img_or_sha256>
+```
+
+## cloud workflow
+
+```text
+retire <wf_id>  Retire a cloud workflow
+                agentpaas cloud workflow retire <wf_id> --yes --confirm-id <wf_id>
+```
+
+## cloud ingress
+
+```text
+source delete <src_id>  Delete an ingress source
+                        agentpaas cloud ingress source delete <src_id> --yes --confirm-id <src_id>
 ```
 
 ## cloud cron
