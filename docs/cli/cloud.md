@@ -27,7 +27,10 @@ agentpaas cloud deploy latest
 
 agentpaas cloud deployments
 agentpaas cloud undeploy <deployment>
+agentpaas cloud images delete <img_or_sha256> --yes --confirm-id <img_or_sha256>
 ```
+
+If an image is deployed, deleting the Component fails. Undeploy it first, then delete the image.
 
 ## Pull (edit loop)
 
@@ -44,9 +47,18 @@ agentpaas cloud secrets push openrouter
 agentpaas cloud secrets list
 agentpaas cloud secrets bind <deployment> openrouter --as bearer --host openrouter.ai
 agentpaas cloud secrets bindings <deployment>
+agentpaas cloud secrets delete <name> --yes --confirm-id <name>
 ```
 
-Labels only on list/bindings. Never prints values.
+Labels only on list, bindings, and delete operations. Never prints values. Deleting a bound secret fails until you remove the binding or pass `--force`.
+
+## Workflows
+
+```bash
+agentpaas cloud workflow retire <wf_id> --yes --confirm-id <wf_id>
+```
+
+Retiring a workflow fails while it has running instances. Stop or hang up the running instances first.
 
 ## Invoke and runs
 
@@ -167,6 +179,12 @@ print source secrets or reply tokens.
 `cloud webhook` remains the command group for outbound completion and delivery
 webhooks, plus the legacy deployment webhook doorbell. It does not configure
 the source and connection ingress plane described above.
+
+```bash
+agentpaas cloud ingress source delete <src_id> --yes --confirm-id <src_id>
+```
+
+Deleting an ingress source fails while any connection is enabled. Disable the connections first.
 
 ## Agent checklist (cloud weather path)
 
