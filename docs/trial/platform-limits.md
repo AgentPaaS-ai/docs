@@ -36,3 +36,7 @@ flowchart LR
   C --> D[Stage two]
   D --> E[Final artifact]
 ```
+
+## API rate limits
+
+Invoke and management API calls are limited to 5 per minute per tenant. Extra calls return 429. Raise either limit with a support ticket. There is no self-serve raise.
