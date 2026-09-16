@@ -23,6 +23,22 @@ The four controls are:
 - Gateway-brokered credentials
 - Tamper-evident audit
 
+## OWASP GenAI LLM Top 10 2026
+
+The four controls stay the product story. This table maps them onto the OWASP GenAI LLM Top 10 2026. AgentPaaS contains these risks. It does not prevent prompt injection. Injection succeeds, exploit fails.
+
+| Risk | How AgentPaaS contains it |
+|------|---------------------------|
+| LLM01 Prompt Injection | Isolated container and default-deny egress bound the blast radius. A redirected model still cannot reach hosts it was not packed to call. |
+| LLM02 Sensitive Information Disclosure | Gateway-brokered credentials never enter the workload. The LLM path can mask or reject secrets and PII before they land in audit. |
+| LLM03 Excessive Agency | Packed tools and egress hosts are allow-listed. A redirected agent cannot call a tool or host outside the signed policy. |
+| LLM04 Supply Chain | Signed packed artifacts are what deploy. Unsigned packages do not run. |
+| LLM06 Unbounded Consumption | Metering and token budgets cap spend. Exhaustion fails closed. |
+| LLM08 Hidden Context Exposure | Pack only the hosts, tools, and secrets the task needs. Hidden context is a design choice at pack time, not extra runtime channels. |
+| LLM10 Improper Output Handling | Containment is the sandbox plus allow-listed egress. This is not an output-encoding claim. |
+
+AgentPaaS does not claim coverage for LLM05 Data and Model Poisoning, LLM07 Misinformation, or LLM09 Vector and Embedding Weaknesses.
+
 ## Here is how you can use AgentPaaS:
 
 1. **Build and evaluate locally.** Build your agent in Hermes, then test it and evaluate its behavior in your own environment.
