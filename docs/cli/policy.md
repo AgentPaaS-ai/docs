@@ -31,3 +31,14 @@ On AgentPaaS Cloud, host allow is not enough:
 - Tool names match exactly. Edit policy and redeploy to change the set.
 
 Same story as the policy reference. Console stays read-only.
+
+### Inspect the compiled contract
+
+```bash
+agentpaas policy show
+agentpaas policy validate
+```
+
+`show` is the compiled contract for a packed or deployed target. `validate` is the same view before deploy. Credential IDs only.
+
+The Cloud console Gateway Policy page and the policy block on a deployment detail are read-only. Components and Workflows only link there. Edit `policy.yaml`, pack, and redeploy to change what is enforced.
