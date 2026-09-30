@@ -68,7 +68,7 @@ credentials:
 
 Store the refresh token under the declared secret name with the required `oauth_llm_rt_` prefix. The workload receives the governed LLM path, not the refresh token or access token.
 
-TODO: verify the production Nous Research OAuth token endpoint, client ID registration procedure, required scopes, and model host before publishing a copy-paste Nous configuration. Nous's public inference documentation currently documents API-key authentication, while the AgentPaaS product path requires an OAuth token exchange. Do not replace the example above with an unverified endpoint.
+Configure `oauth_llm` with the public HTTPS token endpoint, client ID, and refresh-token secret name supplied by your OAuth provider. The example uses an illustrative endpoint. Replace it with the endpoint documented by your provider before packing.
 
 ## Automatic credential compilation
 
