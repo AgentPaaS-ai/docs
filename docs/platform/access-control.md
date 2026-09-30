@@ -24,22 +24,9 @@ bindings, and read the audit trail for that tenant.
 There is no per-user role separation within a tenant today. Do not grant the
 trial login more broadly than you intend that one identity to reach.
 
-## Roadmap: RBAC for your team
-
-Role-based access control for multiple employee accounts is **coming**. It is
-not available in the current release, and we do not claim it is.
-
-The goal is to let every one of your employees create and run workflows, as
-permitted by your IT, with roles that separate who can author, who can
-deploy, who can invoke, and who can read audit evidence. When RBAC ships,
-this page will describe the roles and how to assign them.
-
 ## What does not change
 
-Regardless of how tenant access evolves, the runtime guarantees stay the same:
-brokered credentials, default-deny egress, signed artifacts, and the
-tamper-evident audit chain apply to every run, whoever started it. See
-[How enforcement works](/security/how-enforcement-works).
+Regardless of tenant access, the runtime controls remain brokered credentials, default-deny egress, signed artifacts, and the tamper-evident audit chain. See [How enforcement works](/security/how-enforcement-works).
 
 ## Related
 

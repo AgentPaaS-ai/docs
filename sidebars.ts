@@ -11,7 +11,7 @@ const sidebars: SidebarsConfig = {
       {type: 'category', label: 'Tools', items: ['trial/tools', 'trial/build-tool']},
       {type: 'category', label: 'Workflows', items: ['trial/workflow-kinds-and-edges', 'trial/workflows', 'trial/workflow-waiting']},
       {type: 'category', label: 'Gateway', collapsed: false, items: [
-        'trial/gateway', 'trial/ingress', 'trial/gateway-security', 'trial/gateway-roadmap', 'trial/llm-governance', 'trial/policy-inspection',
+        'trial/gateway', 'trial/ingress', 'trial/gateway-security', 'trial/llm-governance', 'trial/policy-inspection',
       ]},
       {type: 'category', label: 'Athena', collapsed: false, items: [
         'trial/what-athena-can-do', 'trial/athena-questions', 'trial/athena-debugging',

@@ -38,6 +38,5 @@ The assurance mechanism differs by tier. Read the [threat model](../security/thr
 
 - [Gateway security controls](./gateway-security)
 - [Ingress through the gateway](./ingress)
-- [Gateway roadmap](./gateway-roadmap)
 - [How enforcement works](../security/how-enforcement-works)
 - [Known limitations](../security/known-limitations)
