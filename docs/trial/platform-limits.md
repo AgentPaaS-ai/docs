@@ -1,6 +1,6 @@
 # Platform limits
 
-Last reviewed: 2026-09-06
+Last reviewed: 2026-09-30
 
 Limits are part of the workflow design. Check them before packing.
 
@@ -23,7 +23,7 @@ Input files are limited to 50 MiB at the workflow boundary and API request bodie
 
 ## Unsupported paths
 
-Native human-in-the-loop, for-each, wait or delay, local multi-stage runs, join-any, spawn depth greater than one, and an undeclared standalone agent-to-agent call are unavailable. Use a declared pipeline, fan-out with join-all, choice, or a declared phone call. If a requested fact is not present in the installed CLI help or API source, verify it before relying on it.
+Native human-in-the-loop, authored for-each, authored wait or delay, local multi-stage runs, join-any, spawn depth greater than one, and an undeclared standalone agent-to-agent call are unavailable. The `waiting_seat` state described in [Workflow waiting and capacity](./workflow-waiting) is runtime capacity handling, not an authored wait or delay step. Use a declared pipeline, fan-out with join-all, choice, or a declared phone call.
 
 ## File-through
 
@@ -36,7 +36,3 @@ flowchart LR
   C --> D[Stage two]
   D --> E[Final artifact]
 ```
-
-## API rate limits
-
-Invoke and management API calls are limited to 5 per minute per tenant. Extra calls return 429. Raise either limit with a support ticket. There is no self-serve raise.

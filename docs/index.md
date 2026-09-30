@@ -4,7 +4,7 @@ slug: /
 title: AgentPaaS documentation
 ---
 
-AgentPaaS.ai is a secure platform-as-a-service to run agents, applications, MCP servers, and agentic integration workflows — with end-to-end security and governance.
+AgentPaaS.ai is a secure platform-as-a-service to run agents, applications, MCP servers, and agentic integration workflows, with end-to-end security and governance.
 
 This documentation covers the open-source AgentPaaS CLI and AgentPaaS Cloud. Agent Security is the foundation of the complete path: build, deploy, run, govern, and audit.
 
@@ -36,7 +36,7 @@ The free trial lasts 30 days, requires no card, and includes the Individual tier
 
 | Version | Status |
 |---------|--------|
-| **[v0.4.1](./releases/v0.4.1)** | Current (`agentpaas version` → `CLI: 0.4.1+`) |
+| **[v0.5.0](./releases/v0.5.0)** | Current (`agentpaas version` → `CLI: 0.5.0+`) |
 
 ## Start here
 
@@ -44,7 +44,7 @@ The free trial lasts 30 days, requires no card, and includes the Individual tier
 |--|--|
 | AgentPaaS | [What is AgentPaaS?](./trial/what-is-agentpaas), [Get your free trial](./trial/) and [Agent Guided Demo](./trial/guided-demo) |
 | AgentPaaS CLI | [CLI overview](./cli/) |
-| What shipped | [Release notes v0.4.1](./releases/v0.4.1) |
+| What shipped | [Release notes v0.5.0](./releases/v0.5.0) |
 | Documentation | [Documentation map](./documentation-map), [Q&A](./faq) |
 || Cloud console | [cloud.agentpaas.ai](https://cloud.agentpaas.ai/) |
 || Product home | [agentpaas.ai](https://agentpaas.ai/) |

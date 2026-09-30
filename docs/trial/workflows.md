@@ -28,7 +28,7 @@ Use this prompt:
 
 > Build a support workflow. Classify the ticket as refund, escalate, or close, then run only the matching specialist.
 
-A workflow is a recipe. A deployment is live compute. A run is one execution. Do not deploy a workflow. Ready means every member component is already deployed. The console graph is read-only.
+A workflow is a recipe. A deployment is live compute. A run is one execution. Do not deploy a workflow. Ready means every member component is already deployed. The console graph is read-only. When a child call cannot get a copy slot, Cloud can park it as `waiting_seat` and return HTTP `202` instead of holding the request open. See [Workflow waiting and capacity](./workflow-waiting).
 
 The default is a pipeline. A phone call is for a living agent that must call another living agent. A call outside the signed envelope fails closed.
 

@@ -12,7 +12,7 @@ Ingress is the inbound side of the gateway topic. It admits an external event in
 
 ## Prerequisites
 
-- AgentPaaS CLI 0.4.1 or newer
+- [CLI 0.5.0 or newer](../cli/install)
 - An AgentPaaS Cloud tenant session
 - A deployed agent and its `dep_...` deployment ID
 - A third-party app that can send HTTP POST requests and sign them with HMAC

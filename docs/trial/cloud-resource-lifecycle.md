@@ -11,7 +11,7 @@ Use this runbook when you need to remove a deployed agent, MCP server, tool, wor
 
 ## Before you start
 
-- Install AgentPaaS CLI 0.4.2 or newer.
+- Install AgentPaaS CLI 0.5.0 or newer.
 - Log in with access to the tenant that owns the resources.
 - Run the commands in your own Terminal. Destructive cloud commands require an explicit confirmation.
 
@@ -89,7 +89,7 @@ agentpaas cloud ingress connections "$SOURCE_ID"
 agentpaas cloud ingress connection disable "$CONNECTION_ID"
 ```
 
-There is no per-connection delete command in CLI 0.4.2. Disabling a connection stops it from matching new events, and the disabled connection is removed when its ingress source is deleted.
+There is no per-connection delete command in CLI 0.5.0. Disabling a connection stops it from matching new events, and the disabled connection is removed when its ingress source is deleted.
 
 If the source is dedicated to the deployment, delete it after all of its connections are disabled.
 
@@ -167,7 +167,7 @@ agentpaas cloud secrets bindings "$DEPLOYMENT_ID"
 agentpaas cloud secrets delete "$SECRET_NAME" --yes --confirm-id "$SECRET_NAME"
 ```
 
-If the secret is still bound, deletion returns HTTP 409 and prints the bound deployment IDs. CLI 0.4.2 has no standalone unbind command. Undeploy those deployments, which removes their bindings, then retry. Pass `--force` only when you intend to delete a still-bound secret.
+If the secret is still bound, deletion returns HTTP 409 and prints the bound deployment IDs. CLI 0.5.0 has no standalone unbind command. Undeploy those deployments, which removes their bindings, then retry. Pass `--force` only when you intend to delete a still-bound secret.
 
 ```bash
 SECRET_NAME="openrouter"

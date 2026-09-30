@@ -16,7 +16,8 @@ Use this map to choose a starting page by task. The links are grouped by the wor
 | Build an agent | [Build an agent](./trial/build-agent) | [Agents](./trial/agents), [What is AgentPaaS?](./trial/what-is-agentpaas) |
 | Build an MCP server | [Build an MCP server](./trial/build-mcp-server) | [MCP servers](./trial/mcp-servers), [MCP demos](./cli/mcp-demos) |
 | Build a tool | [Build a tool](./trial/build-tool) | [Tools](./trial/tools) |
-| Compose a workflow | [Workflows](./trial/workflows) | [Workflow kinds and edges](./trial/workflow-kinds-and-edges), [Platform limits](./trial/platform-limits) |
+| Compose a workflow | [Workflows](./trial/workflows) | [Workflow kinds and edges](./trial/workflow-kinds-and-edges), [Workflow waiting and capacity](./trial/workflow-waiting), [Platform limits](./trial/platform-limits) |
+| Govern LLM use | [LLM governance](./trial/llm-governance) | [Policy inspection](./trial/policy-inspection), [Known limitations](./security/known-limitations) |
 | Log in to Cloud | [Cloud login](./trial/cloud-login) | [Cloud](./cli/cloud), [Cloud pull](./trial/cloud-pull) |
 | Push, deploy, invoke, or inspect a Cloud run | [Cloud](./cli/cloud) | [Runs, audit, and logs](./trial/runs-audit-logs), [Audit and lineage](./cli/audit-lineage) |
 | Manage local or Cloud credentials | [Credentials and secrets](./security/credentials) | [Secrets and bindings](./cli/secrets), [Data handling](./security/data-handling) |
@@ -33,7 +34,7 @@ Use this map to choose a starting page by task. The links are grouped by the wor
 | Troubleshoot a trial or run | [Troubleshooting](./trial/troubleshooting) | [The 30-minute path](./trial/thirty-minute-path), [Doctor](./cli/doctor) |
 | Receive third-party events and start runs | [Ingress through the gateway](./trial/ingress) | [Gateway overview](./trial/gateway), [Cloud commands](./cli/cloud) |
 | Run a customer-facing demo | [Build a Slack Bot](./demos/build-slack-bot) | [Build a Weather Agent](./demos/build-weather-agent), [Ingress through the gateway](./trial/ingress) |
-| Read release changes | [Release notes v0.4.1](./releases/v0.4.1) | [Documentation home](/) |
+| Read release changes | [Release notes v0.5.0](./releases/v0.5.0) | [Documentation home](/) |
 
 ## Security facts to keep in view
 

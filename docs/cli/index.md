@@ -6,7 +6,7 @@ sidebar_label: Overview
 
 The **AgentPaaS CLI** (`agentpaas`) is the full control surface for local agents and AgentPaaS Cloud. Humans and coding agents (Hermes and others) should prefer these commands when they need precise, repeatable setup.
 
-**Current brew line:** 0.4.2+ (`agentpaas version`)
+**Current brew line:** 0.5.0+ (`agentpaas version`)
 
 ## How to use this section
 

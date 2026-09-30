@@ -4,7 +4,7 @@ title: Full command list
 sidebar_label: Full command list
 ---
 
-Generated from the CLI 0.4.2 command surface. Run `agentpaas <cmd> --help` on your machine for flags that may differ by patch version.
+Generated from the CLI 0.5.0 command surface. Run `agentpaas <cmd> --help` on your machine for flags that may differ by patch version.
 
 ## Top level
 

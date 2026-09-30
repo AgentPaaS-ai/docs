@@ -14,6 +14,8 @@ agentpaas cloud logout
 
 `cloud login` opens a browser. Approve in the **same browser** used for the trial claim. Do not put `apc_…` tokens in chat. CI may use `cloud login --token-stdin`.
 
+After a successful login, the CLI remembers the Cloud API URL in its local AgentPaaS configuration. Set `AGENTPAAS_CLOUD_API_URL` to override it for one or more commands. `agentpaas cloud logout` clears the saved URL. This matters when moving between staging and production.
+
 ## Images and deploy
 
 ```bash
@@ -100,6 +102,16 @@ agentpaas cloud registry
 agentpaas cloud usage
 agentpaas cloud audit
 agentpaas cloud metrics
+```
+
+## Usage and cost
+
+Cloud records gateway-observed LLM usage for a run. The console Usage and Plan view shows tenant usage, and run details show the usage and cost recorded for that run. The workload cannot submit arbitrary usage values to change the record.
+
+Use the CLI to inspect tenant usage:
+
+```bash
+agentpaas cloud usage
 ```
 
 ## Cron

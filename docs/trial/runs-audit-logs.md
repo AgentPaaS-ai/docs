@@ -50,6 +50,8 @@ The console is read-only. Use Hermes or the CLI to create, pack, push, deploy, a
 - **Workflows**, the signed recipes
 - **Runs**, the executions
 - **Logs**, the execution and policy records
+- **Usage and Plan**, gateway-observed LLM usage and cost
+- **Gateway Policy**, the compiled policy and policy digest
 
 When a run fails, start with the run status, then read the result, logs, and events. If a workflow reports `deployment_not_found`, redeploy the missing member component before trying again.
 

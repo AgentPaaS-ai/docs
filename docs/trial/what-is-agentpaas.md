@@ -1,6 +1,6 @@
 # What is AgentPaaS?
 
-**AgentPaaS.ai is a secure platform-as-a-service to run agents, applications, MCP servers, and agentic integration workflows — with end-to-end security and governance.**
+**AgentPaaS.ai is a secure platform-as-a-service to run agents, applications, MCP servers, and agentic integration workflows, with end-to-end security and governance.**
 
 Agent Security is the foundation of the complete path from build to audit.
 
