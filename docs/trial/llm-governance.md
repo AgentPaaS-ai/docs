@@ -70,6 +70,17 @@ Store the refresh token under the declared secret name with the required `oauth_
 
 Configure `oauth_llm` with the public HTTPS token endpoint, client ID, and refresh-token secret name supplied by your OAuth provider. The example uses an illustrative endpoint. Replace it with the endpoint documented by your provider before packing.
 
+## OpenRouter reasoning effort
+
+Cloud accepts these reasoning effort values for OpenRouter requests:
+
+```text
+low
+medium
+high
+max
+```
+
 ## Automatic credential compilation
 
 When `agent.yaml` names an LLM credential, `agentpaas pack` carries the credential reference into the compiled signed policy. The secret value is not copied into the bundle or container.
