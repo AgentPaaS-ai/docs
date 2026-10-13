@@ -33,7 +33,7 @@ Expect **CLI: 0.3.7** (or newer) on current brew.
 Coding agents can install the plugin and tooling with:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas
+Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
 That still ends with a working `agentpaas` on PATH for the commands in this section.

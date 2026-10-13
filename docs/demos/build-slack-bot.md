@@ -46,7 +46,7 @@ The bot only sees the text in the current Slack mention. It does not change a re
 In Hermes, paste:
 
 ```text
-Install from https://github.com/AgentPaaS-ai/agentpaas
+Install from https://github.com/AgentPaaS-ai/agentpaas/tree/main/install
 ```
 
 Restart Hermes when it asks.
