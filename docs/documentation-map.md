@@ -34,7 +34,7 @@ Use this map to choose a starting page by task. The links are grouped by the wor
 | Troubleshoot a trial or run | [Troubleshooting](./trial/troubleshooting) | [The 30-minute path](./trial/thirty-minute-path), [Doctor](./cli/doctor) |
 | Receive third-party events and start runs | [Ingress through the gateway](./trial/ingress) | [Gateway overview](./trial/gateway), [Cloud commands](./cli/cloud) |
 | Run a customer-facing demo | [Build a Slack Bot](./demos/build-slack-bot) | [Build a Weather Agent](./demos/build-weather-agent), [Ingress through the gateway](./trial/ingress) |
-| Read release changes | [Release notes v0.5.0](./releases/v0.5.0) | [Documentation home](/) |
+| Read release changes | [Release notes v0.5.1](./releases/v0.5.1) | [Release notes v0.5.0](./releases/v0.5.0) |
 
 ## Security facts to keep in view
 

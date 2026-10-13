@@ -30,16 +30,14 @@ guardrails:
   pii:
     action: mask
     builtins:
-      - Email
-      - Ssn
-      - DriversLicense
       - CreditCard
+      - Ssn
+      - Email
+      - DriversLicense
       - Key
-    patterns:
-      - "\\b(?:\\+1[-. ]?)?\\(?[2-9][0-9]{2}\\)?[-. ]?[0-9]{3}[-. ]?[0-9]{4}\\b"
 ```
 
-The built-in detector names are exact and case-sensitive. Phone numbers use a custom pattern in this release. There is no `Phone` built-in.
+The built-in detector names are exact and case-sensitive: CreditCard, Ssn, Email, DriversLicense, and Key. This release accepts those built-ins only. Custom patterns are refused. There is no phone-number detection and no `Phone` built-in. An agent already deployed with custom patterns fails closed until you repack it with 0.5.1.
 
 Use `mask` to replace a detected value with `[REDACTED]`. Use `reject` to block the request. Masking occurs before the event is written to audit. When inspection is required for a stream, the runtime buffers the stream or fails closed. Detector, audit, and budget failures do not turn the policy into an allow path.
 
