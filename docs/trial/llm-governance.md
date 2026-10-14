@@ -95,7 +95,7 @@ When `agent.yaml` names an LLM credential, `agentpaas pack` carries the credenti
 
 ## Telemetry egress
 
-The CLI removes workload telemetry environment variables before the worker starts, rejects configured telemetry host aliases during packing, and sets `CREWAI_DISABLE_TELEMETRY=true` and `OTEL_SDK_DISABLED=true` in the image. The model probe remains a governed egress event. These controls cover the observable CLI path; review [Known limitations](../security/known-limitations) for the broader enforcement boundary.
+The CLI removes workload telemetry environment variables before the worker starts, and `agentpaas pack` refuses a policy whose egress allows a CrewAI telemetry host. It also sets `CREWAI_DISABLE_TELEMETRY=true` and `OTEL_SDK_DISABLED=true` in the image. The model probe remains a governed egress event. These controls cover the observable CLI path; review [Known limitations](../security/known-limitations) for the broader enforcement boundary.
 
 Inspect the compiled contract before deployment:
 

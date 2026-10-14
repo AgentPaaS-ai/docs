@@ -38,7 +38,8 @@ The current shipped path has one configured provider/model/credential target.
 Gaps not yet closed include: immutable deployment versions and atomic
 promotion/rollback; a single authoritative time model; policy-derived worker
 CPU/process limits; first-class conversation/session state; logical route
-selection across a model pool; a shared hard LLM spend limit across workflow
+selection across a model pool; durable invocation idempotency beyond an
+in-flight run; a shared hard LLM spend limit across workflow
 stages; explicit worker attempts, leases, and fencing; operator cancel and
 safe-boundary pause/resume; and deterministic no-progress recovery guardrails.
 

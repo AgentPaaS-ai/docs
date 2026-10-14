@@ -15,10 +15,9 @@ agentpaas daemon restart
 
 Also available: `daemon install` / `daemon uninstall` (launch agent integration).
 
-For an enabled pipeline workflow, the daemon registers the pipeline for its
-reconcile loop before `InvokeDeployment` returns. The reconcile loop advances
-the pipeline after admission, so an orphan scan does not stop a live pipeline
-stage that has already been admitted.
+An enabled pipeline workflow keeps running after the invoke command returns.
+The daemon's cleanup of orphaned containers does not stop a pipeline stage that
+is already running.
 
 ### Tips for agents
 
