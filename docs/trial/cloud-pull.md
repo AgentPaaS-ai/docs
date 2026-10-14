@@ -1,6 +1,6 @@
 # Pull cloud metadata
 
-Use CLI 0.5.0 or newer. Cloud pull is metadata-first. Your local project remains the source of truth; pull is not a round-trip IDE or a full source archive.
+Use CLI 0.5.1 or newer. Cloud pull is metadata-first. Your local project remains the source of truth; pull is not a round-trip IDE or a full source archive.
 
 ```bash
 agentpaas cloud pull <component-or-deployment>

@@ -11,7 +11,7 @@ Use this runbook when you need to remove a deployed agent, MCP server, tool, wor
 
 ## Before you start
 
-- Install AgentPaaS CLI 0.5.0 or newer.
+- Install AgentPaaS CLI 0.5.1 or newer.
 - Log in with access to the tenant that owns the resources.
 - Run the commands in your own Terminal. Destructive cloud commands require an explicit confirmation.
 

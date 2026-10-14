@@ -55,4 +55,6 @@ The Cloud console exposes the same compiled contract through read-only views:
 
 The console does not edit policy. Change the project policy, repack, and redeploy.
 
+The Logs page has an **Event type** filter. Select an event type to narrow the audit rows, or leave it at `all` to show every event type.
+
 See [LLM governance](./llm-governance) for budgets, PII handling, model aliases, OAuth LLM credentials, and usage behavior.

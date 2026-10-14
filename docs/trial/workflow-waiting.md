@@ -46,6 +46,8 @@ live_call_wait_expired
 
 `seat_wait_timeout` means the child waited for capacity longer than the configured seat wait. `live_call_wait_expired` means the parent workflow's own time budget ended first.
 
+For `seat_wait_timeout`, the child run becomes failed with `error: "seat_wait_timeout"`; the parent receives the failed child result. For `live_call_wait_expired`, the parent run becomes failed with `error: "live_call_wait_expired"` when its own budget expires while the child is waiting. A mailbox token does not turn either failure into a success.
+
 ## Customer impact
 
 This behavior handles temporary concurrency pressure. It prevents a whole parent workflow from failing immediately when its child cannot start, and it prevents Cloud from holding an HTTP request open during the wait.

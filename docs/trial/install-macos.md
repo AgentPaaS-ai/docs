@@ -28,7 +28,7 @@ agentpaas doctor
 agentpaas version
 ```
 
-Use CLI 0.5.0 or newer. On Intel Macs, Homebrew binaries are under `/usr/local/bin`. If macOS blocks a binary, clear its quarantine attribute or use Finder's Open action.
+Use CLI 0.5.1 or newer. On Intel Macs, Homebrew binaries are under `/usr/local/bin`. If macOS blocks a binary, clear its quarantine attribute or use Finder's Open action.
 
 ## Log in to Cloud
 

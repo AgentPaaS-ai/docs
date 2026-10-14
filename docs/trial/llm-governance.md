@@ -21,6 +21,10 @@ llm_budget:
 
 `max_tokens` limits total token use for an invoke. `max_tokens_per_request` limits one LLM request. `max_cost_usd` limits recorded model spend. A budget exhaustion fails the run. A policy without these fields leaves this policy budget disabled.
 
+`max_cost_usd` is a pre-egress ceiling. Cloud refuses an LLM call when its priced minimum would exceed the ceiling, records `llm.cost_ceiling`, fails the run with `budget_exhausted`, and does not record `egress.allowed`. The refusal response is HTTP `429` with `error: "budget_exhausted"` and a `Retry-After` value. Use policy version `1.1` when `llm_budget.max_cost_usd` is present. A version `1.0` policy with that field is refused with `v1.0 schema must not contain v1.1 routed fields`.
+
+Model IDs containing a slash, such as `deepseek/deepseek-v4.1-flash`, are priced. The ceiling applies to those IDs too.
+
 ## PII controls
 
 The mapping form is `guardrails.pii`:
@@ -48,6 +52,8 @@ A reject policy must define the reject response fields accepted by the policy va
 Cloud can resolve a logical model alias to a configured provider model. Availability-only failures can move one LLM call to its configured fallback. The eligible failures are HTTP `429`, HTTP `5xx`, timeout, and connection failure.
 
 A content refusal does not trigger failover. Failover is per LLM call and does not consume a workflow stage retry.
+
+When a virtual-model primary returns HTTP `429` or HTTP `5xx`, Cloud tries the configured fallback. The journal records `virtual_model.failover` with the primary model, served model, and status. Guardrail, PII, and schema refusals do not trigger this failover.
 
 ## OAuth LLM credentials
 
@@ -81,7 +87,15 @@ max
 
 ## Automatic credential compilation
 
+## Signed lock and repacking
+
+`agentpaas pack` stamps the `llm_budget` block and `guardrails.pii` settings into the signed lock. The stamped values are part of the deployed contract. Change either setting in `policy.yaml`, then run `agentpaas pack` again and redeploy. Inspect the result with `agentpaas policy show` before deployment.
+
 When `agent.yaml` names an LLM credential, `agentpaas pack` carries the credential reference into the compiled signed policy. The secret value is not copied into the bundle or container.
+
+## Telemetry egress
+
+The CLI removes workload telemetry environment variables before the worker starts, rejects configured telemetry host aliases during packing, and sets `CREWAI_DISABLE_TELEMETRY=true` and `OTEL_SDK_DISABLED=true` in the image. The model probe remains a governed egress event. These controls cover the observable CLI path; review [Known limitations](../security/known-limitations) for the broader enforcement boundary.
 
 Inspect the compiled contract before deployment:
 

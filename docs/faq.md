@@ -119,9 +119,10 @@ and [Known limitations](./security/known-limitations).
 The current release supports HTTP/S egress only, has no external
 agent-to-agent federation or signing revocation, and does not provide
 substrate-enforced isolation on the default Cloud tier. Local mode trusts the
-host machine. Long-running routed-run features, including durable
-idempotency, pause/resume, cross-model fallback, and shared hard spend limits,
-are not fully shipped. See [Known limitations](./security/known-limitations).
+host machine. Long-running routed-run features, including durable idempotency beyond a cooking
+run, pause/resume, general model-pool routing, and shared hard spend limits,
+are not fully shipped. Per-call cost ceilings and availability-only virtual-model
+failover are shipped within their documented boundaries. See [Known limitations](./security/known-limitations).
 
 ## What can customers verify themselves?
 

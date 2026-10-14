@@ -12,7 +12,7 @@ Ingress is the inbound side of the gateway topic. It admits an external event in
 
 ## Prerequisites
 
-- [CLI 0.5.0 or newer](../cli/install)
+- [CLI 0.5.1 or newer](../cli/install)
 - An AgentPaaS Cloud tenant session
 - A deployed agent and its `dep_...` deployment ID
 - A third-party app that can send HTTP POST requests and sign them with HMAC
@@ -32,6 +32,12 @@ The Cloud ingress registry currently has these providers:
 `generic_hmac` is the integration path for systems that can calculate an HMAC-SHA256 signature over the exact raw request body. Send the signature in lowercase hexadecimal. The timestamp must be within 300 seconds of the Cloud clock. Supply `Idempotency-Key`, `X-Agentpaas-Idempotency-Key`, or a body `idempotency_key` when the sender does not have a provider event ID.
 
 Provider names are exact. An unknown provider returns HTTP `400` with `{"error":"unknown_provider"}`.
+
+## Retry an invoke safely
+
+Cloud deduplicates an identical invoke while its run is `starting`, `running`, or `waiting_seat`. The deduplication key comes from `Idempotency-Key`, then the JSON body's `idempotency_key` or `idempotencyKey`. When those fields are absent, Cloud hashes the canonical JSON body. Therefore, retry the same request body unchanged even when the sender has no deduplication-key field.
+
+An identical retry returns HTTP `200` with the existing `run_id` and `already_in_progress: true`; it does not create a second run. A fresh invoke returns the normal new-run response. For ingress events, also send the provider event ID or one of the accepted idempotency headers so the source event itself can be recorded as `duplicate` instead of starting another run.
 
 ## Create a source
 

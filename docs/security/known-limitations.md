@@ -4,7 +4,7 @@ title: Known limitations
 sidebar_label: Known limitations
 ---
 
-Last reviewed: 2026-09-06
+Last reviewed: 2026-10-13
 
 This page records accepted trade-offs and capability gaps in the current
 release. A listed gap must not be mistaken for a shipped, operator-ready
@@ -36,12 +36,15 @@ governance), and no external agent-to-agent federation.
 
 The current shipped path has one configured provider/model/credential target.
 Gaps not yet closed include: immutable deployment versions and atomic
-promotion/rollback; durable invocation idempotency; a single authoritative
-time model; policy-derived worker CPU/process limits; first-class
-conversation/session state; logical route selection across a model pool;
-automatic cross-model fallback; a shared hard LLM spend limit across workflow
+promotion/rollback; a single authoritative time model; policy-derived worker
+CPU/process limits; first-class conversation/session state; logical route
+selection across a model pool; a shared hard LLM spend limit across workflow
 stages; explicit worker attempts, leases, and fencing; operator cancel and
 safe-boundary pause/resume; and deterministic no-progress recovery guardrails.
+
+Virtual-model aliases provide availability failover for HTTP `429`, HTTP `5xx`,
+timeouts, and connection failures. They do not provide general model-pool
+routing. Content, guardrail, PII, and schema refusals do not fail over.
 
 Model timeout, quota, authentication, context, or subscription failures can
 therefore fail the worker. These gaps close across cumulative releases; no
